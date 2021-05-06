@@ -1,0 +1,14 @@
+{
+  "modelPackage": "com.strandls.dataTable.pojo",
+  "apiPackage": "com.strandls.dataTable.controllers",
+  "invokerPackage": "com.strandls.dataTable",
+  "groupId": "com.strandls.biodiv",
+  "artifactId": "dataTable-client",
+  "artifactVersion": "1.0.0",
+  "fullJavaUtil": true,
+  "dateLibrary": "legacy",
+  "library": "jersey2",
+  "developerName": "Abhishek Kumar Rudra",
+  "developerEmail": "abhishek.rudra@strandls.com",
+  "java8": true
+}
