@@ -33,7 +33,12 @@ import com.google.inject.Injector;
 import com.google.inject.Scopes;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.ServletModule;
+import com.strandls.activity.controller.ActivitySerivceApi;
 import com.strandls.dataTable.controllers.DataTableControllerModule;
+import com.strandls.dataTable.service.impl.DataTableServiceModule;
+import com.strandls.naksha.controller.LayerServiceApi;
+import com.strandls.user.controller.UserServiceApi;
+import com.strandls.userGroup.controller.UserGroupSerivceApi;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.PrecisionModel;
 
@@ -75,11 +80,16 @@ public class DataTableServeletContextListener extends GuiceServletContextListene
 				props.put("jersey.config.server.provider.packages", "com");
 				props.put("jersey.config.server.wadl.disableWadl", "true");
 
+				bind(Headers.class).in(Scopes.SINGLETON);
+				bind(UserServiceApi.class).in(Scopes.SINGLETON);
+				bind(UserGroupSerivceApi.class).in(Scopes.SINGLETON);
+				bind(ActivitySerivceApi.class).in(Scopes.SINGLETON);
+				bind(LayerServiceApi.class).in(Scopes.SINGLETON);
 				bind(ServletContainer.class).in(Scopes.SINGLETON);
 
 				serve("/api/*").with(ServletContainer.class, props);
 			}
-		}, new DataTableControllerModule());
+		}, new DataTableControllerModule(), new DataTableServiceModule());
 
 		return injector;
 

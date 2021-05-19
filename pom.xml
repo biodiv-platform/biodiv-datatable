@@ -7,7 +7,7 @@
 
 	<groupId>com.strandls.biodiv</groupId>
 	<artifactId>dataTable-api</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<packaging>war</packaging>
 
 	<name>dataTable-api Maven Webapp</name>
@@ -238,6 +238,38 @@
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
 			<version>3.4.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.strandls.biodiv</groupId>
+			<artifactId>userGroup-client</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.strandls.biodiv</groupId>
+			<artifactId>user-client</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.strandls.biodiv</groupId>
+			<artifactId>naksha-client</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.strandls.biodiv</groupId>
+			<artifactId>activity-client</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.strandls.biodiv</groupId>
+			<artifactId>observation-client</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.strandls.biodiv</groupId>
+			<artifactId>activity-client</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
 
