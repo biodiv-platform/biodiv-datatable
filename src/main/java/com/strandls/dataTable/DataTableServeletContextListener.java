@@ -35,7 +35,9 @@ import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.ServletModule;
 import com.strandls.activity.controller.ActivitySerivceApi;
 import com.strandls.dataTable.controllers.DataTableControllerModule;
+import com.strandls.dataTable.dao.DataTableDAOModule;
 import com.strandls.dataTable.service.impl.DataTableServiceModule;
+import com.strandls.esmodule.controllers.EsServicesApi;
 import com.strandls.naksha.controller.LayerServiceApi;
 import com.strandls.user.controller.UserServiceApi;
 import com.strandls.userGroup.controller.UserGroupSerivceApi;
@@ -85,11 +87,12 @@ public class DataTableServeletContextListener extends GuiceServletContextListene
 				bind(UserGroupSerivceApi.class).in(Scopes.SINGLETON);
 				bind(ActivitySerivceApi.class).in(Scopes.SINGLETON);
 				bind(LayerServiceApi.class).in(Scopes.SINGLETON);
+				bind(EsServicesApi.class).in(Scopes.SINGLETON);
 				bind(ServletContainer.class).in(Scopes.SINGLETON);
 
 				serve("/api/*").with(ServletContainer.class, props);
 			}
-		}, new DataTableControllerModule(), new DataTableServiceModule());
+		}, new DataTableControllerModule(), new DataTableServiceModule(),new DataTableDAOModule());
 
 		return injector;
 

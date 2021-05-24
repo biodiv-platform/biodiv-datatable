@@ -1,6 +1,5 @@
 package com.strandls.dataTable.pojo;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -14,16 +13,11 @@ import com.strandls.userGroup.pojo.UserGroupIbp;
  *
  */
 
-public class ShowDataTable implements Serializable {
+public class ShowDataTable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3361865148967809245L;
-	/**
-	 * 
-	 */
-	private Long id;
 	private DataTable datatable;
 	private List<UserGroupIbp> userGroups;
 	private ObservationLocationInfo layerInfo;
@@ -40,23 +34,14 @@ public class ShowDataTable implements Serializable {
 	 * @param authorInfo
 	 * @param authorScore
 	 */
-	public ShowDataTable(Long id, DataTable datatable, List<UserGroupIbp> userGroups, ObservationLocationInfo layerInfo,
+	public ShowDataTable(DataTable datatable, List<UserGroupIbp> userGroups, ObservationLocationInfo layerInfo,
 			UserIbp authorInfo, Map<String, String> authorScore) {
 		super();
-		this.id = id;
 		this.datatable = datatable;
 		this.userGroups = userGroups;
 		this.layerInfo = layerInfo;
 		this.authorInfo = authorInfo;
 		this.authorScore = authorScore;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public DataTable getDatatable() {

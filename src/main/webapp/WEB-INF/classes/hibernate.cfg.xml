@@ -6,9 +6,9 @@
 	<session-factory>
 		<property name="dialect">org.hibernate.spatial.dialect.postgis.PostgisDialect</property>
 		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-		<property name="hibernate.connection.username">postgres</property>
-		<property name="hibernate.connection.password">postgres123</property>
-		<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/biodiv</property>
+		<property name="hibernate.connection.username">biodiv</property>
+		<property name="hibernate.connection.password">prharasr</property>
+		<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/pa-new</property>
 
 		<property name="connection_pool_size">1</property>
 

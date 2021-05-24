@@ -1,11 +1,9 @@
 package com.strandls.dataTable.pojo;
 
-
 import com.vividsolutions.jts.geom.Geometry;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.util.Objects;
+import java.util.Date;
 
 @Entity
 @Table(name = "dataset1", schema = "public")
@@ -14,13 +12,13 @@ public class Dataset {
 	private long version;
 	private long accessLicenseId;
 	private String accessRights;
-	private Timestamp createdOn;
+	private Date createdOn;
 	private String customFields;
 	private String description;
 	private String externalId;
 	private String externalUrl;
-	private int featureCount;
-	private int flagCount;
+	private Integer featureCount;
+	private Integer flagCount;
 	private boolean geographicalCoverageGeoPrivacy;
 	private double geographicalCoverageLatitude;
 	private String geographicalCoverageLocationAccuracy;
@@ -29,25 +27,25 @@ public class Dataset {
 	private String geographicalCoveragePlaceName;
 	private Geometry geographicalCoverageTopology;
 	private boolean isDeleted;
-	private Timestamp lastRevised;
+	private Date lastRevised;
 	private String methods;
 	private String partyAttributions;
 	private long partyContributorId;
 	private long partyUploaderId;
 	private String project;
-	private int rating;
+	private Integer rating;
 	private String taxonomicCoverageGroupIds;
-	private Timestamp temporalCoverageFromDate;
-	private Timestamp temporalCoverageToDate;
+	private Date temporalCoverageFromDate;
+	private Date temporalCoverageToDate;
 	private String title;
 	private String viaCode;
 	private String viaId;
 	private String temporalCoverageDateAccuracy;
 	private String summary;
-	private int languageId;
-	private int dataPackageId;
-	private int uploaderId;
-	private int uFIleId;
+	private Integer languageId;
+	private Integer dataPackageId;
+	private Integer uploaderId;
+	private Integer uFIleId;
 
 	@Id
 	@Column(name = "id", nullable = false)
@@ -60,8 +58,8 @@ public class Dataset {
 		this.id = id;
 	}
 
-	@Basic
-	@Column(name = "version")
+	
+	@Column(name = "version", nullable = false)
 	public long getVersion() {
 		return version;
 	}
@@ -70,8 +68,8 @@ public class Dataset {
 		this.version = version;
 	}
 
-	@Basic
-	@Column(name = "access_license_id")
+	
+	@Column(name = "access_license_id",nullable = false)
 	public long getAccessLicenseId() {
 		return accessLicenseId;
 	}
@@ -80,7 +78,7 @@ public class Dataset {
 		this.accessLicenseId = accessLicenseId;
 	}
 
-	@Basic
+	
 	@Column(name = "access_rights")
 	public String getAccessRights() {
 		return accessRights;
@@ -90,17 +88,17 @@ public class Dataset {
 		this.accessRights = accessRights;
 	}
 
-	@Basic
-	@Column(name = "created_on")
-	public Timestamp getCreatedOn() {
+	
+	@Column(name = "created_on", nullable = false)
+	public Date getCreatedOn() {
 		return createdOn;
 	}
 
-	public void setCreatedOn(Timestamp createdOn) {
+	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
 
-	@Basic
+	
 	@Column(name = "custom_fields")
 	public String getCustomFields() {
 		return customFields;
@@ -110,7 +108,7 @@ public class Dataset {
 		this.customFields = customFields;
 	}
 
-	@Basic
+	
 	@Column(name = "description")
 	public String getDescription() {
 		return description;
@@ -120,7 +118,7 @@ public class Dataset {
 		this.description = description;
 	}
 
-	@Basic
+	
 	@Column(name = "external_id")
 	public String getExternalId() {
 		return externalId;
@@ -130,7 +128,7 @@ public class Dataset {
 		this.externalId = externalId;
 	}
 
-	@Basic
+	
 	@Column(name = "external_url")
 	public String getExternalUrl() {
 		return externalUrl;
@@ -140,28 +138,28 @@ public class Dataset {
 		this.externalUrl = externalUrl;
 	}
 
-	@Basic
-	@Column(name = "feature_count")
-	public int getFeatureCount() {
+	
+	@Column(name = "feature_count", nullable = false)
+	public Integer getFeatureCount() {
 		return featureCount;
 	}
 
-	public void setFeatureCount(int featureCount) {
+	public void setFeatureCount(Integer featureCount) {
 		this.featureCount = featureCount;
 	}
 
-	@Basic
-	@Column(name = "flag_count")
-	public int getFlagCount() {
+	
+	@Column(name = "flag_count", nullable = false)
+	public Integer getFlagCount() {
 		return flagCount;
 	}
 
-	public void setFlagCount(int flagCount) {
+	public void setFlagCount(Integer flagCount) {
 		this.flagCount = flagCount;
 	}
 
-	@Basic
-	@Column(name = "geographical_coverage_geo_privacy")
+	
+	@Column(name = "geographical_coverage_geo_privacy", nullable = false)
 	public boolean isGeographicalCoverageGeoPrivacy() {
 		return geographicalCoverageGeoPrivacy;
 	}
@@ -170,8 +168,8 @@ public class Dataset {
 		this.geographicalCoverageGeoPrivacy = geographicalCoverageGeoPrivacy;
 	}
 
-	@Basic
-	@Column(name = "geographical_coverage_latitude")
+	
+	@Column(name = "geographical_coverage_latitude", nullable = false)
 	public double getGeographicalCoverageLatitude() {
 		return geographicalCoverageLatitude;
 	}
@@ -180,7 +178,7 @@ public class Dataset {
 		this.geographicalCoverageLatitude = geographicalCoverageLatitude;
 	}
 
-	@Basic
+	
 	@Column(name = "geographical_coverage_location_accuracy")
 	public String getGeographicalCoverageLocationAccuracy() {
 		return geographicalCoverageLocationAccuracy;
@@ -190,8 +188,8 @@ public class Dataset {
 		this.geographicalCoverageLocationAccuracy = geographicalCoverageLocationAccuracy;
 	}
 
-	@Basic
-	@Column(name = "geographical_coverage_location_scale")
+	
+	@Column(name = "geographical_coverage_location_scale", nullable = false)
 	public String getGeographicalCoverageLocationScale() {
 		return geographicalCoverageLocationScale;
 	}
@@ -200,8 +198,8 @@ public class Dataset {
 		this.geographicalCoverageLocationScale = geographicalCoverageLocationScale;
 	}
 
-	@Basic
-	@Column(name = "geographical_coverage_longitude")
+	
+	@Column(name = "geographical_coverage_longitude", nullable = false)
 	public double getGeographicalCoverageLongitude() {
 		return geographicalCoverageLongitude;
 	}
@@ -210,7 +208,7 @@ public class Dataset {
 		this.geographicalCoverageLongitude = geographicalCoverageLongitude;
 	}
 
-	@Basic
+	
 	@Column(name = "geographical_coverage_place_name")
 	public String getGeographicalCoveragePlaceName() {
 		return geographicalCoveragePlaceName;
@@ -220,7 +218,7 @@ public class Dataset {
 		this.geographicalCoveragePlaceName = geographicalCoveragePlaceName;
 	}
 
-	@Basic
+	
 	@Column(name = "geographical_coverage_topology")
 	public Geometry getGeographicalCoverageTopology() {
 		return geographicalCoverageTopology;
@@ -230,8 +228,8 @@ public class Dataset {
 		this.geographicalCoverageTopology = geographicalCoverageTopology;
 	}
 
-	@Basic
-	@Column(name = "is_deleted")
+	
+	@Column(name = "is_deleted", nullable = false)
 	public boolean isDeleted() {
 		return isDeleted;
 	}
@@ -240,17 +238,17 @@ public class Dataset {
 		isDeleted = deleted;
 	}
 
-	@Basic
-	@Column(name = "last_revised")
-	public Timestamp getLastRevised() {
+	
+	@Column(name = "last_revised", nullable = false)
+	public Date getLastRevised() {
 		return lastRevised;
 	}
 
-	public void setLastRevised(Timestamp lastRevised) {
+	public void setLastRevised(Date lastRevised) {
 		this.lastRevised = lastRevised;
 	}
 
-	@Basic
+	
 	@Column(name = "methods")
 	public String getMethods() {
 		return methods;
@@ -260,7 +258,7 @@ public class Dataset {
 		this.methods = methods;
 	}
 
-	@Basic
+	
 	@Column(name = "party_attributions")
 	public String getPartyAttributions() {
 		return partyAttributions;
@@ -270,8 +268,8 @@ public class Dataset {
 		this.partyAttributions = partyAttributions;
 	}
 
-	@Basic
-	@Column(name = "party_contributor_id")
+	
+	@Column(name = "party_contributor_id", nullable = false)
 	public long getPartyContributorId() {
 		return partyContributorId;
 	}
@@ -280,8 +278,8 @@ public class Dataset {
 		this.partyContributorId = partyContributorId;
 	}
 
-	@Basic
-	@Column(name = "party_uploader_id")
+	
+	@Column(name = "party_uploader_id", nullable = false)
 	public long getPartyUploaderId() {
 		return partyUploaderId;
 	}
@@ -290,7 +288,7 @@ public class Dataset {
 		this.partyUploaderId = partyUploaderId;
 	}
 
-	@Basic
+	
 	@Column(name = "project")
 	public String getProject() {
 		return project;
@@ -300,18 +298,18 @@ public class Dataset {
 		this.project = project;
 	}
 
-	@Basic
-	@Column(name = "rating")
-	public int getRating() {
+	
+	@Column(name = "rating", nullable = false)
+	public Integer getRating() {
 		return rating;
 	}
 
-	public void setRating(int rating) {
+	public void setRating(Integer rating) {
 		this.rating = rating;
 	}
 
-	@Basic
-	@Column(name = "taxonomic_coverage_group_ids")
+	
+	@Column(name = "taxonomic_coverage_group_ids", nullable = false)
 	public String getTaxonomicCoverageGroupIds() {
 		return taxonomicCoverageGroupIds;
 	}
@@ -320,28 +318,28 @@ public class Dataset {
 		this.taxonomicCoverageGroupIds = taxonomicCoverageGroupIds;
 	}
 
-	@Basic
-	@Column(name = "temporal_coverage_from_date")
-	public Timestamp getTemporalCoverageFromDate() {
+	
+	@Column(name = "temporal_coverage_from_date", nullable = false)
+	public Date getTemporalCoverageFromDate() {
 		return temporalCoverageFromDate;
 	}
 
-	public void setTemporalCoverageFromDate(Timestamp temporalCoverageFromDate) {
+	public void setTemporalCoverageFromDate(Date temporalCoverageFromDate) {
 		this.temporalCoverageFromDate = temporalCoverageFromDate;
 	}
 
-	@Basic
+	
 	@Column(name = "temporal_coverage_to_date")
-	public Timestamp getTemporalCoverageToDate() {
+	public Date getTemporalCoverageToDate() {
 		return temporalCoverageToDate;
 	}
 
-	public void setTemporalCoverageToDate(Timestamp temporalCoverageToDate) {
+	public void setTemporalCoverageToDate(Date temporalCoverageToDate) {
 		this.temporalCoverageToDate = temporalCoverageToDate;
 	}
 
-	@Basic
-	@Column(name = "title")
+	
+	@Column(name = "title", nullable = false)
 	public String getTitle() {
 		return title;
 	}
@@ -350,7 +348,7 @@ public class Dataset {
 		this.title = title;
 	}
 
-	@Basic
+	
 	@Column(name = "via_code")
 	public String getViaCode() {
 		return viaCode;
@@ -360,7 +358,7 @@ public class Dataset {
 		this.viaCode = viaCode;
 	}
 
-	@Basic
+	
 	@Column(name = "via_id")
 	public String getViaId() {
 		return viaId;
@@ -370,7 +368,7 @@ public class Dataset {
 		this.viaId = viaId;
 	}
 
-	@Basic
+	
 	@Column(name = "temporal_coverage_date_accuracy")
 	public String getTemporalCoverageDateAccuracy() {
 		return temporalCoverageDateAccuracy;
@@ -380,8 +378,8 @@ public class Dataset {
 		this.temporalCoverageDateAccuracy = temporalCoverageDateAccuracy;
 	}
 
-	@Basic
-	@Column(name = "summary")
+	
+	@Column(name = "summary", nullable = false)
 	public String getSummary() {
 		return summary;
 	}
@@ -390,89 +388,44 @@ public class Dataset {
 		this.summary = summary;
 	}
 
-	@Basic
+	
 	@Column(name = "language_id" ,nullable = false)
-	public int getLanguageId() {
+	public Integer getLanguageId() {
 		return languageId;
 	}
 
-	public void setLanguageId(int languageId) {
+	public void setLanguageId(Integer languageId) {
 		this.languageId = languageId;
 	}
 
-	@Basic
+	
 	@Column(name = "data_package_id",nullable = false)
-	public int getDataPackageId() {
+	public Integer getDataPackageId() {
 		return dataPackageId;
 	}
 
-	public void setDataPackageId(int dataPackageId) {
+	public void setDataPackageId(Integer dataPackageId) {
 		this.dataPackageId = dataPackageId;
 	}
 
-	@Basic
+	
 	@Column(name = "uploader_id", nullable = false)
-	public int getUploaderId() {
+	public Integer getUploaderId() {
 		return uploaderId;
 	}
 
-	public void setUploaderId(int uploaderId) {
+	public void setUploaderId(Integer uploaderId) {
 		this.uploaderId = uploaderId;
 	}
 
-	@Basic
+	
 	@Column(name = "u_file_id", nullable = false)
-	public int getuFIleId() {
+	public Integer getuFIleId() {
 		return uFIleId;
 	}
 
-	public void setuFIleId(int uFIleId) {
+	public void setuFIleId(Integer uFIleId) {
 		this.uFIleId = uFIleId;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (o == null || getClass() != o.getClass())
-			return false;
-		Dataset dataset = (Dataset) o;
-		return id == dataset.id && version == dataset.version && accessLicenseId == dataset.accessLicenseId
-				&& featureCount == dataset.featureCount && flagCount == dataset.flagCount
-				&& geographicalCoverageGeoPrivacy == dataset.geographicalCoverageGeoPrivacy
-				&& Double.compare(dataset.geographicalCoverageLatitude, geographicalCoverageLatitude) == 0
-				&& Double.compare(dataset.geographicalCoverageLongitude, geographicalCoverageLongitude) == 0
-				&& isDeleted == dataset.isDeleted && partyContributorId == dataset.partyContributorId
-				&& partyUploaderId == dataset.partyUploaderId && rating == dataset.rating
-				&& Objects.equals(accessRights, dataset.accessRights) && Objects.equals(createdOn, dataset.createdOn)
-				&& Objects.equals(customFields, dataset.customFields)
-				&& Objects.equals(description, dataset.description) && Objects.equals(externalId, dataset.externalId)
-				&& Objects.equals(externalUrl, dataset.externalUrl)
-				&& Objects.equals(geographicalCoverageLocationAccuracy, dataset.geographicalCoverageLocationAccuracy)
-				&& Objects.equals(geographicalCoverageLocationScale, dataset.geographicalCoverageLocationScale)
-				&& Objects.equals(geographicalCoveragePlaceName, dataset.geographicalCoveragePlaceName)
-				&& Objects.equals(geographicalCoverageTopology, dataset.geographicalCoverageTopology)
-				&& Objects.equals(lastRevised, dataset.lastRevised) && Objects.equals(methods, dataset.methods)
-				&& Objects.equals(partyAttributions, dataset.partyAttributions)
-				&& Objects.equals(project, dataset.project)
-				&& Objects.equals(taxonomicCoverageGroupIds, dataset.taxonomicCoverageGroupIds)
-				&& Objects.equals(temporalCoverageFromDate, dataset.temporalCoverageFromDate)
-				&& Objects.equals(temporalCoverageToDate, dataset.temporalCoverageToDate)
-				&& Objects.equals(title, dataset.title) && Objects.equals(viaCode, dataset.viaCode)
-				&& Objects.equals(viaId, dataset.viaId)
-				&& Objects.equals(temporalCoverageDateAccuracy, dataset.temporalCoverageDateAccuracy)
-				&& Objects.equals(summary, dataset.summary);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, version, accessLicenseId, accessRights, createdOn, customFields, description,
-				externalId, externalUrl, featureCount, flagCount, geographicalCoverageGeoPrivacy,
-				geographicalCoverageLatitude, geographicalCoverageLocationAccuracy, geographicalCoverageLocationScale,
-				geographicalCoverageLongitude, geographicalCoveragePlaceName, geographicalCoverageTopology, isDeleted,
-				lastRevised, methods, partyAttributions, partyContributorId, partyUploaderId, project, rating,
-				taxonomicCoverageGroupIds, temporalCoverageFromDate, temporalCoverageToDate, title, viaCode, viaId,
-				temporalCoverageDateAccuracy, summary);
 	}
 
 }
