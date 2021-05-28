@@ -8,9 +8,9 @@ import java.util.Date;
 @Entity
 @Table(name = "dataset1", schema = "public")
 public class Dataset {
-	private long id;
-	private long version;
-	private long accessLicenseId;
+	private Long id;
+	private Long version;
+	private Long accessLicenseId;
 	private String accessRights;
 	private Date createdOn;
 	private String customFields;
@@ -19,19 +19,19 @@ public class Dataset {
 	private String externalUrl;
 	private Integer featureCount;
 	private Integer flagCount;
-	private boolean geographicalCoverageGeoPrivacy;
-	private double geographicalCoverageLatitude;
+	private Boolean geographicalCoverageGeoPrivacy;
+	private Double geographicalCoverageLatitude;
 	private String geographicalCoverageLocationAccuracy;
 	private String geographicalCoverageLocationScale;
-	private double geographicalCoverageLongitude;
+	private Double geographicalCoverageLongitude;
 	private String geographicalCoveragePlaceName;
 	private Geometry geographicalCoverageTopology;
-	private boolean isDeleted;
+	private Boolean isDeleted;
 	private Date lastRevised;
 	private String methods;
 	private String partyAttributions;
-	private long partyContributorId;
-	private long partyUploaderId;
+	private Long partyContributorId;
+	private Long partyUploaderId;
 	private String project;
 	private Integer rating;
 	private String taxonomicCoverageGroupIds;

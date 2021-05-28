@@ -7,6 +7,7 @@ import com.strandls.naksha.pojo.ObservationLocationInfo;
 import com.strandls.observation.pojo.Observation;
 import com.strandls.user.pojo.UserIbp;
 import com.strandls.userGroup.pojo.UserGroupIbp;
+
 /**
  * 
  * @author vishnu
@@ -24,10 +25,9 @@ public class ShowDataTable {
 	private UserIbp authorInfo;
 	private Map<String, String> authorScore;
 	private List<Observation> observationList;
-	
+
 	/**
 	 * 
-	 * @param id
 	 * @param datatable
 	 * @param userGroups
 	 * @param layerInfo
@@ -42,6 +42,10 @@ public class ShowDataTable {
 		this.layerInfo = layerInfo;
 		this.authorInfo = authorInfo;
 		this.authorScore = authorScore;
+	}
+
+	public ShowDataTable() {
+		super();
 	}
 
 	public DataTable getDatatable() {
@@ -91,6 +95,5 @@ public class ShowDataTable {
 	public void setObservationList(List<Observation> observationList) {
 		this.observationList = observationList;
 	}
-	
 
 }

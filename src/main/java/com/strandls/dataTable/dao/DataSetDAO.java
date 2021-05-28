@@ -13,7 +13,7 @@ import com.strandls.dataTable.util.AbstractDAO;
 
 public class DataSetDAO extends AbstractDAO<Dataset, Long> {
 
-	private static final Logger logger = LoggerFactory.getLogger(DataSetDAO.class);
+	private  final Logger logger = LoggerFactory.getLogger(DataSetDAO.class);
 
 	@Inject
 	protected DataSetDAO(SessionFactory sessionFactory) {

@@ -89,7 +89,6 @@ public class DataTableServeletContextListener extends GuiceServletContextListene
 				bind(LayerServiceApi.class).in(Scopes.SINGLETON);
 				bind(EsServicesApi.class).in(Scopes.SINGLETON);
 				bind(ServletContainer.class).in(Scopes.SINGLETON);
-
 				serve("/api/*").with(ServletContainer.class, props);
 			}
 		}, new DataTableControllerModule(), new DataTableServiceModule(),new DataTableDAOModule());
