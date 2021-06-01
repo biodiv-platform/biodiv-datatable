@@ -20,24 +20,6 @@ public class DataTableServiceImpl implements DataTableService {
 	@Inject
 	private DataTableDAO dataTableDao;
 
-//	@Inject
-//	private UserServiceApi userServiceApi;
-//
-//	@Inject
-//	private UserGroupSerivceApi usergroupServiceApi;
-//
-//	@Inject
-//	private ObservationServiceApi observationServiceApi;
-//
-//	@Inject
-//	private EsServicesApi esService;
-//
-//	@Inject
-//	private LayerServiceApi layerServiceApi;
-//
-//	@Inject
-//	private Headers headers;
-
 	@Inject
 	private DataTableHelper dataTableHelper;
 
