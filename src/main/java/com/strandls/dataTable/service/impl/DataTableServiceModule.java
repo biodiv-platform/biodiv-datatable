@@ -15,5 +15,6 @@ public class DataTableServiceModule extends AbstractModule{
 	protected void configure() 	{
 		
 		bind(DataTableService.class).to(DataTableServiceImpl.class).in(Scopes.SINGLETON);
+		bind(DataTableHelper.class).in(Scopes.SINGLETON);
 	}
 }

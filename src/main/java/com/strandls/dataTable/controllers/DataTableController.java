@@ -7,12 +7,12 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -22,11 +22,13 @@ import org.pac4j.core.profile.CommonProfile;
 
 import com.strandls.authentication_utility.util.AuthUtil;
 import com.strandls.dataTable.ApiConstants;
-import com.strandls.dataTable.pojo.ShowDataTable;
+import com.strandls.dataTable.dto.BulkDTO;
+import com.strandls.dataTable.pojo.DataTable;
 import com.strandls.dataTable.service.DataTableService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
@@ -54,16 +56,46 @@ public class DataTableController {
 	@Path(ApiConstants.SHOW + "/{dataTableId}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "fetch the datatable show page data", notes = "returns the datatable show page data", response = ShowDataTable.class)
+	@ApiOperation(value = "fetch the datatable show page data", notes = "returns the datatable show page data", response = DataTable.class)
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "unable to fetch the data", response = String.class) })
-	public Response showDataTable(@PathParam("dataTableId") String dataTableId,
-			@DefaultValue("0") @QueryParam("offset") String Offset,
-			@DefaultValue("10") @QueryParam("limit") String Limt) {
+	public Response showDataTable(@PathParam("dataTableId") String dataTableId) {
 		try {
 			Long datatableId = Long.parseLong(dataTableId);
-			Long limit = Long.parseLong(Limt);
-			Long offset = Long.parseLong(Offset);
-			ShowDataTable result = dataTableService.show(datatableId, offset, limit);
+			DataTable result = dataTableService.show(datatableId);
+			return Response.status(Status.OK).entity(result).build();
+		} catch (Exception e) {
+			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
+		}
+
+	}
+
+	@POST
+	@Path(ApiConstants.CREATE)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Creates the datatable", notes = "returns the datatable", response = DataTable.class)
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "unable to fetch the data", response = String.class) })
+	public Response createDataTable(@Context HttpServletRequest request, @ApiParam("bulkDto") BulkDTO bukDto) {
+		try {
+
+			DataTable result = dataTableService.createDataTable(request, bukDto);
+			return Response.status(Status.OK).entity(result).build();
+		} catch (Exception e) {
+			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
+		}
+
+	}
+
+	@PUT
+	@Path(ApiConstants.UPDATE)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Updates the datatable", notes = "returns Updated datatable", response = DataTable.class)
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "unable to fetch the data", response = String.class) })
+	public Response updateDataTable(@Context HttpServletRequest request, @ApiParam("dataTable") DataTable dataTable) {
+		try {
+
+			DataTable result = dataTableService.updateDataTable(request, dataTable);
 			return Response.status(Status.OK).entity(result).build();
 		} catch (Exception e) {
 			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -78,13 +110,13 @@ public class DataTableController {
 	@ApiOperation(value = "Remove  the datatable by id", notes = "returns the datatable by id", response = String.class)
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "unable to delete datatable", response = String.class) })
 
-	public Response deleteDataTable(@Context HttpServletRequest request,@PathParam("dataTableId")String dataTableId ) {
+	public Response deleteDataTable(@Context HttpServletRequest request, @PathParam("dataTableId") String dataTableId) {
 
 		try {
 			Long id = Long.parseLong(dataTableId);
 			CommonProfile profile = AuthUtil.getProfileFromRequest(request);
 			Long userId = Long.parseLong(profile.getId());
-			String result = dataTableService.deleteDataTableById(request,profile, userId, id);
+			String result = dataTableService.deleteDataTableById(request, profile, userId, id);
 			return Response.status(Status.OK).entity(result).build();
 		} catch (Exception e) {
 			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
