@@ -1,5 +1,9 @@
 package com.strandls.dataTable.pojo;
 
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometryDeserializer;
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.vividsolutions.jts.geom.Geometry;
 
 import javax.persistence.*;
@@ -267,7 +271,9 @@ public class DataTable {
     }
 
     
-    @Column(name = "geographical_coverage_topology")
+    @Column(name = "geographical_coverage_topology", columnDefinition = "Geometry")
+    @JsonSerialize(using = GeometrySerializer.class)
+	@JsonDeserialize(using = GeometryDeserializer.class)
     public Geometry getGeographicalCoverageTopology() {
         return geographicalCoverageTopology;
     }
@@ -315,20 +321,20 @@ public class DataTable {
     }
 
     @Column(name = "party_contributor_id", nullable = false)
-    public long getPartyContributorId() {
+    public Long getPartyContributorId() {
         return partyContributorId;
     }
 
-    public void setPartyContributorId(long partyContributorId) {
+    public void setPartyContributorId(Long partyContributorId) {
         this.partyContributorId = partyContributorId;
     }
 
     @Column(name = "party_uploader_id", nullable = false)
-    public long getPartyUploaderId() {
+    public Long getPartyUploaderId() {
         return partyUploaderId;
     }
 
-    public void setPartyUploaderId(long partyUploaderId) {
+    public void setPartyUploaderId(Long partyUploaderId) {
         this.partyUploaderId = partyUploaderId;
     }
 

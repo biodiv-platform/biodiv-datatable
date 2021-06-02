@@ -82,7 +82,7 @@ public class DataTableHelper {
 		dataTable.setProject(bulkDto.getProject());
 		dataTable.setRating(0);
 		dataTable.setSummary(bulkDto.getSummary());
-		dataTable.setTaxonomicCoverageGroupIds(bulkDto.getsGroup());
+		dataTable.setTaxonomicCoverageGroupIds(bulkDto.getSpeciesGroup());
 		dataTable.setTemporalCoverageDateAccuracy(bulkDto.getDateAccuracy());
 		dataTable.setTemporalCoverageFromDate(bulkDto.getObservedFromDate());
 		dataTable.setTemporalCoverageToDate(bulkDto.getObservedToDate());

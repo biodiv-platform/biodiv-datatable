@@ -50,31 +50,31 @@ public class Dataset {
 	@Id
 	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
 	
 	@Column(name = "version", nullable = false)
-	public long getVersion() {
+	public Long getVersion() {
 		return version;
 	}
 
-	public void setVersion(long version) {
+	public void setVersion(Long version) {
 		this.version = version;
 	}
 
 	
 	@Column(name = "access_license_id",nullable = false)
-	public long getAccessLicenseId() {
+	public Long getAccessLicenseId() {
 		return accessLicenseId;
 	}
 
-	public void setAccessLicenseId(long accessLicenseId) {
+	public void setAccessLicenseId(Long accessLicenseId) {
 		this.accessLicenseId = accessLicenseId;
 	}
 
@@ -160,21 +160,21 @@ public class Dataset {
 
 	
 	@Column(name = "geographical_coverage_geo_privacy", nullable = false)
-	public boolean isGeographicalCoverageGeoPrivacy() {
+	public Boolean isGeographicalCoverageGeoPrivacy() {
 		return geographicalCoverageGeoPrivacy;
 	}
 
-	public void setGeographicalCoverageGeoPrivacy(boolean geographicalCoverageGeoPrivacy) {
+	public void setGeographicalCoverageGeoPrivacy(Boolean geographicalCoverageGeoPrivacy) {
 		this.geographicalCoverageGeoPrivacy = geographicalCoverageGeoPrivacy;
 	}
 
 	
 	@Column(name = "geographical_coverage_latitude", nullable = false)
-	public double getGeographicalCoverageLatitude() {
+	public Double getGeographicalCoverageLatitude() {
 		return geographicalCoverageLatitude;
 	}
 
-	public void setGeographicalCoverageLatitude(double geographicalCoverageLatitude) {
+	public void setGeographicalCoverageLatitude(Double geographicalCoverageLatitude) {
 		this.geographicalCoverageLatitude = geographicalCoverageLatitude;
 	}
 
@@ -200,11 +200,11 @@ public class Dataset {
 
 	
 	@Column(name = "geographical_coverage_longitude", nullable = false)
-	public double getGeographicalCoverageLongitude() {
+	public Double getGeographicalCoverageLongitude() {
 		return geographicalCoverageLongitude;
 	}
 
-	public void setGeographicalCoverageLongitude(double geographicalCoverageLongitude) {
+	public void setGeographicalCoverageLongitude(Double geographicalCoverageLongitude) {
 		this.geographicalCoverageLongitude = geographicalCoverageLongitude;
 	}
 
@@ -230,11 +230,11 @@ public class Dataset {
 
 	
 	@Column(name = "is_deleted", nullable = false)
-	public boolean isDeleted() {
+	public Boolean isDeleted() {
 		return isDeleted;
 	}
 
-	public void setDeleted(boolean deleted) {
+	public void setDeleted(Boolean deleted) {
 		isDeleted = deleted;
 	}
 
@@ -270,21 +270,21 @@ public class Dataset {
 
 	
 	@Column(name = "party_contributor_id", nullable = false)
-	public long getPartyContributorId() {
+	public Long getPartyContributorId() {
 		return partyContributorId;
 	}
 
-	public void setPartyContributorId(long partyContributorId) {
+	public void setPartyContributorId(Long partyContributorId) {
 		this.partyContributorId = partyContributorId;
 	}
 
 	
 	@Column(name = "party_uploader_id", nullable = false)
-	public long getPartyUploaderId() {
+	public Long getPartyUploaderId() {
 		return partyUploaderId;
 	}
 
-	public void setPartyUploaderId(long partyUploaderId) {
+	public void setPartyUploaderId(Long partyUploaderId) {
 		this.partyUploaderId = partyUploaderId;
 	}
 

@@ -16,7 +16,7 @@ public class BulkDTO {
     private Long licenseId;
     
     // taxonomic coverage
-    private String sGroup;
+    private String speciesGroup;
     
     // party
     private Long contributors;
@@ -41,6 +41,7 @@ public class BulkDTO {
     private String project;
     private String methods;
     private String basisOfData;
+    private Long uFileId;
 //    private String basisOfRecord;
 
     // other fields related to bulk upload
@@ -214,12 +215,20 @@ public class BulkDTO {
 		this.methods = methods;
 	}
 
-	public String getsGroup() {
-		return sGroup;
+	public Long getuFileId() {
+		return uFileId;
 	}
 
-	public void setsGroup(String sGroup) {
-		this.sGroup = sGroup;
+	public void setuFileId(Long uFileId) {
+		this.uFileId = uFileId;
+	}
+
+	public String getSpeciesGroup() {
+		return speciesGroup;
+	}
+
+	public void setSpeciesGroup(String speciesGroup) {
+		this.speciesGroup = speciesGroup;
 	}
     
     
