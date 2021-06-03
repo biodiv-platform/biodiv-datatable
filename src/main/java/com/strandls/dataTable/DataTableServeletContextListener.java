@@ -36,6 +36,9 @@ import com.google.inject.servlet.ServletModule;
 import com.strandls.dataTable.controllers.DataTableControllerModule;
 import com.strandls.dataTable.dao.DataTableDAOModule;
 import com.strandls.dataTable.service.impl.DataTableServiceModule;
+import com.strandls.dataTable.util.DatasetDefaultHelper;
+import com.strandls.resource.controllers.ResourceServicesApi;
+import com.strandls.user.controller.UserServiceApi;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.PrecisionModel;
 
@@ -78,9 +81,13 @@ public class DataTableServeletContextListener extends GuiceServletContextListene
 				props.put("jersey.config.server.wadl.disableWadl", "true");
 
 				bind(ServletContainer.class).in(Scopes.SINGLETON);
+				bind(UserServiceApi.class).in(Scopes.SINGLETON);
+				bind(ResourceServicesApi.class).in(Scopes.SINGLETON);
 				serve("/api/*").with(ServletContainer.class, props);
 			}
-		}, new DataTableControllerModule(), new DataTableServiceModule(),new DataTableDAOModule());
+		}, new DataTableControllerModule(), new DataTableServiceModule(), new DataTableDAOModule());
+
+		injector.getInstance(DatasetDefaultHelper.class).createDefaultDataSetRecord("standalone_dataset");
 
 		return injector;
 
