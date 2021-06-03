@@ -63,11 +63,7 @@ public class DataTableController {
 		try {
 			Long datatableId = Long.parseLong(dataTableId);
 			DataTableWkt result = dataTableService.show(datatableId);
-			if (result != null) {
-				return Response.status(Status.OK).entity(result).build();
-			} else {
-				return Response.status(Status.NOT_FOUND).build();
-			}
+			return Response.status(Status.OK).entity(result).build();
 		} catch (Exception e) {
 			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
 		}
@@ -82,14 +78,9 @@ public class DataTableController {
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "unable to fetch the data", response = String.class) })
 	public Response createDataTable(@Context HttpServletRequest request, @ApiParam("bulkDto") BulkDTO bukDto) {
 		try {
-
 			DataTableWkt result = dataTableService.createDataTable(request, bukDto);
+			return Response.status(Status.OK).entity(result).build();
 
-			if (result != null) {
-				return Response.status(Status.OK).entity(result).build();
-			} else {
-				return Response.status(Status.NOT_FOUND).build();
-			}
 		} catch (Exception e) {
 			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
 		}
@@ -106,12 +97,7 @@ public class DataTableController {
 		try {
 
 			DataTableWkt result = dataTableService.updateDataTable(request, dataTable);
-
-			if (result != null) {
-				return Response.status(Status.OK).entity(result).build();
-			} else {
-				return Response.status(Status.NOT_FOUND).build();
-			}
+			return Response.status(Status.OK).entity(result).build();
 
 		} catch (Exception e) {
 			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -133,11 +119,7 @@ public class DataTableController {
 			CommonProfile profile = AuthUtil.getProfileFromRequest(request);
 			Long userId = Long.parseLong(profile.getId());
 			String result = dataTableService.deleteDataTableById(request, profile, userId, id);
-			if (result != null) {
-				return Response.status(Status.OK).entity(result).build();
-			} else {
-				return Response.status(Status.NOT_FOUND).build();
-			}
+			return Response.status(Status.OK).entity(result).build();
 
 		} catch (
 
