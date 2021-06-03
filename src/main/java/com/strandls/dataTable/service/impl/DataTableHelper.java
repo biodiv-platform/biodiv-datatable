@@ -88,7 +88,7 @@ public class DataTableHelper {
 		dataTable.setTemporalCoverageToDate(bulkDto.getObservedToDate());
 		dataTable.setTitle(bulkDto.getTitle());
 		dataTable.setTraitValueFileId(null);
-		dataTable.setuFileId(1L); // uFile table id
+		dataTable.setuFileId(bulkDto.getUserFileId()); // uFile table id
 		dataTable.setVersion(2L);
 		dataTable.setViaCode(null);
 		dataTable.setViaId(null);
@@ -101,8 +101,7 @@ public class DataTableHelper {
 		return dataTable;
 	}
 
-	private void createPointTopology(GeometryFactory geofactory, BulkDTO  bulkDto,
-			DataTable dataTable) {
+	private void createPointTopology(GeometryFactory geofactory, BulkDTO bulkDto, DataTable dataTable) {
 
 		DecimalFormat df = new DecimalFormat("#.####");
 		df.setRoundingMode(RoundingMode.HALF_EVEN);

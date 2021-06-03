@@ -11,7 +11,9 @@ import com.google.inject.Inject;
 import com.strandls.dataTable.dao.DataTableDAO;
 import com.strandls.dataTable.dto.BulkDTO;
 import com.strandls.dataTable.pojo.DataTable;
+import com.strandls.dataTable.pojo.DataTableWkt;
 import com.strandls.dataTable.service.DataTableService;
+import com.vividsolutions.jts.io.WKTWriter;
 import com.strandls.authentication_utility.util.AuthUtil;
 
 public class DataTableServiceImpl implements DataTableService {
@@ -23,15 +25,18 @@ public class DataTableServiceImpl implements DataTableService {
 	@Inject
 	private DataTableHelper dataTableHelper;
 
+	@Inject
+	private WKTWriter wktWriter;
+
 	@Override
-	public DataTable show(Long dataTableId) {
+	public DataTableWkt show(Long dataTableId) {
 		DataTable dataTable = null;
 		try {
 			dataTable = dataTableDao.findById(dataTableId);
 			if (dataTable == null) {
 				return null;
 			}
-			return dataTable;
+			return showDataTableMapper(dataTable);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
@@ -39,7 +44,7 @@ public class DataTableServiceImpl implements DataTableService {
 	}
 
 	@Override
-	public DataTable createDataTable(HttpServletRequest request, BulkDTO bulkDto) {
+	public DataTableWkt createDataTable(HttpServletRequest request, BulkDTO bulkDto) {
 		try {
 			if (bulkDto == null) {
 				return null;
@@ -48,7 +53,7 @@ public class DataTableServiceImpl implements DataTableService {
 			Long userId = Long.parseLong(profile.getId());
 			DataTable dataTable = dataTableHelper.createDataTable(bulkDto, userId);
 			dataTable = dataTableDao.save(dataTable);
-			return dataTable;
+			return showDataTableMapper(dataTable);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
@@ -56,13 +61,13 @@ public class DataTableServiceImpl implements DataTableService {
 	}
 
 	@Override
-	public DataTable updateDataTable(HttpServletRequest request, DataTable dataTable) {
+	public DataTableWkt updateDataTable(HttpServletRequest request, DataTable dataTable) {
 		CommonProfile profile = AuthUtil.getProfileFromRequest(request);
 		Long userId = Long.parseLong(profile.getId());
 		DataTable result = dataTableDao.findById(dataTable.getId());
 		if (userId == dataTable.getUploaderId() && userId == result.getId()) {
 			result = dataTableDao.update(dataTable);
-			return result;
+			return showDataTableMapper(result);
 		}
 
 		return null;
@@ -88,6 +93,20 @@ public class DataTableServiceImpl implements DataTableService {
 			logger.error(e.getMessage());
 		}
 		return null;
+	}
+
+	private DataTableWkt showDataTableMapper(DataTable dt) {
+		if (dt.getId() != null) {
+			String wktData = wktWriter.write(dt.getGeographicalCoverageTopology());
+			DataTableWkt datatableWkt = new DataTableWkt(dt.getId(), dt.getTitle(), dt.getCreatedOn(), dt.getDeleted(),
+					dt.getLastRevised(), dt.getTaxonomicCoverageGroupIds(), dt.getBasisOfData(), dt.getuFileId(),
+					dt.getUploaderId(), dt.getGeographicalCoverageGeoPrivacy(), dt.getGeographicalCoverageLatitude(),
+					dt.getGeographicalCoverageLongitude(), wktData);
+
+			return datatableWkt;
+		}
+		return null;
+
 	}
 
 }

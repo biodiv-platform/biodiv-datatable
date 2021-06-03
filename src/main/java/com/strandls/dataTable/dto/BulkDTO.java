@@ -5,47 +5,46 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BulkDTO {
-	
-	 // title
-    private String title;
-    private String summary;
-    private String description;
-    private Date createdOn;
 
-    // usage rights
-    private Long licenseId;
-    
-    // taxonomic coverage
-    private String speciesGroup;
-    
-    // party
-    private Long contributors;
-    private String attribution;
+	// title
+	private String title;
+	private String summary;
+	private String description;
+	private Date createdOn;
 
+	// usage rights
+	private Long licenseId;
 
-    // temporal coverage
-    private String dateAccuracy;
-    private Date observedFromDate;
-    private Date observedToDate;
+	// taxonomic coverage
+	private String speciesGroup;
 
-    // geographical coverage
-    private String locationScale;
-    private String locationAccuracy;
-    private String observedAt;
-    private String reverseGeocoded;
-    private String wktString;
-    private Double latitude;
-    private Double longitude;
+	// party
+	private Long contributors;
+	private String attribution;
 
-    // others
-    private String project;
-    private String methods;
-    private String basisOfData;
-    private Long uFileId;
+	// temporal coverage
+	private String dateAccuracy;
+	private Date observedFromDate;
+	private Date observedToDate;
+
+	// geographical coverage
+	private String locationScale;
+	private String locationAccuracy;
+	private String observedAt;
+	private String reverseGeocoded;
+	private String wktString;
+	private Double latitude;
+	private Double longitude;
+
+	// others
+	private String project;
+	private String methods;
+	private String basisOfData;
+	private Long userFileId;
 //    private String basisOfRecord;
 
-    // other fields related to bulk upload
-    private Long dataset;
+	// other fields related to bulk upload
+	private Long dataset;
 
 	public String getTitle() {
 		return title;
@@ -215,12 +214,12 @@ public class BulkDTO {
 		this.methods = methods;
 	}
 
-	public Long getuFileId() {
-		return uFileId;
+	public Long getUserFileId() {
+		return userFileId;
 	}
 
-	public void setuFileId(Long uFileId) {
-		this.uFileId = uFileId;
+	public void setUserFileId(Long userFileId) {
+		this.userFileId = userFileId;
 	}
 
 	public String getSpeciesGroup() {
@@ -230,7 +229,5 @@ public class BulkDTO {
 	public void setSpeciesGroup(String speciesGroup) {
 		this.speciesGroup = speciesGroup;
 	}
-    
-    
 
 }

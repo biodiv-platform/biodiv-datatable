@@ -24,6 +24,7 @@ import com.strandls.authentication_utility.util.AuthUtil;
 import com.strandls.dataTable.ApiConstants;
 import com.strandls.dataTable.dto.BulkDTO;
 import com.strandls.dataTable.pojo.DataTable;
+import com.strandls.dataTable.pojo.DataTableWkt;
 import com.strandls.dataTable.service.DataTableService;
 
 import io.swagger.annotations.Api;
@@ -56,13 +57,17 @@ public class DataTableController {
 	@Path(ApiConstants.SHOW + "/{dataTableId}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "fetch the datatable show page data", notes = "returns the datatable show page data", response = DataTable.class)
+	@ApiOperation(value = "fetch the datatable show page data", notes = "returns the datatable show page data", response = DataTableWkt.class)
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "unable to fetch the data", response = String.class) })
 	public Response showDataTable(@PathParam("dataTableId") String dataTableId) {
 		try {
 			Long datatableId = Long.parseLong(dataTableId);
-			DataTable result = dataTableService.show(datatableId);
-			return Response.status(Status.OK).entity(result).build();
+			DataTableWkt result = dataTableService.show(datatableId);
+			if (result != null) {
+				return Response.status(Status.OK).entity(result).build();
+			} else {
+				return Response.status(Status.NOT_FOUND).build();
+			}
 		} catch (Exception e) {
 			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
 		}
@@ -73,13 +78,18 @@ public class DataTableController {
 	@Path(ApiConstants.CREATE)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Creates the datatable", notes = "returns the datatable", response = DataTable.class)
+	@ApiOperation(value = "Creates the datatable", notes = "returns the datatable", response = DataTableWkt.class)
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "unable to fetch the data", response = String.class) })
 	public Response createDataTable(@Context HttpServletRequest request, @ApiParam("bulkDto") BulkDTO bukDto) {
 		try {
 
-			DataTable result = dataTableService.createDataTable(request, bukDto);
-			return Response.status(Status.OK).entity(result).build();
+			DataTableWkt result = dataTableService.createDataTable(request, bukDto);
+
+			if (result != null) {
+				return Response.status(Status.OK).entity(result).build();
+			} else {
+				return Response.status(Status.NOT_FOUND).build();
+			}
 		} catch (Exception e) {
 			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
 		}
@@ -90,13 +100,19 @@ public class DataTableController {
 	@Path(ApiConstants.UPDATE)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Updates the datatable", notes = "returns Updated datatable", response = DataTable.class)
+	@ApiOperation(value = "Updates the datatable", notes = "returns Updated datatable", response = DataTableWkt.class)
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "unable to fetch the data", response = String.class) })
 	public Response updateDataTable(@Context HttpServletRequest request, @ApiParam("dataTable") DataTable dataTable) {
 		try {
 
-			DataTable result = dataTableService.updateDataTable(request, dataTable);
-			return Response.status(Status.OK).entity(result).build();
+			DataTableWkt result = dataTableService.updateDataTable(request, dataTable);
+
+			if (result != null) {
+				return Response.status(Status.OK).entity(result).build();
+			} else {
+				return Response.status(Status.NOT_FOUND).build();
+			}
+
 		} catch (Exception e) {
 			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
 		}
@@ -117,8 +133,15 @@ public class DataTableController {
 			CommonProfile profile = AuthUtil.getProfileFromRequest(request);
 			Long userId = Long.parseLong(profile.getId());
 			String result = dataTableService.deleteDataTableById(request, profile, userId, id);
-			return Response.status(Status.OK).entity(result).build();
-		} catch (Exception e) {
+			if (result != null) {
+				return Response.status(Status.OK).entity(result).build();
+			} else {
+				return Response.status(Status.NOT_FOUND).build();
+			}
+
+		} catch (
+
+		Exception e) {
 			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
 		}
 	}

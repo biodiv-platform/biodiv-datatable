@@ -41,6 +41,7 @@ import com.strandls.resource.controllers.ResourceServicesApi;
 import com.strandls.user.controller.UserServiceApi;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.PrecisionModel;
+import com.vividsolutions.jts.io.WKTWriter;
 
 /**
  * @author Abhishek Rudra
@@ -83,6 +84,7 @@ public class DataTableServeletContextListener extends GuiceServletContextListene
 				bind(ServletContainer.class).in(Scopes.SINGLETON);
 				bind(UserServiceApi.class).in(Scopes.SINGLETON);
 				bind(ResourceServicesApi.class).in(Scopes.SINGLETON);
+				bind(WKTWriter.class).in(Scopes.SINGLETON);
 				serve("/api/*").with(ServletContainer.class, props);
 			}
 		}, new DataTableControllerModule(), new DataTableServiceModule(), new DataTableDAOModule());
