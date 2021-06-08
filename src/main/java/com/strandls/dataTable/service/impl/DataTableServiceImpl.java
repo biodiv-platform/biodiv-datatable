@@ -13,6 +13,10 @@ import com.strandls.dataTable.dto.BulkDTO;
 import com.strandls.dataTable.pojo.DataTable;
 import com.strandls.dataTable.pojo.DataTableWkt;
 import com.strandls.dataTable.service.DataTableService;
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.PrecisionModel;
+import com.vividsolutions.jts.io.WKTReader;
 import com.vividsolutions.jts.io.WKTWriter;
 import com.strandls.authentication_utility.util.AuthUtil;
 
@@ -61,12 +65,13 @@ public class DataTableServiceImpl implements DataTableService {
 	}
 
 	@Override
-	public DataTableWkt updateDataTable(HttpServletRequest request, DataTable dataTable) {
+	public DataTableWkt updateDataTable(HttpServletRequest request, DataTableWkt dataTable) {
 		CommonProfile profile = AuthUtil.getProfileFromRequest(request);
 		Long userId = Long.parseLong(profile.getId());
 		DataTable result = dataTableDao.findById(dataTable.getId());
 		if (userId == dataTable.getUploaderId() && userId == result.getId()) {
-			result = dataTableDao.update(dataTable);
+			DataTable parsedData = dataTableSerilizer(dataTable, result);
+			result = dataTableDao.update(parsedData);
 			return showDataTableMapper(result);
 		}
 
@@ -105,6 +110,33 @@ public class DataTableServiceImpl implements DataTableService {
 
 			return datatableWkt;
 		}
+		return null;
+
+	}
+
+	private DataTable dataTableSerilizer(DataTableWkt dt, DataTable prevState) {
+		try {
+			if (dt.getId() != null) {
+				GeometryFactory geofactory = new GeometryFactory(new PrecisionModel(), 4326);
+				WKTReader wktRdr = new WKTReader(geofactory);
+				Geometry geoBoundary = wktRdr.read(dt.getGeographicalCoverageTopology());
+				prevState.setTitle(dt.getTitle());
+				prevState.setCreatedOn(dt.getCreatedOn());
+				prevState.setLastRevised(dt.getLastRevised());
+				prevState.setTaxonomicCoverageGroupIds(dt.getTaxonomicCoverageGroupIds());
+				prevState.setBasisOfData(dt.getBasisOfData());
+				prevState.setuFileId(dt.getuFileId());
+				prevState.setUploaderId(dt.getUploaderId());
+				prevState.setGeographicalCoverageGeoPrivacy(dt.getGeographicalCoverageGeoPrivacy());
+				prevState.setGeographicalCoverageLatitude(dt.getGeographicalCoverageLatitude());
+				prevState.setGeographicalCoverageLongitude(dt.getGeographicalCoverageLongitude());
+				prevState.setGeographicalCoverageTopology(geoBoundary);
+				return prevState;
+			}
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+
 		return null;
 
 	}

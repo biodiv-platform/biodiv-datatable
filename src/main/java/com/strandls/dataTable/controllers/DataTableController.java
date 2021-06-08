@@ -93,7 +93,7 @@ public class DataTableController {
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Updates the datatable", notes = "returns Updated datatable", response = DataTableWkt.class)
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "unable to fetch the data", response = String.class) })
-	public Response updateDataTable(@Context HttpServletRequest request, @ApiParam("dataTable") DataTable dataTable) {
+	public Response updateDataTable(@Context HttpServletRequest request, @ApiParam("dataTable") DataTableWkt dataTable) {
 		try {
 
 			DataTableWkt result = dataTableService.updateDataTable(request, dataTable);

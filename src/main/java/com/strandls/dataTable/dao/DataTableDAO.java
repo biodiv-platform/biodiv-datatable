@@ -12,26 +12,27 @@ import com.strandls.dataTable.util.AbstractDAO;
 
 public class DataTableDAO extends AbstractDAO<DataTable, Long> {
 
-    private  final Logger logger = LoggerFactory.getLogger(DataTableDAO.class);
+	private final Logger logger = LoggerFactory.getLogger(DataTableDAO.class);
 
-    @Inject
-    protected DataTableDAO(SessionFactory sessionFactory) {
-        super(sessionFactory);
-    }
+	@Inject
+	protected DataTableDAO(SessionFactory sessionFactory) {
+		super(sessionFactory);
+	}
 
-    @Override
-    public DataTable findById(Long id) {
-        Session session = sessionFactory.openSession();
-        DataTable entity = null;
-        try {
-            entity = session.get(DataTable.class, id);
-        } catch (Exception e) {
-            logger.info(e.getMessage());
-            logger.error(e.toString());
-        } finally {
-            session.close();
-        }
-        return entity;
-    }
+	@Override
+	public DataTable findById(Long id) {
+		Session session = sessionFactory.openSession();
+		DataTable entity = null;
+		try {
+			entity = session.get(DataTable.class, id);
+			entity = entity.getDeleted() == false ? entity : null;
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+			logger.error(e.toString());
+		} finally {
+			session.close();
+		}
+		return entity;
+	}
 
 }
