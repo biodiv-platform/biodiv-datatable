@@ -6,6 +6,8 @@ public class DataTableWkt {
 	private Long id;
 	private String title;
 	private Date createdOn;
+	private String summary;
+	private String partyAttributions;
 
 	private Boolean isDeleted;
 	private Date lastRevised;
@@ -13,16 +15,21 @@ public class DataTableWkt {
 	private String basisOfData;
 	private Long uFileId;
 	private Long uploaderId;
+	private String dataTableType;
+	private Long datasetId;
 
 	private Boolean geographicalCoverageGeoPrivacy;
 	private Double geographicalCoverageLatitude;
 	private Double geographicalCoverageLongitude;
 	private String geographicalCoverageTopology;
+	private String geographicalCoveragePlaceName;
 
 	public DataTableWkt(Long id, String title, Date createdOn, Boolean isDeleted, Date lastRevised,
 			String taxonomicCoverageGroupIds, String basisOfData, Long uFileId, Long uploaderId,
 			Boolean geographicalCoverageGeoPrivacy, Double geographicalCoverageLatitude,
-			Double geographicalCoverageLongitude, String geographicalCoverageTopology) {
+			Double geographicalCoverageLongitude, Long datasetId, String partyAttributions,
+			String geographicalCoveragePlaceName, String summary, String dataTableType,
+			String geographicalCoverageTopology) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -37,6 +44,11 @@ public class DataTableWkt {
 		this.geographicalCoverageLatitude = geographicalCoverageLatitude;
 		this.geographicalCoverageLongitude = geographicalCoverageLongitude;
 		this.geographicalCoverageTopology = geographicalCoverageTopology;
+		this.datasetId = datasetId;
+		this.partyAttributions = partyAttributions;
+		this.geographicalCoveragePlaceName = geographicalCoveragePlaceName;
+		this.summary = summary;
+		this.dataTableType = dataTableType;
 	}
 
 	public Long getId() {
@@ -141,6 +153,46 @@ public class DataTableWkt {
 
 	public void setGeographicalCoverageTopology(String geographicalCoverageTopology) {
 		this.geographicalCoverageTopology = geographicalCoverageTopology;
+	}
+
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+
+	public String getPartyAttributions() {
+		return partyAttributions;
+	}
+
+	public void setPartyAttributions(String partyAttributions) {
+		this.partyAttributions = partyAttributions;
+	}
+
+	public Long getDatasetId() {
+		return datasetId;
+	}
+
+	public void setDatasetId(Long datasetId) {
+		this.datasetId = datasetId;
+	}
+
+	public String getGeographicalCoveragePlaceName() {
+		return geographicalCoveragePlaceName;
+	}
+
+	public void setGeographicalCoveragePlaceName(String geographicalCoveragePlaceName) {
+		this.geographicalCoveragePlaceName = geographicalCoveragePlaceName;
+	}
+
+	public String getDataTableType() {
+		return dataTableType;
+	}
+
+	public void setDataTableType(String dataTableType) {
+		this.dataTableType = dataTableType;
 	}
 
 }
