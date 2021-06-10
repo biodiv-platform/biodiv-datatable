@@ -107,11 +107,11 @@ public class DataTableWkt {
 		this.basisOfData = basisOfData;
 	}
 
-	public Long getuFileId() {
+	public Long getUFileId() {
 		return uFileId;
 	}
 
-	public void setuFileId(Long uFileId) {
+	public void setUFileId(Long uFileId) {
 		this.uFileId = uFileId;
 	}
 

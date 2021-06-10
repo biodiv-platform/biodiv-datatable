@@ -11,6 +11,7 @@ public class DataTableUtilModule extends AbstractModule {
 		bind(TokenGenerator.class).in(Scopes.SINGLETON);
 		bind(DatasetDefaultHelper.class).in(Scopes.SINGLETON);
 		bind(DatasetThreadRunner.class).in(Scopes.SINGLETON);
+		bind(LogActivities.class).in(Scopes.SINGLETON);
 		bind(DatasetDefaultGenerator.class).in(Scopes.SINGLETON);
 	}
 }

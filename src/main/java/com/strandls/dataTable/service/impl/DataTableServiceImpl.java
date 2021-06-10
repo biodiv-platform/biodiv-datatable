@@ -126,7 +126,7 @@ public class DataTableServiceImpl implements DataTableService {
 				prevState.setLastRevised(dt.getLastRevised());
 				prevState.setTaxonomicCoverageGroupIds(dt.getTaxonomicCoverageGroupIds());
 				prevState.setBasisOfData(dt.getBasisOfData());
-				prevState.setuFileId(dt.getuFileId());
+				prevState.setuFileId(dt.getUFileId());
 				prevState.setUploaderId(dt.getUploaderId());
 				prevState.setGeographicalCoverageGeoPrivacy(dt.getGeographicalCoverageGeoPrivacy());
 				prevState.setGeographicalCoverageLatitude(dt.getGeographicalCoverageLatitude());
