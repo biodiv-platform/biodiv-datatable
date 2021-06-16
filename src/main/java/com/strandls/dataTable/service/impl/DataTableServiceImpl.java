@@ -1,6 +1,7 @@
 package com.strandls.dataTable.service.impl;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.HttpHeaders;
 
 import org.pac4j.core.profile.CommonProfile;
 import net.minidev.json.JSONArray;
@@ -13,6 +14,7 @@ import com.strandls.dataTable.dto.BulkDTO;
 import com.strandls.dataTable.pojo.DataTable;
 import com.strandls.dataTable.pojo.DataTableWkt;
 import com.strandls.dataTable.service.DataTableService;
+import com.strandls.dataTable.util.LogActivities;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.PrecisionModel;
@@ -32,6 +34,9 @@ public class DataTableServiceImpl implements DataTableService {
 	@Inject
 	private WKTWriter wktWriter;
 
+	@Inject
+	private LogActivities logActivities;
+	
 	@Override
 	public DataTableWkt show(Long dataTableId) {
 		DataTable dataTable = null;
@@ -57,6 +62,8 @@ public class DataTableServiceImpl implements DataTableService {
 			Long userId = Long.parseLong(profile.getId());
 			DataTable dataTable = dataTableHelper.createDataTable(bulkDto, userId);
 			dataTable = dataTableDao.save(dataTable);
+			logActivities.LogActivity(request.getHeader(HttpHeaders.AUTHORIZATION), null, dataTable.getId(), dataTable.getId(),
+					"datatable", null, "Datatable created", null);
 			return showDataTableMapper(dataTable);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
