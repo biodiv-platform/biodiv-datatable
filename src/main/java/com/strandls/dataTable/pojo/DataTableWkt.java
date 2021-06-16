@@ -24,12 +24,17 @@ public class DataTableWkt {
 	private String geographicalCoverageTopology;
 	private String geographicalCoveragePlaceName;
 
+	private String temporalCoverageDateAccuracy;
+	private String basisOfRecord;
+	private Boolean isVerified;
+	private String fieldMapping;
+
 	public DataTableWkt(Long id, String title, Date createdOn, Boolean isDeleted, Date lastRevised,
 			String taxonomicCoverageGroupIds, String basisOfData, Long uFileId, Long uploaderId,
 			Boolean geographicalCoverageGeoPrivacy, Double geographicalCoverageLatitude,
 			Double geographicalCoverageLongitude, Long datasetId, String partyAttributions,
 			String geographicalCoveragePlaceName, String summary, String dataTableType,
-			String geographicalCoverageTopology) {
+			String geographicalCoverageTopology,String temporalCoverageDateAccuracy,String basisOfRecord,Boolean isVerified,String fieldMapping) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -49,6 +54,10 @@ public class DataTableWkt {
 		this.geographicalCoveragePlaceName = geographicalCoveragePlaceName;
 		this.summary = summary;
 		this.dataTableType = dataTableType;
+		this.temporalCoverageDateAccuracy = temporalCoverageDateAccuracy;
+		this.basisOfRecord = basisOfData;
+		this.isVerified = isVerified;
+		this.fieldMapping = fieldMapping;
 	}
 
 	public Long getId() {
@@ -193,6 +202,38 @@ public class DataTableWkt {
 
 	public void setDataTableType(String dataTableType) {
 		this.dataTableType = dataTableType;
+	}
+
+	public String getBasisOfRecord() {
+		return basisOfRecord;
+	}
+
+	public void setBasisOfRecord(String basisOfRecord) {
+		this.basisOfRecord = basisOfRecord;
+	}
+
+	public Boolean getIsVerified() {
+		return isVerified;
+	}
+
+	public void setIsVerified(Boolean isVerified) {
+		this.isVerified = isVerified;
+	}
+
+	public String getTemporalCoverageDateAccuracy() {
+		return temporalCoverageDateAccuracy;
+	}
+
+	public void setTemporalCoverageDateAccuracy(String temporalCoverageDateAccuracy) {
+		this.temporalCoverageDateAccuracy = temporalCoverageDateAccuracy;
+	}
+
+	public String getFieldMapping() {
+		return fieldMapping;
+	}
+
+	public void setFieldMapping(String fieldMapping) {
+		this.fieldMapping = fieldMapping;
 	}
 
 }

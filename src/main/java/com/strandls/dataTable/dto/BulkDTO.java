@@ -42,6 +42,9 @@ public class BulkDTO {
 	private String basisOfData;
 	private Long userFileId;
 //    private String basisOfRecord;
+	private String basisOfRecord;
+	private Boolean isVerified;
+	private String fieldMapping;
 
 	// other fields related to bulk upload
 	private Long dataset;
@@ -228,6 +231,30 @@ public class BulkDTO {
 
 	public void setSpeciesGroup(String speciesGroup) {
 		this.speciesGroup = speciesGroup;
+	}
+
+	public String getBasisOfRecord() {
+		return basisOfRecord;
+	}
+
+	public void setBasisOfRecord(String basisOfRecord) {
+		this.basisOfRecord = basisOfRecord;
+	}
+
+	public Boolean getIsVerified() {
+		return isVerified;
+	}
+
+	public void setIsVerified(Boolean isVerified) {
+		this.isVerified = isVerified;
+	}
+
+	public String getFieldMapping() {
+		return fieldMapping;
+	}
+
+	public void setFieldMapping(String fieldMapping) {
+		this.fieldMapping = fieldMapping;
 	}
 
 }

@@ -61,6 +61,9 @@ public class DataTable {
     private Long uploadLogId;
     private Long uFileId;
     private Long uploaderId;
+    private String basisOfRecord;
+    private Boolean isVerified;
+    private String fieldMapping;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -502,4 +505,29 @@ public class DataTable {
     public void setUploaderId(Long uploaderId) {
         this.uploaderId = uploaderId;
     }
+    @Column(name = "basis_of_record")
+	public String getBasisOfRecord() {
+		return basisOfRecord;
+	}
+
+	public void setBasisOfRecord(String basisOfRecord) {
+		this.basisOfRecord = basisOfRecord;
+	}
+	@Column(name = "is_verified")
+	public Boolean getIsVerified() {
+		return isVerified;
+	}
+
+	public void setIsVerified(Boolean isVerified) {
+		this.isVerified = isVerified;
+	}
+	
+	@Column(name = "field_mapping")
+	public String getFieldMapping() {
+		return fieldMapping;
+	}
+
+	public void setFieldMapping(String fieldMapping) {
+		this.fieldMapping = fieldMapping;
+	}
 }

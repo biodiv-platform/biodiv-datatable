@@ -95,6 +95,10 @@ public class DataTableHelper {
 		dataTable.setUploadLogId(null);
 		dataTable.setUploaderId(userId);
 		dataTable.setBasisOfData(bulkDto.getBasisOfData());
+		
+		dataTable.setIsVerified(bulkDto.getIsVerified());
+		dataTable.setFieldMapping(bulkDto.getFieldMapping());
+		dataTable.setBasisOfRecord(bulkDto.getBasisOfRecord());
 
 		System.out.println("\n***** DataTable Prepared *****\n");
 		System.out.println(dataTable.toString());
