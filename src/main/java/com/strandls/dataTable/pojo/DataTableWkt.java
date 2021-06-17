@@ -6,6 +6,7 @@ public class DataTableWkt {
 	private Long id;
 	private String title;
 	private Date createdOn;
+	private String description;
 	private String summary;
 	private String partyAttributions;
 
@@ -23,7 +24,10 @@ public class DataTableWkt {
 	private Double geographicalCoverageLongitude;
 	private String geographicalCoverageTopology;
 	private String geographicalCoveragePlaceName;
-
+	private String geographicalCoverageLocationScale;
+	private String project;
+	private String methods;
+	
 	private String temporalCoverageDateAccuracy;
 	private String basisOfRecord;
 	private Boolean isVerified;
@@ -34,7 +38,8 @@ public class DataTableWkt {
 			Boolean geographicalCoverageGeoPrivacy, Double geographicalCoverageLatitude,
 			Double geographicalCoverageLongitude, Long datasetId, String partyAttributions,
 			String geographicalCoveragePlaceName, String summary, String dataTableType,
-			String geographicalCoverageTopology,String temporalCoverageDateAccuracy,String basisOfRecord,Boolean isVerified,String fieldMapping) {
+			String geographicalCoverageTopology,String temporalCoverageDateAccuracy,String basisOfRecord,Boolean isVerified,
+			String description,String geographicalCoverageLocationScale,String project,String methods,String fieldMapping) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -57,6 +62,10 @@ public class DataTableWkt {
 		this.temporalCoverageDateAccuracy = temporalCoverageDateAccuracy;
 		this.basisOfRecord = basisOfData;
 		this.isVerified = isVerified;
+		this.description = description;
+		this.geographicalCoverageLocationScale = geographicalCoverageLocationScale;
+		this.project = project;
+		this.methods = methods;
 		this.fieldMapping = fieldMapping;
 	}
 
@@ -234,6 +243,38 @@ public class DataTableWkt {
 
 	public void setFieldMapping(String fieldMapping) {
 		this.fieldMapping = fieldMapping;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getGeographicalCoverageLocationScale() {
+		return geographicalCoverageLocationScale;
+	}
+
+	public void setGeographicalCoverageLocationScale(String geographicalCoverageLocationScale) {
+		this.geographicalCoverageLocationScale = geographicalCoverageLocationScale;
+	}
+
+	public String getProject() {
+		return project;
+	}
+
+	public void setProject(String project) {
+		this.project = project;
+	}
+
+	public String getMethods() {
+		return methods;
+	}
+
+	public void setMethods(String methods) {
+		this.methods = methods;
 	}
 
 }

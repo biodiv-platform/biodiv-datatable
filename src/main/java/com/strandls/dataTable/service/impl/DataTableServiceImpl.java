@@ -36,7 +36,7 @@ public class DataTableServiceImpl implements DataTableService {
 
 	@Inject
 	private LogActivities logActivities;
-	
+
 	@Override
 	public DataTableWkt show(Long dataTableId) {
 		DataTable dataTable = null;
@@ -62,8 +62,8 @@ public class DataTableServiceImpl implements DataTableService {
 			Long userId = Long.parseLong(profile.getId());
 			DataTable dataTable = dataTableHelper.createDataTable(bulkDto, userId);
 			dataTable = dataTableDao.save(dataTable);
-			logActivities.LogActivity(request.getHeader(HttpHeaders.AUTHORIZATION), null, dataTable.getId(), dataTable.getId(),
-					"datatable", null, "Datatable created", null);
+			logActivities.LogActivity(request.getHeader(HttpHeaders.AUTHORIZATION), null, dataTable.getId(),
+					dataTable.getId(), "datatable", null, "Datatable created", null);
 			return showDataTableMapper(dataTable);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -116,6 +116,7 @@ public class DataTableServiceImpl implements DataTableService {
 					dt.getGeographicalCoverageLongitude(), dt.getDatasetId(), dt.getPartyAttributions(),
 					dt.getGeographicalCoveragePlaceName(), dt.getSummary(), dt.getDataTableType(), wktData,
 					dt.getTemporalCoverageDateAccuracy(), dt.getBasisOfRecord(), dt.getIsVerified(),
+					dt.getDescription(), dt.getGeographicalCoverageLocationScale(), dt.getProject(), dt.getMethods(),
 					dt.getFieldMapping());
 
 			return datatableWkt;
