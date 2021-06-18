@@ -33,6 +33,9 @@ public class DataTableWkt {
 	private Boolean isVerified;
 	private String fieldMapping;
 
+	public DataTableWkt() {
+		super();
+	}
 	public DataTableWkt(Long id, String title, Date createdOn, Boolean isDeleted, Date lastRevised,
 			String taxonomicCoverageGroupIds, String basisOfData, Long uFileId, Long uploaderId,
 			Boolean geographicalCoverageGeoPrivacy, Double geographicalCoverageLatitude,
