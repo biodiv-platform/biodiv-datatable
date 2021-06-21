@@ -63,7 +63,7 @@ public class DataTableWkt {
 		this.summary = summary;
 		this.dataTableType = dataTableType;
 		this.temporalCoverageDateAccuracy = temporalCoverageDateAccuracy;
-		this.basisOfRecord = basisOfData;
+		this.basisOfRecord = basisOfRecord;
 		this.isVerified = isVerified;
 		this.description = description;
 		this.geographicalCoverageLocationScale = geographicalCoverageLocationScale;
