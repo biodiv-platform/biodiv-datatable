@@ -27,8 +27,9 @@ public class DataTableWkt {
 	private String geographicalCoverageLocationScale;
 	private String project;
 	private String methods;
-	
+
 	private String temporalCoverageDateAccuracy;
+	private Date temporalCoverageFromDate;
 	private String basisOfRecord;
 	private Boolean isVerified;
 	private String fieldMapping;
@@ -36,13 +37,15 @@ public class DataTableWkt {
 	public DataTableWkt() {
 		super();
 	}
+
 	public DataTableWkt(Long id, String title, Date createdOn, Boolean isDeleted, Date lastRevised,
 			String taxonomicCoverageGroupIds, String basisOfData, Long uFileId, Long uploaderId,
 			Boolean geographicalCoverageGeoPrivacy, Double geographicalCoverageLatitude,
 			Double geographicalCoverageLongitude, Long datasetId, String partyAttributions,
 			String geographicalCoveragePlaceName, String summary, String dataTableType,
-			String geographicalCoverageTopology,String temporalCoverageDateAccuracy,String basisOfRecord,Boolean isVerified,
-			String description,String geographicalCoverageLocationScale,String project,String methods,String fieldMapping) {
+			String geographicalCoverageTopology, String temporalCoverageDateAccuracy, String basisOfRecord,
+			Boolean isVerified, String description, String geographicalCoverageLocationScale, String project,
+			String methods,Date temporalCoverageFromDate,String fieldMapping) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -69,6 +72,7 @@ public class DataTableWkt {
 		this.geographicalCoverageLocationScale = geographicalCoverageLocationScale;
 		this.project = project;
 		this.methods = methods;
+		this.temporalCoverageFromDate = temporalCoverageFromDate;
 		this.fieldMapping = fieldMapping;
 	}
 
@@ -278,6 +282,14 @@ public class DataTableWkt {
 
 	public void setMethods(String methods) {
 		this.methods = methods;
+	}
+
+	public Date getTemporalCoverageFromDate() {
+		return temporalCoverageFromDate;
+	}
+
+	public void setTemporalCoverageFromDate(Date temporalCoverageFromDate) {
+		this.temporalCoverageFromDate = temporalCoverageFromDate;
 	}
 
 }

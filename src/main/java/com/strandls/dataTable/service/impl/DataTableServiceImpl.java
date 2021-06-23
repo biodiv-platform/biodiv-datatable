@@ -117,7 +117,7 @@ public class DataTableServiceImpl implements DataTableService {
 					dt.getGeographicalCoveragePlaceName(), dt.getSummary(), dt.getDataTableType(), wktData,
 					dt.getTemporalCoverageDateAccuracy(), dt.getBasisOfRecord(), dt.getIsVerified(),
 					dt.getDescription(), dt.getGeographicalCoverageLocationScale(), dt.getProject(), dt.getMethods(),
-					dt.getFieldMapping());
+					dt.getTemporalCoverageFromDate(),dt.getFieldMapping());
 
 			return datatableWkt;
 		}
