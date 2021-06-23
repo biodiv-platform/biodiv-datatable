@@ -1,10 +1,13 @@
 package com.strandls.dataTable.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.pac4j.core.profile.CommonProfile;
 
 import com.strandls.dataTable.dto.BulkDTO;
+import com.strandls.dataTable.pojo.DataTable;
 import com.strandls.dataTable.pojo.DataTableWkt;
 
 //import com.strandls.observation
@@ -12,6 +15,8 @@ import com.strandls.dataTable.pojo.DataTableWkt;
 public interface DataTableService {
 
 	public DataTableWkt show(Long dataTableId);
+
+	public List<DataTable> dataTableList(String orderBy, Integer limit, Integer offset);
 
 	public DataTableWkt createDataTable(HttpServletRequest request, BulkDTO bulkDto);
 

@@ -3,16 +3,20 @@
  */
 package com.strandls.dataTable.controllers;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -70,6 +74,30 @@ public class DataTableController {
 
 	}
 
+	@GET
+	@Path(ApiConstants.LIST)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+
+	@ApiOperation(value = "Fetch the Datatable list", notes = "Returns the datatable list", response = DataTable.class, responseContainer = "List")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "unable to fetch the data", response = String.class) })
+
+	public Response observationList(@DefaultValue("last_revised") @QueryParam("sort") String sortOn,
+			@DefaultValue("0") @QueryParam("offset") String Offset,
+			@DefaultValue("10") @QueryParam("limit") String Limit) {
+
+		try {
+			Integer offset = Integer.parseInt(Offset);
+			Integer limit = Integer.parseInt(Limit);
+			List<DataTable> result = dataTableService.dataTableList(sortOn, limit, offset);
+			return Response.status(Status.OK).entity(result).build();
+
+		} catch (Exception e) {
+			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
+		}
+
+	}
+
 	@POST
 	@Path(ApiConstants.CREATE)
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -93,7 +121,8 @@ public class DataTableController {
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Updates the datatable", notes = "returns Updated datatable", response = DataTableWkt.class)
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "unable to fetch the data", response = String.class) })
-	public Response updateDataTable(@Context HttpServletRequest request, @ApiParam("dataTable") DataTableWkt dataTable) {
+	public Response updateDataTable(@Context HttpServletRequest request,
+			@ApiParam("dataTable") DataTableWkt dataTable) {
 		try {
 
 			DataTableWkt result = dataTableService.updateDataTable(request, dataTable);

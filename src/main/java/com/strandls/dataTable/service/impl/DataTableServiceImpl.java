@@ -1,5 +1,8 @@
 package com.strandls.dataTable.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.HttpHeaders;
 
@@ -46,6 +49,22 @@ public class DataTableServiceImpl implements DataTableService {
 				return null;
 			}
 			return showDataTableMapper(dataTable);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return null;
+	}
+	
+	@Override
+	public List<DataTable> dataTableList(String orderBy, Integer limit, Integer offset) {
+		List<DataTable> datatableList = new ArrayList<DataTable>();
+		
+		try {
+			datatableList = dataTableDao.getDataTableList(orderBy,limit,offset);
+			if (datatableList.isEmpty()) {
+				return null;
+			}
+			return datatableList;
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}

@@ -15,6 +15,7 @@ public class ApiConstants {
 	public static final String SHOW = "/show";
 	public static final String CREATE  = "/create";
 	public static final String UPDATE = "/update";
+	public static final String LIST = "/list";
 	public static final String V1 = "/v1";
 
 }
