@@ -3,8 +3,6 @@
  */
 package com.strandls.dataTable.controllers;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -27,7 +25,7 @@ import org.pac4j.core.profile.CommonProfile;
 import com.strandls.authentication_utility.util.AuthUtil;
 import com.strandls.dataTable.ApiConstants;
 import com.strandls.dataTable.dto.BulkDTO;
-import com.strandls.dataTable.pojo.DataTable;
+import com.strandls.dataTable.pojo.DataTableList;
 import com.strandls.dataTable.pojo.DataTableWkt;
 import com.strandls.dataTable.service.DataTableService;
 
@@ -79,7 +77,7 @@ public class DataTableController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 
-	@ApiOperation(value = "Fetch the Datatable list", notes = "Returns the datatable list", response = DataTable.class, responseContainer = "List")
+	@ApiOperation(value = "Fetch the Datatable list", notes = "Returns the datatable list", response = DataTableList.class)
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "unable to fetch the data", response = String.class) })
 
 	public Response observationList(@DefaultValue("last_revised") @QueryParam("sort") String sortOn,
@@ -89,7 +87,7 @@ public class DataTableController {
 		try {
 			Integer offset = Integer.parseInt(Offset);
 			Integer limit = Integer.parseInt(Limit);
-			List<DataTable> result = dataTableService.dataTableList(sortOn, limit, offset);
+			DataTableList result = dataTableService.dataTableList(sortOn, limit, offset);
 			return Response.status(Status.OK).entity(result).build();
 
 		} catch (Exception e) {

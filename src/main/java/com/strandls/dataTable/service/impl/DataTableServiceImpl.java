@@ -15,9 +15,13 @@ import com.google.inject.Inject;
 import com.strandls.dataTable.dao.DataTableDAO;
 import com.strandls.dataTable.dto.BulkDTO;
 import com.strandls.dataTable.pojo.DataTable;
+import com.strandls.dataTable.pojo.DataTableList;
+import com.strandls.dataTable.pojo.DataTableListMapping;
 import com.strandls.dataTable.pojo.DataTableWkt;
 import com.strandls.dataTable.service.DataTableService;
 import com.strandls.dataTable.util.LogActivities;
+import com.strandls.user.controller.UserServiceApi;
+import com.strandls.user.pojo.UserIbp;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.PrecisionModel;
@@ -30,6 +34,9 @@ public class DataTableServiceImpl implements DataTableService {
 	private final Logger logger = LoggerFactory.getLogger(DataTableServiceImpl.class);
 	@Inject
 	private DataTableDAO dataTableDao;
+
+	@Inject
+	private UserServiceApi userService;
 
 	@Inject
 	private DataTableHelper dataTableHelper;
@@ -54,21 +61,43 @@ public class DataTableServiceImpl implements DataTableService {
 		}
 		return null;
 	}
-	
+
 	@Override
-	public List<DataTable> dataTableList(String orderBy, Integer limit, Integer offset) {
+	public DataTableList dataTableList(String orderBy, Integer limit, Integer offset) {
 		List<DataTable> datatableList = new ArrayList<DataTable>();
-		
+		List<DataTableListMapping> dataTableMappingList = new ArrayList<DataTableListMapping>();
+		DataTableList dataTableListData = new DataTableList();
+		Long total = dataTableDao.findTotalDataTable();
 		try {
-			datatableList = dataTableDao.getDataTableList(orderBy,limit,offset);
+			datatableList = dataTableDao.getDataTableList(orderBy, limit, offset);
+
 			if (datatableList.isEmpty()) {
-				return null;
+				return dataTableListData;
 			}
-			return datatableList;
+
+			datatableList.forEach((dt) -> {
+				UserIbp user = null;
+				try {
+					user = userService.getUserIbp(dt.getUploaderId().toString());
+				} catch (Exception e) {
+					logger.error(e.getMessage());
+				}
+				DataTableListMapping mapperData = new DataTableListMapping(dt.getId(), dt.getTitle(),
+						dt.getDataTableType(), dt.getSummary(), dt.getTaxonomicCoverageGroupIds(),
+						dt.getTemporalCoverageFromDate(), dt.getTemporalCoverageDateAccuracy(),
+						dt.getGeographicalCoveragePlaceName(), user);
+
+				dataTableMappingList.add(mapperData);
+			});
+
+			dataTableListData.setList(dataTableMappingList);
+			dataTableListData.setCount(total);
+
+			return dataTableListData;
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
-		return null;
+		return dataTableListData;
 	}
 
 	@Override
@@ -136,7 +165,7 @@ public class DataTableServiceImpl implements DataTableService {
 					dt.getGeographicalCoveragePlaceName(), dt.getSummary(), dt.getDataTableType(), wktData,
 					dt.getTemporalCoverageDateAccuracy(), dt.getBasisOfRecord(), dt.getIsVerified(),
 					dt.getDescription(), dt.getGeographicalCoverageLocationScale(), dt.getProject(), dt.getMethods(),
-					dt.getTemporalCoverageFromDate(),dt.getFieldMapping());
+					dt.getTemporalCoverageFromDate(), dt.getFieldMapping());
 
 			return datatableWkt;
 		}

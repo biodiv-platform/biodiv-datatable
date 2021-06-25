@@ -8,6 +8,7 @@ import org.pac4j.core.profile.CommonProfile;
 
 import com.strandls.dataTable.dto.BulkDTO;
 import com.strandls.dataTable.pojo.DataTable;
+import com.strandls.dataTable.pojo.DataTableList;
 import com.strandls.dataTable.pojo.DataTableWkt;
 
 //import com.strandls.observation
@@ -16,7 +17,7 @@ public interface DataTableService {
 
 	public DataTableWkt show(Long dataTableId);
 
-	public List<DataTable> dataTableList(String orderBy, Integer limit, Integer offset);
+	public DataTableList dataTableList(String orderBy, Integer limit, Integer offset);
 
 	public DataTableWkt createDataTable(HttpServletRequest request, BulkDTO bulkDto);
 
