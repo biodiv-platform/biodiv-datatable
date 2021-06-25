@@ -1,5 +1,6 @@
 package com.strandls.dataTable.dao;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,12 +66,12 @@ public class DataTableDAO extends AbstractDAO<DataTable, Long> {
 	public Long findTotalDataTable() {
 
 		Session session = sessionFactory.openSession();
-		String qry = "select count(id) from DataTable where is_deleted = false";
+		String qry = "select count(id) from data_table  where is_deleted = false";
 
 		Long total = null;
 		try {
-			Query<Long> query = session.createNativeQuery(qry).addScalar("id", LongType.INSTANCE);
-			total = query.getSingleResult();
+			Query<BigInteger> query = session.createNativeQuery(qry);
+			total = query.getSingleResult().longValue();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		} finally {
