@@ -80,7 +80,7 @@ public class DataTableController {
 	@ApiOperation(value = "Fetch the Datatable list", notes = "Returns the datatable list", response = DataTableList.class)
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "unable to fetch the data", response = String.class) })
 
-	public Response observationList(@DefaultValue("last_revised") @QueryParam("sort") String sortOn,
+	public Response observationList(@DefaultValue("lastRevised") @QueryParam("sort") String sortOn,
 			@DefaultValue("0") @QueryParam("offset") String Offset,
 			@DefaultValue("10") @QueryParam("limit") String Limit) {
 

@@ -45,10 +45,9 @@ public class DataTableDAO extends AbstractDAO<DataTable, Long> {
 	public List<DataTable> getDataTableList(String orderBy, Integer limit, Integer offset) {
 		Session session = sessionFactory.openSession();
 		List<DataTable> observationList = new ArrayList<DataTable>();
-		String hql = "from DataTable  order by :order desc";
+		String hql = "from DataTable where is_deleted = false  order by "+orderBy+" desc";
 		try {
 			Query query = session.createQuery(hql);
-			query.setParameter("order", orderBy);
 			query.setFirstResult(offset);
 			if (limit != null) {
 				query.setMaxResults(limit);
