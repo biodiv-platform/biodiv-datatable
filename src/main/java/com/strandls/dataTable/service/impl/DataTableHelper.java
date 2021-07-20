@@ -9,6 +9,7 @@ import com.strandls.dataTable.pojo.Dataset;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.PrecisionModel;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
@@ -58,6 +59,9 @@ public class DataTableHelper {
 		if (!bulkDto.getWktString().isEmpty()) {
 			try {
 				Geometry geoBoundary = wktRdr.read(bulkDto.getWktString());
+				Point intPoint = geoBoundary.getInteriorPoint();
+				dataTable.setGeographicalCoverageLatitude(intPoint.getX());
+				dataTable.setGeographicalCoverageLongitude(intPoint.getY());
 				dataTable.setGeographicalCoverageTopology(geoBoundary);
 			} catch (ParseException e) {
 				createPointTopology(geofactory, bulkDto, dataTable);
