@@ -124,7 +124,7 @@ public class DataTableServiceImpl implements DataTableService {
 		CommonProfile profile = AuthUtil.getProfileFromRequest(request);
 		Long userId = Long.parseLong(profile.getId());
 		DataTable result = dataTableDao.findById(dataTable.getId());
-		if (userId == dataTable.getUploaderId() && userId == result.getId()) {
+		if (userId.equals(result.getUploaderId()) && userId.equals(result.getId())) {
 			DataTable parsedData = dataTableSerilizer(dataTable, result);
 			result = dataTableDao.update(parsedData);
 			return showDataTableMapper(result);

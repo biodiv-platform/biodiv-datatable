@@ -11,8 +11,7 @@
 	<packaging>war</packaging>
 
 	<name>dataTable-api Maven Webapp</name>
-	<!-- FIXME change it to the project's website -->
-	<url>http://www.example.com</url>
+	<url>https://github.com/strandls/biodiv-observation</url>
 	
 	<properties>
 

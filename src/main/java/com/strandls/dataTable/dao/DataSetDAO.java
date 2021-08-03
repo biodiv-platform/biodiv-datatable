@@ -35,7 +35,6 @@ public class DataSetDAO extends AbstractDAO<Dataset, Long> {
 		return entity;
 	}
 
-	@SuppressWarnings("unchecked")
 	public Dataset findDataSetByTitle(String title) {
 		Session session = sessionFactory.openSession();
 		String qry = "select * from dataset1 where is_deleted = false and title = :keyword limit 1";

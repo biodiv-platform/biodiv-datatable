@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.hibernate.type.LongType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +30,7 @@ public class DataTableDAO extends AbstractDAO<DataTable, Long> {
 		DataTable entity = null;
 		try {
 			entity = session.get(DataTable.class, id);
-			entity = entity.getDeleted() == false ? entity : null;
+			entity = Boolean.FALSE.equals(entity.getDeleted()) ? entity : null;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
 			logger.error(e.toString());
@@ -45,9 +44,10 @@ public class DataTableDAO extends AbstractDAO<DataTable, Long> {
 	public List<DataTable> getDataTableList(String orderBy, Integer limit, Integer offset) {
 		Session session = sessionFactory.openSession();
 		List<DataTable> observationList = new ArrayList<DataTable>();
-		String hql = "from DataTable where is_deleted = false  order by "+orderBy+" desc";
+		String hql = "from DataTable where is_deleted = false  order by :orderBy desc";
 		try {
 			Query query = session.createQuery(hql);
+			query.setParameter("orderBy", orderBy);
 			query.setFirstResult(offset);
 			if (limit != null) {
 				query.setMaxResults(limit);
