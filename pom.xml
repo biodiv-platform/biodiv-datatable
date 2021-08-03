@@ -13,6 +13,11 @@
 	<name>dataTable-api Maven Webapp</name>
 	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
+	
+	<!-- Sonar Cloud -->
+	<sonar.projectKey>strandls_biodiv-datatable</sonar.projectKey>
+	<sonar.organization>strandls</sonar.organization>
+	<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 
 	<properties>
 
