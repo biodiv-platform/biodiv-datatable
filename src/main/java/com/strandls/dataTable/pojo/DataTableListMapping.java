@@ -6,22 +6,20 @@ import com.strandls.user.pojo.UserIbp;
 
 public class DataTableListMapping {
 
-	
 	private Long id;
 	private String title;
-    private String dataTableType;
+	private String dataTableType;
 	private String summary;
-	
-    private String taxonomicCoverageGroupIds;
-	private Date temporalCoverageFromDate;
-    private String temporalCoverageDateAccuracy;
-    private String geographicalCoveragePlaceName;
-    private UserIbp user;
 
-	
+	private String taxonomicCoverageGroupIds;
+	private Date temporalCoverageFromDate;
+	private String temporalCoverageDateAccuracy;
+	private String geographicalCoveragePlaceName;
+	private UserIbp user;
+
 	public DataTableListMapping(Long id, String title, String dataTableType, String summary,
-			String taxonomicCoverageGroupIds, Date temporalCoverageFromDate,
-			String temporalCoverageDateAccuracy, String geographicalCoveragePlaceName, UserIbp user) {
+			String taxonomicCoverageGroupIds, Date temporalCoverageFromDate, String temporalCoverageDateAccuracy,
+			String geographicalCoveragePlaceName, UserIbp user) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -32,6 +30,10 @@ public class DataTableListMapping {
 		this.temporalCoverageDateAccuracy = temporalCoverageDateAccuracy;
 		this.geographicalCoveragePlaceName = geographicalCoveragePlaceName;
 		this.user = user;
+	}
+
+	public DataTableListMapping() {
+		super();
 	}
 
 	public Long getId() {
@@ -106,5 +108,4 @@ public class DataTableListMapping {
 		this.user = user;
 	}
 
-	
 }

@@ -86,6 +86,7 @@ public class DataTableServeletContextListener extends GuiceServletContextListene
 				bind(ServletContainer.class).in(Scopes.SINGLETON);
 				bind(UserServiceApi.class).in(Scopes.SINGLETON);
 				bind(ResourceServicesApi.class).in(Scopes.SINGLETON);
+				bind(Headers.class).in(Scopes.SINGLETON);
 				bind(ActivitySerivceApi.class).in(Scopes.SINGLETON);
 				bind(WKTWriter.class).in(Scopes.SINGLETON);
 				serve("/api/*").with(ServletContainer.class, props);

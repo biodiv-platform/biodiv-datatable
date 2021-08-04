@@ -52,7 +52,7 @@ public class DataTableDAO extends AbstractDAO<DataTable, Long> {
 			if (limit != null) {
 				query.setMaxResults(limit);
 			}
-			observationList = query.list();
+			observationList = query.getResultList();
 		} catch (Exception ex) {
 			logger.error(ex.getMessage());
 		} finally {

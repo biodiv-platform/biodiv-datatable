@@ -1,13 +1,12 @@
 package com.strandls.dataTable.util;
 
-
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.strandls.activity.controller.ActivitySerivceApi;
-import com.strandls.activity.pojo.ActivityLoggingData;
+import com.strandls.activity.pojo.DatatableActivityLogging;
 import com.strandls.activity.pojo.MailData;
 import com.strandls.dataTable.Headers;
 
@@ -25,11 +24,11 @@ public class LogActivities {
 	@Inject
 	private Headers headers;
 
-	public void LogActivity(String authHeader, String activityDescription, Long rootObjectId,
-			Long subRootObjectId, String rootObjectType, Long activityId, String activityType, MailData mailData) {
+	public void LogActivity(String authHeader, String activityDescription, Long rootObjectId, Long subRootObjectId,
+			String rootObjectType, Long activityId, String activityType, MailData mailData) {
 
 		try {
-			ActivityLoggingData activityLogging = new ActivityLoggingData();
+			DatatableActivityLogging activityLogging = new DatatableActivityLogging();
 			activityLogging.setActivityDescription(activityDescription);
 			activityLogging.setActivityId(activityId);
 			activityLogging.setActivityType(activityType);
@@ -38,8 +37,7 @@ public class LogActivities {
 			activityLogging.setSubRootObjectId(subRootObjectId);
 			activityLogging.setMailData(mailData);
 			activityService = headers.addActivityHeaders(activityService, authHeader);
-			activityService.logActivity(activityLogging);
-
+			activityService.logDatatableActivities(activityLogging);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
