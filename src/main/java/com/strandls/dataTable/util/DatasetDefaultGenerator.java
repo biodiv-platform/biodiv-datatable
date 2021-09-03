@@ -109,7 +109,7 @@ public class DatasetDefaultGenerator {
 				standaloneDataset.setVersion(0L);
 				standaloneDataset.setRating(0);
 				standaloneDataset.setFeatureCount(0);
-				standaloneDataset.setFeatureCount(0);
+				standaloneDataset.setFlagCount(0);
 				standaloneDataset.setCustomFields("{}");
 				standaloneDataset.setuFIleId(uFile != null ? uFile.getId().intValue() : 1);
 
