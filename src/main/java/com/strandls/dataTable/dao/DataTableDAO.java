@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -41,13 +44,20 @@ public class DataTableDAO extends AbstractDAO<DataTable, Long> {
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public List<DataTable> getDataTableList(String orderBy, Integer limit, Integer offset) {
+	public List<DataTable> getDataTableList(String dataTableType,String orderBy, Integer limit, Integer offset) {
 		Session session = sessionFactory.openSession();
 		List<DataTable> observationList = new ArrayList<DataTable>();
-		String hql = "from DataTable where is_deleted = false  order by :orderBy desc";
+		CriteriaBuilder cb = session.getCriteriaBuilder();
+		CriteriaQuery<DataTable> cr = cb.createQuery(DataTable.class);
+		Root<DataTable> root = cr.from(DataTable.class);
+		if(dataTableType!= null && !dataTableType.isEmpty()) {
+			cr.select(root).where(cb.equal(root.get("dataTableType"), dataTableType)).orderBy(cb.desc(root.get(orderBy)));
+		}else {
+			cr.select(root).orderBy(cb.desc(root.get(orderBy)));
+		}
+		
 		try {
-			Query query = session.createQuery(hql);
-			query.setParameter("orderBy", orderBy);
+			Query query = session.createQuery(cr);
 			query.setFirstResult(offset);
 			if (limit != null) {
 				query.setMaxResults(limit);
