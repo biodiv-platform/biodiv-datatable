@@ -69,7 +69,7 @@ public class DataTableServiceImpl implements DataTableService {
 		DataTableList dataTableListData = new DataTableList();
 		Long total = dataTableDao.findTotalDataTable();
 		try {
-			datatableList = dataTableDao.getDataTableList(orderBy, limit, offset);
+			datatableList = dataTableDao.getDataTableList("OBSERVATIONS",orderBy, limit, offset);
 
 			if (datatableList.isEmpty()) {
 				return dataTableListData;
