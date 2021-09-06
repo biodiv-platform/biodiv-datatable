@@ -33,7 +33,7 @@ public class DataTableDAO extends AbstractDAO<DataTable, Long> {
 		DataTable entity = null;
 		try {
 			entity = session.get(DataTable.class, id);
-			entity = Boolean.FALSE.equals(entity.getDeleted()) ? entity : null;
+			entity = Boolean.FALSE.equals(entity.getIsRemoved()) ? entity : null;
 		} catch (Exception e) {
 			logger.info(e.getMessage());
 			logger.error(e.toString());
@@ -56,6 +56,7 @@ public class DataTableDAO extends AbstractDAO<DataTable, Long> {
 			cr.select(root).orderBy(cb.desc(root.get(orderBy)));
 		}
 		
+		cr.where(cb.equal(root.get("isRemoved"), false));
 		try {
 			Query query = session.createQuery(cr);
 			query.setFirstResult(offset);

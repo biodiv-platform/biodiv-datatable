@@ -39,7 +39,7 @@ public class DataTableHelper {
 		dataTable.setCreatedOn(bulkDto.getCreatedOn());
 		dataTable.setCustomFields(new HashMap<String, String>().toString()); // ask
 		dataTable.setDataTableType("OBSERVATIONS");
-		dataTable.setDeleted(false);
+		dataTable.setIsRemoved(false);
 		dataTable.setDescription(bulkDto.getDescription());
 		dataTable.setExternalId(null);
 		dataTable.setExternalUrl(null);
