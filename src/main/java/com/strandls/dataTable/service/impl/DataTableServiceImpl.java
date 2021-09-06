@@ -145,7 +145,7 @@ public class DataTableServiceImpl implements DataTableService {
 			JSONArray userRole = (JSONArray) profile.getAttribute("roles");
 			DataTable datatable = dataTableDao.findById(dataTableId);
 			if (datatable.getId() != null && (datatable.getId().equals(userId) || userRole.contains("ROLE_ADMIN"))) {
-				dataTable.setDeleted(true);
+				dataTable.setIsRemoved(true);
 				dataTableDao.update(dataTable);
 				return "Observation Deleted Succesfully";
 			}
@@ -158,7 +158,7 @@ public class DataTableServiceImpl implements DataTableService {
 	private DataTableWkt showDataTableMapper(DataTable dt) {
 		if (dt.getId() != null) {
 			String wktData = wktWriter.write(dt.getGeographicalCoverageTopology());
-			DataTableWkt datatableWkt = new DataTableWkt(dt.getId(), dt.getTitle(), dt.getCreatedOn(), dt.getDeleted(),
+			DataTableWkt datatableWkt = new DataTableWkt(dt.getId(), dt.getTitle(), dt.getCreatedOn(), dt.getIsRemoved(),
 					dt.getLastRevised(), dt.getTaxonomicCoverageGroupIds(), dt.getBasisOfData(), dt.getuFileId(),
 					dt.getUploaderId(), dt.getGeographicalCoverageGeoPrivacy(), dt.getGeographicalCoverageLatitude(),
 					dt.getGeographicalCoverageLongitude(), dt.getDatasetId(), dt.getPartyAttributions(),

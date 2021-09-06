@@ -38,7 +38,7 @@ public class DataTable {
     private Double geographicalCoverageLongitude;
     private String geographicalCoveragePlaceName;
     private Geometry geographicalCoverageTopology;
-    private Boolean isDeleted;
+  
     private Date lastRevised;
     private String methods;
     private String partyAttributions;
@@ -63,6 +63,7 @@ public class DataTable {
     private Long uploaderId;
     private String basisOfRecord;
     private Boolean isVerified;
+    private Boolean isRemoved;
     private String fieldMapping;
 
     @Id
@@ -285,14 +286,6 @@ public class DataTable {
         this.geographicalCoverageTopology = geographicalCoverageTopology;
     }
 
-    @Column(name = "is_deleted", nullable = false)
-    public Boolean getDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        isDeleted = deleted;
-    }
 
     @Column(name = "last_revised", nullable = false)
     public Date getLastRevised() {
@@ -529,5 +522,14 @@ public class DataTable {
 
 	public void setFieldMapping(String fieldMapping) {
 		this.fieldMapping = fieldMapping;
+	}
+
+	@Column(name = "is_deleted", nullable = false)
+	public Boolean getIsRemoved() {
+		return isRemoved;
+	}
+
+	public void setIsRemoved(Boolean isRemoved) {
+		this.isRemoved = isRemoved;
 	}
 }
