@@ -144,7 +144,7 @@ public class DataTableServiceImpl implements DataTableService {
 			}
 			JSONArray userRole = (JSONArray) profile.getAttribute("roles");
 			DataTable datatable = dataTableDao.findById(dataTableId);
-			if (datatable.getId() != null && (datatable.getId().equals(userId) || userRole.contains("ROLE_ADMIN"))) {
+			if (datatable.getUploaderId() != null && (datatable.getUploaderId().equals(userId) || userRole.contains("ROLE_ADMIN"))) {
 				dataTable.setIsRemoved(true);
 				dataTableDao.update(dataTable);
 				return "Observation Deleted Succesfully";
