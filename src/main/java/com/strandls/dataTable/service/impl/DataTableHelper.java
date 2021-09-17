@@ -59,9 +59,9 @@ public class DataTableHelper {
 		if (!bulkDto.getWktString().isEmpty()) {
 			try {
 				Geometry geoBoundary = wktRdr.read(bulkDto.getWktString());
-				Point intPoint = geoBoundary.getInteriorPoint();
-				dataTable.setGeographicalCoverageLatitude(intPoint.getX());
-				dataTable.setGeographicalCoverageLongitude(intPoint.getY());
+				Point intPoint = geoBoundary.getInteriorPoint();	
+				dataTable.setGeographicalCoverageLatitude(intPoint.getY());
+				dataTable.setGeographicalCoverageLongitude(intPoint.getX());
 				dataTable.setGeographicalCoverageTopology(geoBoundary);
 			} catch (ParseException e) {
 				createPointTopology(geofactory, bulkDto, dataTable);
