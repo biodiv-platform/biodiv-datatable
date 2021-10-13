@@ -23,6 +23,7 @@ import com.strandls.dataTable.util.LogActivities;
 import com.strandls.user.controller.UserServiceApi;
 import com.strandls.user.pojo.UserIbp;
 import com.strandls.userGroup.controller.UserGroupSerivceApi;
+import com.strandls.userGroup.pojo.UserGroupCreateDatatable;
 import com.strandls.userGroup.pojo.UserGroupIbp;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
@@ -160,6 +161,10 @@ public class DataTableServiceImpl implements DataTableService {
 					&& (datatable.getUploaderId().equals(userId) || userRole.contains("ROLE_ADMIN"))) {
 				dataTable.setIsRemoved(true);
 				dataTableDao.update(dataTable);
+				List<Long> ugLit = new ArrayList<Long>();
+				UserGroupCreateDatatable ugDatatable = new UserGroupCreateDatatable();
+				ugDatatable.setUserGroupIds(ugLit);
+				userGroupService.updateDatatableUserGroupMapping(dataTable.getId().toString(), ugDatatable);
 				return "Observation Deleted Succesfully";
 			}
 		} catch (Exception e) {
