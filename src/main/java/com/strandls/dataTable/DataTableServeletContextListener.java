@@ -42,6 +42,7 @@ import com.strandls.dataTable.service.impl.DataTableServiceModule;
 import com.strandls.dataTable.util.DatasetDefaultHelper;
 import com.strandls.resource.controllers.ResourceServicesApi;
 import com.strandls.user.controller.UserServiceApi;
+import com.strandls.userGroup.controller.UserGroupSerivceApi;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.PrecisionModel;
 import com.vividsolutions.jts.io.WKTWriter;
@@ -88,6 +89,7 @@ public class DataTableServeletContextListener extends GuiceServletContextListene
 				bind(ResourceServicesApi.class).in(Scopes.SINGLETON);
 				bind(Headers.class).in(Scopes.SINGLETON);
 				bind(ActivitySerivceApi.class).in(Scopes.SINGLETON);
+				bind(UserGroupSerivceApi.class).in(Scopes.SINGLETON);
 				bind(WKTWriter.class).in(Scopes.SINGLETON);
 				serve("/api/*").with(ServletContainer.class, props);
 			}
