@@ -22,6 +22,9 @@ import com.strandls.dataTable.service.DataTableService;
 import com.strandls.dataTable.util.LogActivities;
 import com.strandls.user.controller.UserServiceApi;
 import com.strandls.user.pojo.UserIbp;
+import com.strandls.userGroup.controller.UserGroupSerivceApi;
+import com.strandls.userGroup.pojo.UserGroupCreateDatatable;
+import com.strandls.userGroup.pojo.UserGroupIbp;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.PrecisionModel;
@@ -39,6 +42,9 @@ public class DataTableServiceImpl implements DataTableService {
 	private UserServiceApi userService;
 
 	@Inject
+	private UserGroupSerivceApi userGroupService;
+
+	@Inject
 	private DataTableHelper dataTableHelper;
 
 	@Inject
@@ -52,10 +58,11 @@ public class DataTableServiceImpl implements DataTableService {
 		DataTable dataTable = null;
 		try {
 			dataTable = dataTableDao.findById(dataTableId);
+			List<UserGroupIbp> userGroup = userGroupService.getDataTableUserGroup(dataTableId.toString());
 			if (dataTable == null) {
 				return null;
 			}
-			return showDataTableMapper(dataTable);
+			return showDataTableMapper(dataTable, userGroup);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
@@ -69,7 +76,7 @@ public class DataTableServiceImpl implements DataTableService {
 		DataTableList dataTableListData = new DataTableList();
 		Long total = dataTableDao.findTotalDataTable();
 		try {
-			datatableList = dataTableDao.getDataTableList("OBSERVATIONS",orderBy, limit, offset);
+			datatableList = dataTableDao.getDataTableList("OBSERVATIONS", orderBy, limit, offset);
 
 			if (datatableList.isEmpty()) {
 				return dataTableListData;
@@ -110,9 +117,10 @@ public class DataTableServiceImpl implements DataTableService {
 			Long userId = Long.parseLong(profile.getId());
 			DataTable dataTable = dataTableHelper.createDataTable(bulkDto, userId);
 			dataTable = dataTableDao.save(dataTable);
+			List<UserGroupIbp> userGroup = userGroupService.getDataTableUserGroup(dataTable.getId().toString());
 			logActivities.LogActivity(request.getHeader(HttpHeaders.AUTHORIZATION), null, dataTable.getId(),
 					dataTable.getId(), "datatable", null, "Datatable created", null);
-			return showDataTableMapper(dataTable);
+			return showDataTableMapper(dataTable, userGroup);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
@@ -123,11 +131,16 @@ public class DataTableServiceImpl implements DataTableService {
 	public DataTableWkt updateDataTable(HttpServletRequest request, DataTableWkt dataTable) {
 		CommonProfile profile = AuthUtil.getProfileFromRequest(request);
 		Long userId = Long.parseLong(profile.getId());
-		DataTable result = dataTableDao.findById(dataTable.getId());
-		if (userId.equals(result.getUploaderId()) && userId.equals(result.getId())) {
-			DataTable parsedData = dataTableSerilizer(dataTable, result);
-			result = dataTableDao.update(parsedData);
-			return showDataTableMapper(result);
+		try {
+			DataTable result = dataTableDao.findById(dataTable.getId());
+			if (userId.equals(result.getUploaderId()) && userId.equals(result.getId())) {
+				DataTable parsedData = dataTableSerilizer(dataTable, result);
+				result = dataTableDao.update(parsedData);
+				List<UserGroupIbp> userGroup = userGroupService.getDataTableUserGroup(dataTable.getId().toString());
+				return showDataTableMapper(result, userGroup);
+			}
+		} catch (Exception e) {
+			logger.error(e.getMessage());
 		}
 
 		return null;
@@ -144,9 +157,14 @@ public class DataTableServiceImpl implements DataTableService {
 			}
 			JSONArray userRole = (JSONArray) profile.getAttribute("roles");
 			DataTable datatable = dataTableDao.findById(dataTableId);
-			if (datatable.getUploaderId() != null && (datatable.getUploaderId().equals(userId) || userRole.contains("ROLE_ADMIN"))) {
+			if (datatable.getUploaderId() != null
+					&& (datatable.getUploaderId().equals(userId) || userRole.contains("ROLE_ADMIN"))) {
 				dataTable.setIsRemoved(true);
 				dataTableDao.update(dataTable);
+				List<Long> ugLit = new ArrayList<Long>();
+				UserGroupCreateDatatable ugDatatable = new UserGroupCreateDatatable();
+				ugDatatable.setUserGroupIds(ugLit);
+				userGroupService.updateDatatableUserGroupMapping(dataTable.getId().toString(), ugDatatable);
 				return "Observation Deleted Succesfully";
 			}
 		} catch (Exception e) {
@@ -155,17 +173,17 @@ public class DataTableServiceImpl implements DataTableService {
 		return null;
 	}
 
-	private DataTableWkt showDataTableMapper(DataTable dt) {
+	private DataTableWkt showDataTableMapper(DataTable dt, List<UserGroupIbp> userGroup) {
 		if (dt.getId() != null) {
 			String wktData = wktWriter.write(dt.getGeographicalCoverageTopology());
-			DataTableWkt datatableWkt = new DataTableWkt(dt.getId(), dt.getTitle(), dt.getCreatedOn(), dt.getIsRemoved(),
-					dt.getLastRevised(), dt.getTaxonomicCoverageGroupIds(), dt.getBasisOfData(), dt.getuFileId(),
-					dt.getUploaderId(), dt.getGeographicalCoverageGeoPrivacy(), dt.getGeographicalCoverageLatitude(),
-					dt.getGeographicalCoverageLongitude(), dt.getDatasetId(), dt.getPartyAttributions(),
-					dt.getGeographicalCoveragePlaceName(), dt.getSummary(), dt.getDataTableType(), wktData,
-					dt.getTemporalCoverageDateAccuracy(), dt.getBasisOfRecord(), dt.getIsVerified(),
-					dt.getDescription(), dt.getGeographicalCoverageLocationScale(), dt.getProject(), dt.getMethods(),
-					dt.getTemporalCoverageFromDate(), dt.getFieldMapping());
+			DataTableWkt datatableWkt = new DataTableWkt(dt.getId(), dt.getTitle(), dt.getCreatedOn(),
+					dt.getIsRemoved(), dt.getLastRevised(), dt.getTaxonomicCoverageGroupIds(), dt.getBasisOfData(),
+					dt.getuFileId(), dt.getUploaderId(), dt.getGeographicalCoverageGeoPrivacy(),
+					dt.getGeographicalCoverageLatitude(), dt.getGeographicalCoverageLongitude(), dt.getDatasetId(),
+					dt.getPartyAttributions(), dt.getGeographicalCoveragePlaceName(), dt.getSummary(),
+					dt.getDataTableType(), wktData, dt.getTemporalCoverageDateAccuracy(), dt.getBasisOfRecord(),
+					dt.getIsVerified(), dt.getDescription(), dt.getGeographicalCoverageLocationScale(), dt.getProject(),
+					dt.getMethods(), dt.getTemporalCoverageFromDate(), dt.getFieldMapping(), userGroup);
 
 			return datatableWkt;
 		}

@@ -1,6 +1,9 @@
 package com.strandls.dataTable.pojo;
 
 import java.util.Date;
+import java.util.List;
+
+import com.strandls.userGroup.pojo.UserGroupIbp;
 
 public class DataTableWkt {
 	private Long id;
@@ -33,6 +36,7 @@ public class DataTableWkt {
 	private String basisOfRecord;
 	private Boolean isVerified;
 	private String fieldMapping;
+	private List<UserGroupIbp> userGroup;
 
 	public DataTableWkt() {
 		super();
@@ -45,7 +49,7 @@ public class DataTableWkt {
 			String geographicalCoveragePlaceName, String summary, String dataTableType,
 			String geographicalCoverageTopology, String temporalCoverageDateAccuracy, String basisOfRecord,
 			Boolean isVerified, String description, String geographicalCoverageLocationScale, String project,
-			String methods,Date temporalCoverageFromDate,String fieldMapping) {
+			String methods,Date temporalCoverageFromDate,String fieldMapping,List<UserGroupIbp> userGroup) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -74,6 +78,7 @@ public class DataTableWkt {
 		this.methods = methods;
 		this.temporalCoverageFromDate = temporalCoverageFromDate;
 		this.fieldMapping = fieldMapping;
+		this.userGroup = userGroup;	
 	}
 
 	public Long getId() {
@@ -290,6 +295,14 @@ public class DataTableWkt {
 
 	public void setTemporalCoverageFromDate(Date temporalCoverageFromDate) {
 		this.temporalCoverageFromDate = temporalCoverageFromDate;
+	}
+
+	public List<UserGroupIbp> getUserGroup() {
+		return userGroup;
+	}
+
+	public void setUserGroup(List<UserGroupIbp> userGroup) {
+		this.userGroup = userGroup;
 	}
 
 }
