@@ -364,7 +364,7 @@ public class DataTable {
     }
 
     
-    @Column(name = "temporal_coverage_from_date",nullable = false)
+    @Column(name = "temporal_coverage_from_date")
     public Date getTemporalCoverageFromDate() {
         return temporalCoverageFromDate;
     }
@@ -374,7 +374,7 @@ public class DataTable {
     }
 
     
-    @Column(name = "temporal_coverage_to_date",nullable = false)
+    @Column(name = "temporal_coverage_to_date")
     public Date getTemporalCoverageToDate() {
         return temporalCoverageToDate;
     }
