@@ -6,6 +6,7 @@ import com.strandls.dataTable.dao.DataSetDAO;
 import com.strandls.dataTable.dto.BulkDTO;
 import com.strandls.dataTable.pojo.DataTable;
 import com.strandls.dataTable.pojo.Dataset;
+import com.strandls.dataTable.util.PropertyFileUtil;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
@@ -28,6 +29,10 @@ public class DataTableHelper {
 	private DataSetDAO datasetDao;
 
 	private final Logger logger = LoggerFactory.getLogger(DataTableHelper.class);
+	
+	private Long defaultLanguageId = Long
+			.parseLong(PropertyFileUtil.fetchProperty("config.properties", "defaultLanguageId"));
+
 
 	public DataTable createDataTable(BulkDTO bulkDto, Long userId) {
 		DataTable dataTable = new DataTable();
@@ -77,7 +82,7 @@ public class DataTableHelper {
 		Long datasetid = bulkDto.getDataset() != null ? bulkDto.getDataset() : dataset.getId();
 		dataTable.setDatasetId(datasetid);
 		dataTable.setImagesFileId(null);
-		dataTable.setLanguageId(205L);
+		dataTable.setLanguageId(defaultLanguageId);
 		dataTable.setLastRevised(bulkDto.getCreatedOn());
 		dataTable.setMethods(bulkDto.getMethods());
 		dataTable.setPartyAttributions(bulkDto.getAttribution());
