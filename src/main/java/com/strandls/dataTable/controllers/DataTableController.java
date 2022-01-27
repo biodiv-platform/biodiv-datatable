@@ -3,6 +3,9 @@
  */
 package com.strandls.dataTable.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -24,7 +27,9 @@ import org.pac4j.core.profile.CommonProfile;
 
 import com.strandls.authentication_utility.util.AuthUtil;
 import com.strandls.dataTable.ApiConstants;
+import com.strandls.dataTable.dao.DataTableDAO;
 import com.strandls.dataTable.dto.BulkDTO;
+import com.strandls.dataTable.pojo.DataTable;
 import com.strandls.dataTable.pojo.DataTableList;
 import com.strandls.dataTable.pojo.DataTableWkt;
 import com.strandls.dataTable.service.DataTableService;
@@ -82,12 +87,13 @@ public class DataTableController {
 
 	public Response observationList(@DefaultValue("lastRevised") @QueryParam("sort") String sortOn,
 			@DefaultValue("0") @QueryParam("offset") String Offset,
+			@DefaultValue("") @QueryParam("userGroupId") String userGroupId,
 			@DefaultValue("10") @QueryParam("limit") String Limit) {
 
 		try {
 			Integer offset = Integer.parseInt(Offset);
 			Integer limit = Integer.parseInt(Limit);
-			DataTableList result = dataTableService.dataTableList(sortOn, limit, offset);
+			DataTableList result = dataTableService.dataTableList(sortOn, limit, offset, userGroupId);
 			return Response.status(Status.OK).entity(result).build();
 
 		} catch (Exception e) {
