@@ -3,9 +3,6 @@
  */
 package com.strandls.dataTable.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -27,9 +24,7 @@ import org.pac4j.core.profile.CommonProfile;
 
 import com.strandls.authentication_utility.util.AuthUtil;
 import com.strandls.dataTable.ApiConstants;
-import com.strandls.dataTable.dao.DataTableDAO;
 import com.strandls.dataTable.dto.BulkDTO;
-import com.strandls.dataTable.pojo.DataTable;
 import com.strandls.dataTable.pojo.DataTableList;
 import com.strandls.dataTable.pojo.DataTableWkt;
 import com.strandls.dataTable.service.DataTableService;

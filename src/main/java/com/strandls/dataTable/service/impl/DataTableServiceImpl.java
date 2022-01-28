@@ -91,7 +91,9 @@ public class DataTableServiceImpl implements DataTableService {
 					List<Long> dataTableIds = res.getUserGroupDataTableList().stream()
 							.map((item) -> item.getDataTableId()).collect(Collectors.toList());
 					datatableList = dataTableDao.getDataTableListByIds("OBSERVATIONS", orderBy, dataTableIds);
-					total = res.getTotal();
+					total = datatableList.size() != dataTableIds.size()
+							? res.getTotal() - (dataTableIds.size() - datatableList.size())
+							: res.getTotal();
 				}
 
 			} else {
