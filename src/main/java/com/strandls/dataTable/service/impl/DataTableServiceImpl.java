@@ -2,6 +2,7 @@ package com.strandls.dataTable.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.HttpHeaders;
@@ -24,6 +25,8 @@ import com.strandls.user.controller.UserServiceApi;
 import com.strandls.user.pojo.UserIbp;
 import com.strandls.userGroup.controller.UserGroupSerivceApi;
 import com.strandls.userGroup.pojo.UserGroupCreateDatatable;
+import com.strandls.userGroup.pojo.UserGroupDatatableFetch;
+import com.strandls.userGroup.pojo.UserGroupDatatableMapping;
 import com.strandls.userGroup.pojo.UserGroupIbp;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
@@ -70,13 +73,33 @@ public class DataTableServiceImpl implements DataTableService {
 	}
 
 	@Override
-	public DataTableList dataTableList(String orderBy, Integer limit, Integer offset) {
+	public DataTableList dataTableList(String orderBy, Integer limit, Integer offset, String ugId) {
 		List<DataTable> datatableList = new ArrayList<DataTable>();
 		List<DataTableListMapping> dataTableMappingList = new ArrayList<DataTableListMapping>();
 		DataTableList dataTableListData = new DataTableList();
 		Long total = dataTableDao.findTotalDataTable();
 		try {
-			datatableList = dataTableDao.getDataTableList("OBSERVATIONS", orderBy, limit, offset);
+			if (ugId != null && !ugId.isEmpty()) {
+				UserGroupDatatableFetch userGroupDatatableFetch = new UserGroupDatatableFetch();
+				userGroupDatatableFetch.setUserGroupId(Long.parseLong(ugId));
+				userGroupDatatableFetch.setOffset(offset);
+				userGroupDatatableFetch.setLimit(limit);
+
+				UserGroupDatatableMapping res = userGroupService.getDataTablebyUserGroupId(userGroupDatatableFetch);
+				if (res != null && res.getTotal() > 0) {
+					orderBy = orderBy != null && orderBy.contains("lastRevised") ? null : orderBy;
+					List<Long> dataTableIds = res.getUserGroupDataTableList().stream()
+							.map((item) -> item.getDataTableId()).collect(Collectors.toList());
+					datatableList = dataTableDao.getDataTableListByIds("OBSERVATIONS", orderBy, dataTableIds);
+					total = datatableList.size() != dataTableIds.size()
+							? res.getTotal() - (dataTableIds.size() - datatableList.size())
+							: res.getTotal();
+				}
+
+			} else {
+				datatableList = dataTableDao.getDataTableList("OBSERVATIONS", orderBy, limit, offset);
+
+			}
 
 			if (datatableList.isEmpty()) {
 				return dataTableListData;
@@ -183,7 +206,8 @@ public class DataTableServiceImpl implements DataTableService {
 					dt.getPartyAttributions(), dt.getGeographicalCoveragePlaceName(), dt.getSummary(),
 					dt.getDataTableType(), wktData, dt.getTemporalCoverageDateAccuracy(), dt.getBasisOfRecord(),
 					dt.getIsVerified(), dt.getDescription(), dt.getGeographicalCoverageLocationScale(), dt.getProject(),
-					dt.getMethods(), dt.getTemporalCoverageFromDate(), dt.getFieldMapping(),dt.getTemporalCoverageToDate(), userGroup);
+					dt.getMethods(), dt.getTemporalCoverageFromDate(), dt.getFieldMapping(),
+					dt.getTemporalCoverageToDate(), userGroup);
 
 			return datatableWkt;
 		}

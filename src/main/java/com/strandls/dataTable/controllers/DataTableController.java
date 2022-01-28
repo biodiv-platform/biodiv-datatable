@@ -82,12 +82,13 @@ public class DataTableController {
 
 	public Response observationList(@DefaultValue("lastRevised") @QueryParam("sort") String sortOn,
 			@DefaultValue("0") @QueryParam("offset") String Offset,
+			@DefaultValue("") @QueryParam("userGroupId") String userGroupId,
 			@DefaultValue("10") @QueryParam("limit") String Limit) {
 
 		try {
 			Integer offset = Integer.parseInt(Offset);
 			Integer limit = Integer.parseInt(Limit);
-			DataTableList result = dataTableService.dataTableList(sortOn, limit, offset);
+			DataTableList result = dataTableService.dataTableList(sortOn, limit, offset, userGroupId);
 			return Response.status(Status.OK).entity(result).build();
 
 		} catch (Exception e) {

@@ -44,23 +44,43 @@ public class DataTableDAO extends AbstractDAO<DataTable, Long> {
 		return entity;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<DataTable> getDataTableListByIds(String dataTableType, String orderBy, List<Long> dataTableIds) {
+		String qry = orderBy == null
+				? "from DataTable where  id IN :dataTableIds and dataTableType = :dataTableType and isRemoved = false order by lastRevised desc"
+				: "from DataTable where  id IN :dataTableIds and dataTableType = :dataTableType and isRemoved = false order by createdOn desc";
+		List<DataTable> result = null;
+		Session session = sessionFactory.openSession();
+		try {
+			Query<DataTable> query = session.createQuery(qry);
+			query.setParameter("dataTableIds", dataTableIds);
+			query.setParameter("dataTableType", dataTableType);
+			result = query.getResultList();
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return result;
+	}
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public List<DataTable> getDataTableList(String dataTableType,String orderBy, Integer limit, Integer offset) {
+	public List<DataTable> getDataTableList(String dataTableType, String orderBy, Integer limit, Integer offset) {
 		Session session = sessionFactory.openSession();
 		List<DataTable> observationList = new ArrayList<DataTable>();
 		CriteriaBuilder cb = session.getCriteriaBuilder();
 		CriteriaQuery<DataTable> cr = cb.createQuery(DataTable.class);
 		Root<DataTable> root = cr.from(DataTable.class);
-		 List<Predicate> predicates = new ArrayList<>();
-		 
-		 predicates.add(cb.equal(root.get("isRemoved"), false));
-		if(dataTableType!= null && !dataTableType.isEmpty()) {
+		List<Predicate> predicates = new ArrayList<>();
+
+		predicates.add(cb.equal(root.get("isRemoved"), false));
+		if (dataTableType != null && !dataTableType.isEmpty()) {
 			predicates.add(cb.equal(root.get("dataTableType"), dataTableType));
-			cr.select(root).where(predicates.toArray(new Predicate[]{})).orderBy(cb.desc(root.get(orderBy)));
-		}else {
-			cr.select(root).where(predicates.toArray(new Predicate[]{})).orderBy(cb.desc(root.get(orderBy)));
+			cr.select(root).where(predicates.toArray(new Predicate[] {})).orderBy(cb.desc(root.get(orderBy)));
+		} else {
+			cr.select(root).where(predicates.toArray(new Predicate[] {})).orderBy(cb.desc(root.get(orderBy)));
 		}
-			
+
 		try {
 			Query query = session.createQuery(cr);
 			query.setFirstResult(offset);
