@@ -42,12 +42,12 @@
 		<repository>
 			<id>central</id>
 			<name>jfrog-releases</name>
-			<url>https://pamba.strandls.com/artifactory/libs-release-local</url>
+			<url>https://devartifactory.indiabiodiversity.org/libs-release</url>
 		</repository>
 		<snapshotRepository>
 			<id>snapshots</id>
 			<name>jfrog-snapshots</name>
-			<url>https://pamba.strandls.com/artifactory/libs-snapshot-local</url>
+			<url>https://devartifactory.indiabiodiversity.org/libs-snapshot</url>
 		</snapshotRepository>
 	</distributionManagement>
 
@@ -58,13 +58,13 @@
 			</snapshots>
 			<id>central</id>
 			<name>libs-release</name>
-			<url>https://pamba.strandls.com/artifactory/libs-release</url>
+			<url>https://devartifactory.indiabiodiversity.org/libs-release</url>
 		</repository>
 		<repository>
 			<snapshots />
 			<id>snapshots</id>
 			<name>libs-snapshot</name>
-			<url>https://pamba.strandls.com/artifactory/libs-snapshot</url>
+			<url>https://devartifactory.indiabiodiversity.org/libs-snapshot</url>
 		</repository>
 	</repositories>
 

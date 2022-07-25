@@ -15,6 +15,7 @@ export DB_PASSWORD=postgres123
 export DB_URL=jdbc:postgresql://localhost:5432/database
 export MTPROP_SCHEMES=http
 export MTPROP_HOST=localhost:8080
+export ARTIFACTORY_COMPAT=1
 ```
 
 ### Build commands
