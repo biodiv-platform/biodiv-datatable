@@ -33,6 +33,9 @@ import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.PrecisionModel;
 import com.vividsolutions.jts.io.WKTReader;
 import com.vividsolutions.jts.io.WKTWriter;
+import com.strandls.activity.pojo.DataTableMailData;
+import com.strandls.activity.pojo.MailData;
+import com.strandls.activity.pojo.UserGroupMailData;
 import com.strandls.authentication_utility.util.AuthUtil;
 
 public class DataTableServiceImpl implements DataTableService {
@@ -131,6 +134,39 @@ public class DataTableServiceImpl implements DataTableService {
 	}
 
 	@Override
+	public MailData generateMailData(Long dataTableId) {
+		try {
+
+			MailData mailData = new MailData();
+			DataTableMailData dataTableMailData = new DataTableMailData();
+			DataTable dataTable = dataTableDao.findById(dataTableId);
+			dataTableMailData.setAuthorId(dataTable.getPartyContributorId());
+			dataTableMailData.setCreatedOn(dataTable.getCreatedOn());
+			dataTableMailData.setDataTableId(dataTableId);
+			dataTableMailData.setTitle(dataTable.getTitle());
+
+			List<UserGroupIbp> userGroup = userGroupService.getDataTableUserGroup(dataTable.getId().toString());
+			List<UserGroupMailData> userGroupData = new ArrayList<UserGroupMailData>();
+			for (UserGroupIbp ugIbp : userGroup) {
+				UserGroupMailData ugMailData = new UserGroupMailData();
+				ugMailData.setId(ugIbp.getId());
+				ugMailData.setIcon(ugIbp.getIcon());
+				ugMailData.setName(ugIbp.getName());
+				ugMailData.setWebAddress(ugIbp.getWebAddress());
+				userGroupData.add(ugMailData);
+			}
+
+			mailData.setDataTableMailData(dataTableMailData);
+			mailData.setUserGroupData(userGroupData);
+			return mailData;
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+
+		return null;
+	}
+
+	@Override
 	public DataTableWkt createDataTable(HttpServletRequest request, BulkDTO bulkDto) {
 		try {
 			if (bulkDto == null) {
@@ -142,7 +178,7 @@ public class DataTableServiceImpl implements DataTableService {
 			dataTable = dataTableDao.save(dataTable);
 			List<UserGroupIbp> userGroup = userGroupService.getDataTableUserGroup(dataTable.getId().toString());
 			logActivities.LogActivity(request.getHeader(HttpHeaders.AUTHORIZATION), null, dataTable.getId(),
-					dataTable.getId(), "datatable", null, "Datatable created", null);
+					dataTable.getId(), "datatable", null, "Datatable created", generateMailData(dataTable.getId()));
 			return showDataTableMapper(dataTable, userGroup);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -160,6 +196,8 @@ public class DataTableServiceImpl implements DataTableService {
 				DataTable parsedData = dataTableSerilizer(dataTable, result);
 				result = dataTableDao.update(parsedData);
 				List<UserGroupIbp> userGroup = userGroupService.getDataTableUserGroup(dataTable.getId().toString());
+				logActivities.LogActivity(request.getHeader(HttpHeaders.AUTHORIZATION), null, dataTable.getId(),
+						dataTable.getId(), "datatable", null, "Datatable updated", generateMailData(dataTable.getId()));
 				return showDataTableMapper(result, userGroup);
 			}
 		} catch (Exception e) {
@@ -188,6 +226,8 @@ public class DataTableServiceImpl implements DataTableService {
 				UserGroupCreateDatatable ugDatatable = new UserGroupCreateDatatable();
 				ugDatatable.setUserGroupIds(ugLit);
 				userGroupService.updateDatatableUserGroupMapping(dataTable.getId().toString(), ugDatatable);
+				logActivities.LogActivity(request.getHeader(HttpHeaders.AUTHORIZATION), null, dataTable.getId(),
+						dataTable.getId(), "datatable", null, "Datatable deleted", generateMailData(dataTable.getId()));
 				return "Observation Deleted Succesfully";
 			}
 		} catch (Exception e) {

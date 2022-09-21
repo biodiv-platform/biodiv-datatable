@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.pac4j.core.profile.CommonProfile;
 
+import com.strandls.activity.pojo.MailData;
 import com.strandls.dataTable.dto.BulkDTO;
 import com.strandls.dataTable.pojo.DataTableList;
 import com.strandls.dataTable.pojo.DataTableWkt;
@@ -22,4 +23,6 @@ public interface DataTableService {
 	public DataTableWkt updateDataTable(HttpServletRequest request, DataTableWkt dataTable);
 
 	public String deleteDataTableById(HttpServletRequest request, CommonProfile profile, Long userId, Long dataTableId);
+
+	public MailData generateMailData(Long dataTableId);
 }
