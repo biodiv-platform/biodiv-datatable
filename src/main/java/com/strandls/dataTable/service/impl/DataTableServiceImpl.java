@@ -196,8 +196,6 @@ public class DataTableServiceImpl implements DataTableService {
 				DataTable parsedData = dataTableSerilizer(dataTable, result);
 				result = dataTableDao.update(parsedData);
 				List<UserGroupIbp> userGroup = userGroupService.getDataTableUserGroup(dataTable.getId().toString());
-				logActivities.LogActivity(request.getHeader(HttpHeaders.AUTHORIZATION), null, dataTable.getId(),
-						dataTable.getId(), "datatable", null, "Datatable updated", generateMailData(dataTable.getId()));
 				return showDataTableMapper(result, userGroup);
 			}
 		} catch (Exception e) {
