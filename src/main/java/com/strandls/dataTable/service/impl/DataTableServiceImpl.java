@@ -145,19 +145,19 @@ public class DataTableServiceImpl implements DataTableService {
 			dataTableMailData.setDataTableId(dataTableId);
 			dataTableMailData.setTitle(dataTable.getTitle());
 
-//			List<UserGroupIbp> userGroup = userGroupService.getDataTableUserGroup(dataTable.getId().toString());
-//			List<UserGroupMailData> userGroupData = new ArrayList<UserGroupMailData>();
-//			for (UserGroupIbp ugIbp : userGroup) {
-//				UserGroupMailData ugMailData = new UserGroupMailData();
-//				ugMailData.setId(ugIbp.getId());
-//				ugMailData.setIcon(ugIbp.getIcon());
-//				ugMailData.setName(ugIbp.getName());
-//				ugMailData.setWebAddress(ugIbp.getWebAddress());
-//				userGroupData.add(ugMailData);
-//			}
+			List<UserGroupIbp> userGroup = userGroupService.getDataTableUserGroup(dataTable.getId().toString());
+			List<UserGroupMailData> userGroupData = new ArrayList<UserGroupMailData>();
+			for (UserGroupIbp ugIbp : userGroup) {
+				UserGroupMailData ugMailData = new UserGroupMailData();
+				ugMailData.setId(ugIbp.getId());
+				ugMailData.setIcon(ugIbp.getIcon());
+				ugMailData.setName(ugIbp.getName());
+				ugMailData.setWebAddress(ugIbp.getWebAddress());
+				userGroupData.add(ugMailData);
+			}
 
 			mailData.setDataTableMailData(dataTableMailData);
-//			mailData.setUserGroupData(userGroupData);
+			mailData.setUserGroupData(userGroupData);
 			return mailData;
 		} catch (Exception e) {
 			logger.error(e.getMessage());
