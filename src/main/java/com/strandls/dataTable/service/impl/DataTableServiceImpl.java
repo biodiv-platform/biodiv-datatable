@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
+import com.strandls.dataTable.Headers;
 import com.strandls.dataTable.dao.DataTableDAO;
 import com.strandls.dataTable.dto.BulkDTO;
 import com.strandls.dataTable.pojo.DataTable;
@@ -33,6 +34,9 @@ import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.PrecisionModel;
 import com.vividsolutions.jts.io.WKTReader;
 import com.vividsolutions.jts.io.WKTWriter;
+import com.strandls.activity.controller.ActivitySerivceApi;
+import com.strandls.activity.pojo.Activity;
+import com.strandls.activity.pojo.CommentLoggingData;
 import com.strandls.activity.pojo.DataTableMailData;
 import com.strandls.activity.pojo.MailData;
 import com.strandls.activity.pojo.UserGroupMailData;
@@ -58,6 +62,13 @@ public class DataTableServiceImpl implements DataTableService {
 
 	@Inject
 	private LogActivities logActivities;
+
+	@Inject
+	private ActivitySerivceApi activityService;
+
+	@Inject
+	private Headers headers;
+
 
 	@Override
 	public DataTableWkt show(Long dataTableId) {
@@ -146,7 +157,7 @@ public class DataTableServiceImpl implements DataTableService {
 			dataTableMailData.setTitle(dataTable.getTitle());
 
 			List<UserGroupIbp> userGroup = userGroupService.getDataTableUserGroup(dataTable.getId().toString());
-			List<UserGroupMailData> userGroupData = new ArrayList<UserGroupMailData>();
+			List<UserGroupMailData> userGroupData = new ArrayList<>();
 			for (UserGroupIbp ugIbp : userGroup) {
 				UserGroupMailData ugMailData = new UserGroupMailData();
 				ugMailData.setId(ugIbp.getId());
@@ -159,8 +170,10 @@ public class DataTableServiceImpl implements DataTableService {
 			mailData.setDataTableMailData(dataTableMailData);
 			mailData.setUserGroupData(userGroupData);
 			return mailData;
+
 		} catch (Exception e) {
 			logger.error(e.getMessage());
+
 		}
 
 		return null;
@@ -278,6 +291,19 @@ public class DataTableServiceImpl implements DataTableService {
 
 		return null;
 
+	}
+
+	@Override
+	public Activity addDataTableComment(HttpServletRequest request, CommentLoggingData comment) {
+		try {
+			comment.setMailData(generateMailData(comment.getRootHolderId()));
+			activityService = headers.addActivityHeaders(activityService, request.getHeader(HttpHeaders.AUTHORIZATION));
+			Activity result = activityService.addComment("datatable", comment);
+			return result;
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return null;
 	}
 
 }

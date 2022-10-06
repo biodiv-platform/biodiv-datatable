@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.pac4j.core.profile.CommonProfile;
 
+import com.strandls.activity.pojo.Activity;
+import com.strandls.activity.pojo.CommentLoggingData;
 import com.strandls.activity.pojo.MailData;
 import com.strandls.dataTable.dto.BulkDTO;
 import com.strandls.dataTable.pojo.DataTableList;
@@ -25,4 +27,7 @@ public interface DataTableService {
 	public String deleteDataTableById(HttpServletRequest request, CommonProfile profile, Long userId, Long dataTableId);
 
 	public MailData generateMailData(Long dataTableId);
+
+	public Activity addDataTableComment(HttpServletRequest request, CommentLoggingData comment);
+
 }
