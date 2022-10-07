@@ -147,7 +147,6 @@ public class DataTableServiceImpl implements DataTableService {
 	@Override
 	public MailData generateMailData(Long dataTableId) {
 		try {
-
 			MailData mailData = new MailData();
 			DataTableMailData dataTableMailData = new DataTableMailData();
 			DataTable dataTable = dataTableDao.findById(dataTableId);
@@ -158,13 +157,15 @@ public class DataTableServiceImpl implements DataTableService {
 
 			List<UserGroupIbp> userGroup = userGroupService.getDataTableUserGroup(dataTable.getId().toString());
 			List<UserGroupMailData> userGroupData = new ArrayList<>();
-			for (UserGroupIbp ugIbp : userGroup) {
-				UserGroupMailData ugMailData = new UserGroupMailData();
-				ugMailData.setId(ugIbp.getId());
-				ugMailData.setIcon(ugIbp.getIcon());
-				ugMailData.setName(ugIbp.getName());
-				ugMailData.setWebAddress(ugIbp.getWebAddress());
-				userGroupData.add(ugMailData);
+			if(userGroup!=null && !userGroup.isEmpty()) {
+				for (UserGroupIbp ugIbp : userGroup) {
+					UserGroupMailData ugMailData = new UserGroupMailData();
+					ugMailData.setId(ugIbp.getId());
+					ugMailData.setIcon(ugIbp.getIcon());
+					ugMailData.setName(ugIbp.getName());
+					ugMailData.setWebAddress(ugIbp.getWebAddress());
+					userGroupData.add(ugMailData);
+				}
 			}
 
 			mailData.setDataTableMailData(dataTableMailData);
