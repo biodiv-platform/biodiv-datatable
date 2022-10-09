@@ -307,4 +307,17 @@ public class DataTableServiceImpl implements DataTableService {
 		return null;
 	}
 
+	@Override
+	public List<UserGroupIbp> updateUserGroupDatatableMapping(HttpServletRequest request, Long datatableId,
+			UserGroupCreateDatatable userGroups) {
+		try {
+			List<UserGroupIbp> result =userGroupService.updateDatatableUserGroupMapping(datatableId.toString(), userGroups);
+			return result;
+		}catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return null;
+
+	}
+
 }

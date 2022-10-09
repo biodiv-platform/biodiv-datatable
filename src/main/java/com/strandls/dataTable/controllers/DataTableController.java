@@ -3,6 +3,8 @@
  */
 package com.strandls.dataTable.controllers;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -31,6 +33,8 @@ import com.strandls.dataTable.dto.BulkDTO;
 import com.strandls.dataTable.pojo.DataTableList;
 import com.strandls.dataTable.pojo.DataTableWkt;
 import com.strandls.dataTable.service.DataTableService;
+import com.strandls.userGroup.pojo.UserGroupCreateDatatable;
+import com.strandls.userGroup.pojo.UserGroupIbp;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -160,7 +164,7 @@ public class DataTableController {
 	}
 
 	@POST
-	@Path(ApiConstants.ADD)
+	@Path(ApiConstants.COMMENT+ApiConstants.ADD)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 
@@ -178,6 +182,29 @@ public class DataTableController {
 			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
 		}
 
+	}
+
+	@PUT
+	@Path(ApiConstants.UPDATE + ApiConstants.DATATABLE + "/{datatableId}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+
+	@ValidateUser
+	@ApiOperation(value = "Update the UserGroup Datatable Mapping", notes = "Returns the List of UserGroup Linked", response = UserGroupIbp.class, responseContainer = "List")
+	@ApiResponses(value = {
+			@ApiResponse(code = 400, message = "Unable to Update the UserGroup Datatable Mapping", response = String.class) })
+
+	public Response updateDatatableUserGroupMapping(@Context HttpServletRequest request,
+			@PathParam("datatableId") String dataTableId,
+			@ApiParam(name = "userGroupData") UserGroupCreateDatatable userGroupData) {
+		try {
+			Long datatableId = Long.parseLong(dataTableId);
+			List<UserGroupIbp> result = dataTableService.updateUserGroupDatatableMapping(request, datatableId,
+					userGroupData);
+			return Response.status(Status.OK).entity(result).build();
+		} catch (Exception e) {
+			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
+		}
 	}
 
 }
