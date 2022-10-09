@@ -15,7 +15,6 @@ import com.strandls.dataTable.pojo.DataTableList;
 import com.strandls.dataTable.pojo.DataTableWkt;
 import com.strandls.userGroup.pojo.UserGroupCreateDatatable;
 import com.strandls.userGroup.pojo.UserGroupIbp;
-import com.strandls.userGroup.pojo.UserGroupSpeciesCreateData;
 
 //import com.strandls.observation
 

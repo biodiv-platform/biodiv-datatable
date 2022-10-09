@@ -315,10 +315,8 @@ public class DataTableServiceImpl implements DataTableService {
 			return result;
 		}catch (Exception e) {
 			logger.error(e.getMessage());
-			return null;
 		}
-
-
+		return null;
 	}
 
 }
