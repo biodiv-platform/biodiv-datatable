@@ -152,7 +152,7 @@ public class DataTableServiceImpl implements DataTableService {
 			String authorId = profile.getId();
 			DataTableMailData dataTableMailData = new DataTableMailData();
 			DataTable dataTable = dataTableDao.findById(dataTableId);
-			dataTableMailData.setAuthorId(authorId);
+			dataTableMailData.setAuthorId(Long.parseLong(authorId));
 			dataTableMailData.setCreatedOn(dataTable.getCreatedOn());
 			dataTableMailData.setDataTableId(dataTableId);
 			dataTableMailData.setTitle(dataTable.getTitle());
