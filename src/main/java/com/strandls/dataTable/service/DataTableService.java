@@ -30,7 +30,7 @@ public interface DataTableService {
 
 	public String deleteDataTableById(HttpServletRequest request, CommonProfile profile, Long userId, Long dataTableId);
 
-	public MailData generateMailData(Long dataTableId);
+	public MailData generateMailData(HttpServletRequest request,Long dataTableId);
 
 	public Activity addDataTableComment(HttpServletRequest request, CommentLoggingData comment);
 

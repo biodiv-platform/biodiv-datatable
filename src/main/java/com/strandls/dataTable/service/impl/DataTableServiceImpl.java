@@ -145,15 +145,18 @@ public class DataTableServiceImpl implements DataTableService {
 	}
 
 	@Override
-	public MailData generateMailData(Long dataTableId) {
+	public MailData generateMailData(HttpServletRequest request,Long dataTableId) {
 		try {
 			MailData mailData = new MailData();
+			CommonProfile profile = AuthUtil.getProfileFromRequest(request);
+			String authorId = profile.getId();
 			DataTableMailData dataTableMailData = new DataTableMailData();
 			DataTable dataTable = dataTableDao.findById(dataTableId);
-			dataTableMailData.setAuthorId(dataTable.getPartyContributorId());
+			dataTableMailData.setAuthorId(authorId);
 			dataTableMailData.setCreatedOn(dataTable.getCreatedOn());
 			dataTableMailData.setDataTableId(dataTableId);
 			dataTableMailData.setTitle(dataTable.getTitle());
+			dataTableMailData.setLocation(dataTable.getGeographicalCoveragePlaceName());
 
 			List<UserGroupIbp> userGroup = userGroupService.getDataTableUserGroup(dataTable.getId().toString());
 			List<UserGroupMailData> userGroupData = new ArrayList<>();
@@ -192,7 +195,7 @@ public class DataTableServiceImpl implements DataTableService {
 			dataTable = dataTableDao.save(dataTable);
 			List<UserGroupIbp> userGroup = userGroupService.getDataTableUserGroup(dataTable.getId().toString());
 			logActivities.LogActivity(request.getHeader(HttpHeaders.AUTHORIZATION), null, dataTable.getId(),
-					dataTable.getId(), "datatable", null, "Datatable created", generateMailData(dataTable.getId()));
+					dataTable.getId(), "datatable", null, "Datatable created", generateMailData(request,dataTable.getId()));
 			return showDataTableMapper(dataTable, userGroup);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -232,7 +235,7 @@ public class DataTableServiceImpl implements DataTableService {
 			DataTable datatable = dataTableDao.findById(dataTableId);
 			if (datatable.getUploaderId() != null
 					&& (datatable.getUploaderId().equals(userId) || userRole.contains("ROLE_ADMIN"))) {
-				MailData maildata =generateMailData(dataTable.getId());
+				MailData maildata =generateMailData(request,dataTable.getId());
 				dataTable.setIsRemoved(true);
 				dataTableDao.update(dataTable);
 				List<Long> ugLit = new ArrayList<Long>();
@@ -300,7 +303,7 @@ public class DataTableServiceImpl implements DataTableService {
 	@Override
 	public Activity addDataTableComment(HttpServletRequest request, CommentLoggingData comment) {
 		try {
-			comment.setMailData(generateMailData(comment.getRootHolderId()));
+			comment.setMailData(generateMailData(request,comment.getRootHolderId()));
 			activityService = headers.addActivityHeaders(activityService, request.getHeader(HttpHeaders.AUTHORIZATION));
 			Activity result = activityService.addComment("datatable", comment);
 			return result;
