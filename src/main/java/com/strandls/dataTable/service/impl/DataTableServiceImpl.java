@@ -313,7 +313,11 @@ public class DataTableServiceImpl implements DataTableService {
 	@Override
 	public List<UserGroupIbp> updateUserGroupDatatableMapping(HttpServletRequest request, Long datatableId,
 			UserGroupCreateDatatable userGroups) {
+		DataTable dataTable = null;
 		try {
+			dataTable = dataTableDao.findById(datatableId);
+			userGroups.setTitle(dataTable.getTitle());
+			userGroups.setCreatedOn(dataTable.getCreatedOn());
 			userGroupService = headers.addUserGroupHeaders(userGroupService,
 					request.getHeader(HttpHeaders.AUTHORIZATION));
 			List<UserGroupIbp> result =userGroupService.updateDatatableUserGroupMapping(datatableId.toString(), userGroups);
