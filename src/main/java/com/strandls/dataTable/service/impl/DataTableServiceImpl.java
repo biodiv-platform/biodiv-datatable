@@ -237,6 +237,8 @@ public class DataTableServiceImpl implements DataTableService {
 				List<Long> ugLit = new ArrayList<Long>();
 				UserGroupCreateDatatable ugDatatable = new UserGroupCreateDatatable();
 				ugDatatable.setUserGroupIds(ugLit);
+				userGroupService = headers.addUserGroupHeaders(userGroupService,
+						request.getHeader(HttpHeaders.AUTHORIZATION));
 				userGroupService.updateDatatableUserGroupMapping(dataTable.getId().toString(), ugDatatable);
 				logActivities.LogActivity(request.getHeader(HttpHeaders.AUTHORIZATION), null, dataTable.getId(),
 						dataTable.getId(), "datatable", null, "Datatable deleted", generateMailData(dataTable.getId()));
