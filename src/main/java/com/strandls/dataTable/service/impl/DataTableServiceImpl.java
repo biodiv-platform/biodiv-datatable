@@ -232,6 +232,7 @@ public class DataTableServiceImpl implements DataTableService {
 			DataTable datatable = dataTableDao.findById(dataTableId);
 			if (datatable.getUploaderId() != null
 					&& (datatable.getUploaderId().equals(userId) || userRole.contains("ROLE_ADMIN"))) {
+				MailData maildata =generateMailData(dataTable.getId());
 				dataTable.setIsRemoved(true);
 				dataTableDao.update(dataTable);
 				List<Long> ugLit = new ArrayList<Long>();
@@ -241,7 +242,7 @@ public class DataTableServiceImpl implements DataTableService {
 						request.getHeader(HttpHeaders.AUTHORIZATION));
 				userGroupService.updateDatatableUserGroupMapping(dataTable.getId().toString(), ugDatatable);
 				logActivities.LogActivity(request.getHeader(HttpHeaders.AUTHORIZATION), null, dataTable.getId(),
-						dataTable.getId(), "datatable", null, "Datatable deleted", generateMailData(dataTable.getId()));
+						dataTable.getId(), "datatable", null, "Datatable deleted", maildata);
 				return "Observation Deleted Succesfully";
 			}
 		} catch (Exception e) {
