@@ -311,6 +311,8 @@ public class DataTableServiceImpl implements DataTableService {
 	public List<UserGroupIbp> updateUserGroupDatatableMapping(HttpServletRequest request, Long datatableId,
 			UserGroupCreateDatatable userGroups) {
 		try {
+			userGroupService = headers.addUserGroupHeaders(userGroupService,
+					request.getHeader(HttpHeaders.AUTHORIZATION));
 			List<UserGroupIbp> result =userGroupService.updateDatatableUserGroupMapping(datatableId.toString(), userGroups);
 			return result;
 		}catch (Exception e) {
