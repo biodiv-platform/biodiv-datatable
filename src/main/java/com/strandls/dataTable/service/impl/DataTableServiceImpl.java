@@ -173,7 +173,7 @@ public class DataTableServiceImpl implements DataTableService {
 
 			mailData.setDataTableMailData(dataTableMailData);
 			mailData.setUserGroupData(userGroupData);
-			System.out.println(mailData);
+
 			return mailData;
 
 		} catch (Exception e) {

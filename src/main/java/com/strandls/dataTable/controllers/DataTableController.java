@@ -199,8 +199,7 @@ public class DataTableController {
 			@ApiParam(name = "userGroupData") UserGroupCreateDatatable userGroupData) {
 		try {
 			Long datatableId = Long.parseLong(dataTableId);
-			List<UserGroupIbp> result = dataTableService.updateUserGroupDatatableMapping(request, datatableId,
-					userGroupData);
+			List<UserGroupIbp> result = dataTableService.updateUserGroupDatatableMapping(request, datatableId, userGroupData);
 			return Response.status(Status.OK).entity(result).build();
 		} catch (Exception e) {
 			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
