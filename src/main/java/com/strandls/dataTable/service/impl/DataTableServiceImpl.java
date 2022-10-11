@@ -173,6 +173,7 @@ public class DataTableServiceImpl implements DataTableService {
 
 			mailData.setDataTableMailData(dataTableMailData);
 			mailData.setUserGroupData(userGroupData);
+			System.out.println(mailData);
 			return mailData;
 
 		} catch (Exception e) {
@@ -316,16 +317,18 @@ public class DataTableServiceImpl implements DataTableService {
 	@Override
 	public List<UserGroupIbp> updateUserGroupDatatableMapping(HttpServletRequest request, Long datatableId,
 			UserGroupCreateDatatable userGroups) {
-		DataTable dataTable = null;
+		DataTable dataTable = new DataTable();
 		try {
 			dataTable = dataTableDao.findById(datatableId);
 			userGroups.setTitle(dataTable.getTitle());
 			userGroups.setCreatedOn(dataTable.getCreatedOn());
 			userGroups.setLocation(dataTable.getGeographicalCoveragePlaceName());
-			userGroupService = headers.addUserGroupHeaders(userGroupService,
-					request.getHeader(HttpHeaders.AUTHORIZATION));
-			List<UserGroupIbp> result =userGroupService.updateDatatableUserGroupMapping(datatableId.toString(), userGroups);
-			return result;
+			if(dataTable != null) {
+				userGroupService = headers.addUserGroupHeaders(userGroupService,
+						request.getHeader(HttpHeaders.AUTHORIZATION));
+				List<UserGroupIbp> result =userGroupService.updateDatatableUserGroupMapping(datatableId.toString(), userGroups);
+				return result;
+			}
 		}catch (Exception e) {
 			logger.error(e.getMessage());
 		}

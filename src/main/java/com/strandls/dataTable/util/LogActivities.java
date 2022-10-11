@@ -36,6 +36,7 @@ public class LogActivities {
 			activityLogging.setRootObjectType(rootObjectType);
 			activityLogging.setSubRootObjectId(subRootObjectId);
 			activityLogging.setMailData(mailData);
+
 			activityService = headers.addActivityHeaders(activityService, authHeader);
 			activityService.logDatatableActivities(activityLogging);
 		} catch (Exception e) {
