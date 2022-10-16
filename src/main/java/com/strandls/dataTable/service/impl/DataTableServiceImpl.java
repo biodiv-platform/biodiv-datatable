@@ -304,10 +304,12 @@ public class DataTableServiceImpl implements DataTableService {
 	@Override
 	public Activity addDataTableComment(HttpServletRequest request, CommentLoggingData comment) {
 		try {
-			comment.setMailData(generateMailData(request,comment.getRootHolderId()));
-			activityService = headers.addActivityHeaders(activityService, request.getHeader(HttpHeaders.AUTHORIZATION));
-			Activity result = activityService.addComment("datatable", comment);
-			return result;
+			if(comment != null) {
+				comment.setMailData(generateMailData(request,comment.getRootHolderId()));
+				activityService = headers.addActivityHeaders(activityService, request.getHeader(HttpHeaders.AUTHORIZATION));
+				Activity result = activityService.addComment("datatable", comment);
+				return result;
+			}
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
@@ -320,10 +322,10 @@ public class DataTableServiceImpl implements DataTableService {
 		DataTable dataTable = new DataTable();
 		try {
 			dataTable = dataTableDao.findById(datatableId);
-			userGroups.setTitle(dataTable.getTitle());
-			userGroups.setCreatedOn(dataTable.getCreatedOn());
-			userGroups.setLocation(dataTable.getGeographicalCoveragePlaceName());
 			if(dataTable != null) {
+				userGroups.setTitle(dataTable.getTitle());
+				userGroups.setCreatedOn(dataTable.getCreatedOn());
+				userGroups.setLocation(dataTable.getGeographicalCoveragePlaceName());
 				userGroupService = headers.addUserGroupHeaders(userGroupService,
 						request.getHeader(HttpHeaders.AUTHORIZATION));
 				List<UserGroupIbp> result =userGroupService.updateDatatableUserGroupMapping(datatableId.toString(), userGroups);
