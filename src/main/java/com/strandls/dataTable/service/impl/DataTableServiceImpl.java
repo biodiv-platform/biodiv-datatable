@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
+import com.strandls.dataTable.Headers;
 import com.strandls.dataTable.dao.DataTableDAO;
 import com.strandls.dataTable.dto.BulkDTO;
 import com.strandls.dataTable.pojo.DataTable;
@@ -33,6 +34,12 @@ import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.PrecisionModel;
 import com.vividsolutions.jts.io.WKTReader;
 import com.vividsolutions.jts.io.WKTWriter;
+import com.strandls.activity.controller.ActivitySerivceApi;
+import com.strandls.activity.pojo.Activity;
+import com.strandls.activity.pojo.CommentLoggingData;
+import com.strandls.activity.pojo.DataTableMailData;
+import com.strandls.activity.pojo.MailData;
+import com.strandls.activity.pojo.UserGroupMailData;
 import com.strandls.authentication_utility.util.AuthUtil;
 
 public class DataTableServiceImpl implements DataTableService {
@@ -55,6 +62,13 @@ public class DataTableServiceImpl implements DataTableService {
 
 	@Inject
 	private LogActivities logActivities;
+
+	@Inject
+	private ActivitySerivceApi activityService;
+
+	@Inject
+	private Headers headers;
+
 
 	@Override
 	public DataTableWkt show(Long dataTableId) {
@@ -131,6 +145,46 @@ public class DataTableServiceImpl implements DataTableService {
 	}
 
 	@Override
+	public MailData generateMailData(HttpServletRequest request,Long dataTableId) {
+		try {
+			MailData mailData = new MailData();
+			CommonProfile profile = AuthUtil.getProfileFromRequest(request);
+			String authorId = profile.getId();
+			DataTableMailData dataTableMailData = new DataTableMailData();
+			DataTable dataTable = dataTableDao.findById(dataTableId);
+			dataTableMailData.setAuthorId(Long.parseLong(authorId));
+			dataTableMailData.setCreatedOn(dataTable.getCreatedOn());
+			dataTableMailData.setDataTableId(dataTableId);
+			dataTableMailData.setTitle(dataTable.getTitle());
+			dataTableMailData.setLocation(dataTable.getGeographicalCoveragePlaceName());
+
+			List<UserGroupIbp> userGroup = userGroupService.getDataTableUserGroup(dataTable.getId().toString());
+			List<UserGroupMailData> userGroupData = new ArrayList<>();
+			if(userGroup!=null && !userGroup.isEmpty()) {
+				for (UserGroupIbp ugIbp : userGroup) {
+					UserGroupMailData ugMailData = new UserGroupMailData();
+					ugMailData.setId(ugIbp.getId());
+					ugMailData.setIcon(ugIbp.getIcon());
+					ugMailData.setName(ugIbp.getName());
+					ugMailData.setWebAddress(ugIbp.getWebAddress());
+					userGroupData.add(ugMailData);
+				}
+			}
+
+			mailData.setDataTableMailData(dataTableMailData);
+			mailData.setUserGroupData(userGroupData);
+
+			return mailData;
+
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+
+		}
+
+		return null;
+	}
+
+	@Override
 	public DataTableWkt createDataTable(HttpServletRequest request, BulkDTO bulkDto) {
 		try {
 			if (bulkDto == null) {
@@ -142,7 +196,7 @@ public class DataTableServiceImpl implements DataTableService {
 			dataTable = dataTableDao.save(dataTable);
 			List<UserGroupIbp> userGroup = userGroupService.getDataTableUserGroup(dataTable.getId().toString());
 			logActivities.LogActivity(request.getHeader(HttpHeaders.AUTHORIZATION), null, dataTable.getId(),
-					dataTable.getId(), "datatable", null, "Datatable created", null);
+					dataTable.getId(), "datatable", null, "Datatable created", generateMailData(request,dataTable.getId()));
 			return showDataTableMapper(dataTable, userGroup);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -182,12 +236,17 @@ public class DataTableServiceImpl implements DataTableService {
 			DataTable datatable = dataTableDao.findById(dataTableId);
 			if (datatable.getUploaderId() != null
 					&& (datatable.getUploaderId().equals(userId) || userRole.contains("ROLE_ADMIN"))) {
+				MailData maildata =generateMailData(request,dataTable.getId());
 				dataTable.setIsRemoved(true);
 				dataTableDao.update(dataTable);
 				List<Long> ugLit = new ArrayList<Long>();
 				UserGroupCreateDatatable ugDatatable = new UserGroupCreateDatatable();
 				ugDatatable.setUserGroupIds(ugLit);
+				userGroupService = headers.addUserGroupHeaders(userGroupService,
+						request.getHeader(HttpHeaders.AUTHORIZATION));
 				userGroupService.updateDatatableUserGroupMapping(dataTable.getId().toString(), ugDatatable);
+				logActivities.LogActivity(request.getHeader(HttpHeaders.AUTHORIZATION), null, dataTable.getId(),
+						dataTable.getId(), "datatable", null, "Datatable deleted", maildata);
 				return "Observation Deleted Succesfully";
 			}
 		} catch (Exception e) {
@@ -240,6 +299,42 @@ public class DataTableServiceImpl implements DataTableService {
 
 		return null;
 
+	}
+
+	@Override
+	public Activity addDataTableComment(HttpServletRequest request, CommentLoggingData comment) {
+		try {
+			if(comment != null) {
+				comment.setMailData(generateMailData(request,comment.getRootHolderId()));
+				activityService = headers.addActivityHeaders(activityService, request.getHeader(HttpHeaders.AUTHORIZATION));
+				Activity result = activityService.addComment("datatable", comment);
+				return result;
+			}
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return null;
+	}
+
+	@Override
+	public List<UserGroupIbp> updateUserGroupDatatableMapping(HttpServletRequest request, Long datatableId,
+			UserGroupCreateDatatable userGroups) {
+		DataTable dataTable = new DataTable();
+		try {
+			dataTable = dataTableDao.findById(datatableId);
+			if(dataTable != null) {
+				userGroups.setTitle(dataTable.getTitle());
+				userGroups.setCreatedOn(dataTable.getCreatedOn());
+				userGroups.setLocation(dataTable.getGeographicalCoveragePlaceName());
+				userGroupService = headers.addUserGroupHeaders(userGroupService,
+						request.getHeader(HttpHeaders.AUTHORIZATION));
+				List<UserGroupIbp> result =userGroupService.updateDatatableUserGroupMapping(datatableId.toString(), userGroups);
+				return result;
+			}
+		}catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return null;
 	}
 
 }
