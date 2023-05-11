@@ -30,5 +30,6 @@ public class ApiConstants {
 	public static final String ADD = "/add";
 	public static final String DATATABLE = "/datatable";
 	public static final String COMMENT = "/comment";
+	public static final String DELETE = "/delete";
 
 }

@@ -69,7 +69,6 @@ public class DataTableServiceImpl implements DataTableService {
 	@Inject
 	private Headers headers;
 
-
 	@Override
 	public DataTableWkt show(Long dataTableId) {
 		DataTable dataTable = null;
@@ -145,7 +144,7 @@ public class DataTableServiceImpl implements DataTableService {
 	}
 
 	@Override
-	public MailData generateMailData(HttpServletRequest request,Long dataTableId) {
+	public MailData generateMailData(HttpServletRequest request, Long dataTableId) {
 		try {
 			MailData mailData = new MailData();
 			CommonProfile profile = AuthUtil.getProfileFromRequest(request);
@@ -160,7 +159,7 @@ public class DataTableServiceImpl implements DataTableService {
 
 			List<UserGroupIbp> userGroup = userGroupService.getDataTableUserGroup(dataTable.getId().toString());
 			List<UserGroupMailData> userGroupData = new ArrayList<>();
-			if(userGroup!=null && !userGroup.isEmpty()) {
+			if (userGroup != null && !userGroup.isEmpty()) {
 				for (UserGroupIbp ugIbp : userGroup) {
 					UserGroupMailData ugMailData = new UserGroupMailData();
 					ugMailData.setId(ugIbp.getId());
@@ -196,7 +195,8 @@ public class DataTableServiceImpl implements DataTableService {
 			dataTable = dataTableDao.save(dataTable);
 			List<UserGroupIbp> userGroup = userGroupService.getDataTableUserGroup(dataTable.getId().toString());
 			logActivities.LogActivity(request.getHeader(HttpHeaders.AUTHORIZATION), null, dataTable.getId(),
-					dataTable.getId(), "datatable", null, "Datatable created", generateMailData(request,dataTable.getId()));
+					dataTable.getId(), "datatable", null, "Datatable created",
+					generateMailData(request, dataTable.getId()));
 			return showDataTableMapper(dataTable, userGroup);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -236,7 +236,7 @@ public class DataTableServiceImpl implements DataTableService {
 			DataTable datatable = dataTableDao.findById(dataTableId);
 			if (datatable.getUploaderId() != null
 					&& (datatable.getUploaderId().equals(userId) || userRole.contains("ROLE_ADMIN"))) {
-				MailData maildata =generateMailData(request,dataTable.getId());
+				MailData maildata = generateMailData(request, dataTable.getId());
 				dataTable.setIsRemoved(true);
 				dataTableDao.update(dataTable);
 				List<Long> ugLit = new ArrayList<Long>();
@@ -304,12 +304,26 @@ public class DataTableServiceImpl implements DataTableService {
 	@Override
 	public Activity addDataTableComment(HttpServletRequest request, CommentLoggingData comment) {
 		try {
-			if(comment != null) {
-				comment.setMailData(generateMailData(request,comment.getRootHolderId()));
-				activityService = headers.addActivityHeaders(activityService, request.getHeader(HttpHeaders.AUTHORIZATION));
+			if (comment != null) {
+				comment.setMailData(generateMailData(request, comment.getRootHolderId()));
+				activityService = headers.addActivityHeaders(activityService,
+						request.getHeader(HttpHeaders.AUTHORIZATION));
 				Activity result = activityService.addComment("datatable", comment);
 				return result;
 			}
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return null;
+	}
+
+	@Override
+	public Activity removeDatatableComment(HttpServletRequest request, CommentLoggingData comment, String commentId) {
+		try {
+			comment.setMailData(generateMailData(request, comment.getRootHolderId()));
+			activityService = headers.addActivityHeaders(activityService, request.getHeader(HttpHeaders.AUTHORIZATION));
+			Activity result = activityService.deleteComment("datatable", commentId, comment);
+			return result;
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
@@ -322,16 +336,17 @@ public class DataTableServiceImpl implements DataTableService {
 		DataTable dataTable = new DataTable();
 		try {
 			dataTable = dataTableDao.findById(datatableId);
-			if(dataTable != null) {
+			if (dataTable != null) {
 				userGroups.setTitle(dataTable.getTitle());
 				userGroups.setCreatedOn(dataTable.getCreatedOn());
 				userGroups.setLocation(dataTable.getGeographicalCoveragePlaceName());
 				userGroupService = headers.addUserGroupHeaders(userGroupService,
 						request.getHeader(HttpHeaders.AUTHORIZATION));
-				List<UserGroupIbp> result =userGroupService.updateDatatableUserGroupMapping(datatableId.toString(), userGroups);
+				List<UserGroupIbp> result = userGroupService.updateDatatableUserGroupMapping(datatableId.toString(),
+						userGroups);
 				return result;
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
 		return null;
