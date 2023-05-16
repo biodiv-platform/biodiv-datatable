@@ -1,6 +1,5 @@
 package com.strandls.dataTable.service;
 
-
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +21,7 @@ public interface DataTableService {
 
 	public DataTableWkt show(Long dataTableId);
 
-	public DataTableList dataTableList(String orderBy, Integer limit, Integer offset,String ugId);
+	public DataTableList dataTableList(String orderBy, Integer limit, Integer offset, String ugId);
 
 	public DataTableWkt createDataTable(HttpServletRequest request, BulkDTO bulkDto);
 
@@ -30,11 +29,13 @@ public interface DataTableService {
 
 	public String deleteDataTableById(HttpServletRequest request, CommonProfile profile, Long userId, Long dataTableId);
 
-	public MailData generateMailData(HttpServletRequest request,Long dataTableId);
+	public MailData generateMailData(HttpServletRequest request, Long dataTableId);
 
 	public Activity addDataTableComment(HttpServletRequest request, CommentLoggingData comment);
 
 	public List<UserGroupIbp> updateUserGroupDatatableMapping(HttpServletRequest request, Long datatableId,
 			UserGroupCreateDatatable userGroups);
+
+	public Activity removeDatatableComment(HttpServletRequest request, CommentLoggingData comment, String commentId);
 
 }

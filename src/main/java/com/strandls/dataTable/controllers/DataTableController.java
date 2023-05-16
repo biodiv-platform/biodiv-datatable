@@ -164,7 +164,7 @@ public class DataTableController {
 	}
 
 	@POST
-	@Path(ApiConstants.COMMENT+ApiConstants.ADD)
+	@Path(ApiConstants.COMMENT + ApiConstants.ADD)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 
@@ -177,6 +177,27 @@ public class DataTableController {
 			@ApiParam(name = "commentData") CommentLoggingData commentDatas) {
 		try {
 			Activity result = dataTableService.addDataTableComment(request, commentDatas);
+			return Response.status(Status.OK).entity(result).build();
+		} catch (Exception e) {
+			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
+		}
+
+	}
+
+	@POST
+	@Path(ApiConstants.DELETE + ApiConstants.COMMENT + "/{commentId}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+
+	@ValidateUser
+
+	@ApiOperation(value = "Deletes a comment", notes = "Return the current activity", response = Activity.class)
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "Unable to log a comment", response = String.class) })
+
+	public Response deleteCommnet(@Context HttpServletRequest request,
+			@ApiParam(name = "commentData") CommentLoggingData commentDatas, @PathParam("commentId") String commentId) {
+		try {
+			Activity result = dataTableService.removeDatatableComment(request, commentDatas, commentId);
 			return Response.status(Status.OK).entity(result).build();
 		} catch (Exception e) {
 			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -199,7 +220,8 @@ public class DataTableController {
 			@ApiParam(name = "userGroupData") UserGroupCreateDatatable userGroupData) {
 		try {
 			Long datatableId = Long.parseLong(dataTableId);
-			List<UserGroupIbp> result = dataTableService.updateUserGroupDatatableMapping(request, datatableId, userGroupData);
+			List<UserGroupIbp> result = dataTableService.updateUserGroupDatatableMapping(request, datatableId,
+					userGroupData);
 			return Response.status(Status.OK).entity(result).build();
 		} catch (Exception e) {
 			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
