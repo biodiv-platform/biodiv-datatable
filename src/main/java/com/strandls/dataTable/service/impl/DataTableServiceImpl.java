@@ -322,8 +322,7 @@ public class DataTableServiceImpl implements DataTableService {
 		try {
 			comment.setMailData(generateMailData(request, comment.getRootHolderId()));
 			activityService = headers.addActivityHeaders(activityService, request.getHeader(HttpHeaders.AUTHORIZATION));
-			Activity result = activityService.deleteComment("datatable", commentId, comment);
-			return result;
+			return activityService.deleteComment("datatable", commentId, comment);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
