@@ -339,6 +339,7 @@ public class DataTableServiceImpl implements DataTableService {
 				userGroups.setTitle(dataTable.getTitle());
 				userGroups.setCreatedOn(dataTable.getCreatedOn());
 				userGroups.setLocation(dataTable.getGeographicalCoveragePlaceName());
+				userGroups.setContributor(dataTable.getPartyContributorId().toString());
 				userGroupService = headers.addUserGroupHeaders(userGroupService,
 						request.getHeader(HttpHeaders.AUTHORIZATION));
 				List<UserGroupIbp> result = userGroupService.updateDatatableUserGroupMapping(datatableId.toString(),
