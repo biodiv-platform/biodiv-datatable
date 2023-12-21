@@ -192,7 +192,8 @@ public class DataTableServiceImpl implements DataTableService {
 			}
 			CommonProfile profile = AuthUtil.getProfileFromRequest(request);
 			Long userId = Long.parseLong(profile.getId());
-			DataTable dataTable = dataTableHelper.createDataTable(bulkDto, userId);
+			Long contributor = bulkDto.getContributors();
+			DataTable dataTable = dataTableHelper.createDataTable(bulkDto, contributor);
 			dataTable = dataTableDao.save(dataTable);
 			List<UserGroupIbp> userGroup = userGroupService.getDataTableUserGroup(dataTable.getId().toString());
 
