@@ -22,6 +22,7 @@ import com.strandls.dataTable.pojo.DataTableListMapping;
 import com.strandls.dataTable.pojo.DataTableWkt;
 import com.strandls.dataTable.service.DataTableService;
 import com.strandls.dataTable.util.LogActivities;
+import com.strandls.dataTable.util.TokenGenerator;
 import com.strandls.user.controller.UserServiceApi;
 import com.strandls.user.pojo.UserIbp;
 import com.strandls.userGroup.controller.UserGroupSerivceApi;
@@ -151,7 +152,7 @@ public class DataTableServiceImpl implements DataTableService {
 			String authorId = profile.getId();
 			DataTableMailData dataTableMailData = new DataTableMailData();
 			DataTable dataTable = dataTableDao.findById(dataTableId);
-			dataTableMailData.setAuthorId(Long.parseLong(authorId));
+			dataTableMailData.setAuthorId(dataTable.getPartyContributorId());
 			dataTableMailData.setCreatedOn(dataTable.getCreatedOn());
 			dataTableMailData.setDataTableId(dataTableId);
 			dataTableMailData.setTitle(dataTable.getTitle());
@@ -194,6 +195,15 @@ public class DataTableServiceImpl implements DataTableService {
 			DataTable dataTable = dataTableHelper.createDataTable(bulkDto, userId);
 			dataTable = dataTableDao.save(dataTable);
 			List<UserGroupIbp> userGroup = userGroupService.getDataTableUserGroup(dataTable.getId().toString());
+
+			TokenGenerator tokenGenerator = new TokenGenerator();
+
+			String jwtString = tokenGenerator
+					.generate(userService.getUser(dataTable.getPartyContributorId().toString()));
+
+			userService = headers.addUserHeaders(userService, jwtString);
+			userService.updateFollow("content.eml.Datatable", dataTable.getId().toString());
+
 			logActivities.LogActivity(request.getHeader(HttpHeaders.AUTHORIZATION), null, dataTable.getId(),
 					dataTable.getId(), "datatable", null, "Datatable created",
 					generateMailData(request, dataTable.getId()));
