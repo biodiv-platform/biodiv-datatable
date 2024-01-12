@@ -152,7 +152,7 @@ public class DataTableServiceImpl implements DataTableService {
 			String authorId = profile.getId();
 			DataTableMailData dataTableMailData = new DataTableMailData();
 			DataTable dataTable = dataTableDao.findById(dataTableId);
-			dataTableMailData.setAuthorId(dataTable.getPartyContributorId());
+			dataTableMailData.setAuthorId(Long.parseLong(authorId));
 			dataTableMailData.setCreatedOn(dataTable.getCreatedOn());
 			dataTableMailData.setDataTableId(dataTableId);
 			dataTableMailData.setTitle(dataTable.getTitle());
@@ -205,9 +205,12 @@ public class DataTableServiceImpl implements DataTableService {
 			userService = headers.addUserHeaders(userService, jwtString);
 			userService.updateFollow("content.eml.Datatable", dataTable.getId().toString());
 
+			MailData mailData = generateMailData(request, dataTable.getId());
+			DataTableMailData datatableMailData = mailData.getDataTableMailData();
+			datatableMailData.setAuthorId(contributor);
+
 			logActivities.LogActivity(request.getHeader(HttpHeaders.AUTHORIZATION), null, dataTable.getId(),
-					dataTable.getId(), "datatable", null, "Datatable created",
-					generateMailData(request, dataTable.getId()));
+					dataTable.getId(), "datatable", null, "Datatable created", mailData);
 			return showDataTableMapper(dataTable, userGroup);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
