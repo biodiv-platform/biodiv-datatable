@@ -190,8 +190,6 @@ public class DataTableServiceImpl implements DataTableService {
 			if (bulkDto == null) {
 				return null;
 			}
-			CommonProfile profile = AuthUtil.getProfileFromRequest(request);
-			Long userId = Long.parseLong(profile.getId());
 			Long contributor = bulkDto.getContributors();
 			DataTable dataTable = dataTableHelper.createDataTable(bulkDto, contributor);
 			dataTable = dataTableDao.save(dataTable);
