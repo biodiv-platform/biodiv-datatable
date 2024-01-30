@@ -22,6 +22,7 @@ import com.strandls.dataTable.pojo.DataTableListMapping;
 import com.strandls.dataTable.pojo.DataTableWkt;
 import com.strandls.dataTable.service.DataTableService;
 import com.strandls.dataTable.util.LogActivities;
+import com.strandls.dataTable.util.TokenGenerator;
 import com.strandls.user.controller.UserServiceApi;
 import com.strandls.user.pojo.UserIbp;
 import com.strandls.userGroup.controller.UserGroupSerivceApi;
@@ -189,14 +190,25 @@ public class DataTableServiceImpl implements DataTableService {
 			if (bulkDto == null) {
 				return null;
 			}
-			CommonProfile profile = AuthUtil.getProfileFromRequest(request);
-			Long userId = Long.parseLong(profile.getId());
-			DataTable dataTable = dataTableHelper.createDataTable(bulkDto, userId);
+			Long contributor = bulkDto.getContributors();
+			DataTable dataTable = dataTableHelper.createDataTable(bulkDto, contributor);
 			dataTable = dataTableDao.save(dataTable);
 			List<UserGroupIbp> userGroup = userGroupService.getDataTableUserGroup(dataTable.getId().toString());
+
+			TokenGenerator tokenGenerator = new TokenGenerator();
+
+			String jwtString = tokenGenerator
+					.generate(userService.getUser(dataTable.getPartyContributorId().toString()));
+
+			userService = headers.addUserHeaders(userService, jwtString);
+			userService.updateFollow("content.eml.Datatable", dataTable.getId().toString());
+
+			MailData mailData = generateMailData(request, dataTable.getId());
+			DataTableMailData datatableMailData = mailData.getDataTableMailData();
+			datatableMailData.setAuthorId(contributor);
+
 			logActivities.LogActivity(request.getHeader(HttpHeaders.AUTHORIZATION), null, dataTable.getId(),
-					dataTable.getId(), "datatable", null, "Datatable created",
-					generateMailData(request, dataTable.getId()));
+					dataTable.getId(), "datatable", null, "Datatable created", mailData);
 			return showDataTableMapper(dataTable, userGroup);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -339,6 +351,7 @@ public class DataTableServiceImpl implements DataTableService {
 				userGroups.setTitle(dataTable.getTitle());
 				userGroups.setCreatedOn(dataTable.getCreatedOn());
 				userGroups.setLocation(dataTable.getGeographicalCoveragePlaceName());
+				userGroups.setContributor(dataTable.getPartyContributorId().toString());
 				userGroupService = headers.addUserGroupHeaders(userGroupService,
 						request.getHeader(HttpHeaders.AUTHORIZATION));
 				List<UserGroupIbp> result = userGroupService.updateDatatableUserGroupMapping(datatableId.toString(),
