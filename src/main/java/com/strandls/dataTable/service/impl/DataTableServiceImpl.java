@@ -101,7 +101,6 @@ public class DataTableServiceImpl implements DataTableService {
 
 				UserGroupDatatableMapping res = userGroupService.getDataTablebyUserGroupId(userGroupDatatableFetch);
 				if (res != null && res.getTotal() > 0) {
-					orderBy = orderBy != null && orderBy.contains("lastRevised") ? null : orderBy;
 					List<Long> dataTableIds = res.getUserGroupDataTableList().stream()
 							.map((item) -> item.getDataTableId()).collect(Collectors.toList());
 					datatableList = dataTableDao.getDataTableListByIds("OBSERVATIONS", orderBy, dataTableIds, offset,
