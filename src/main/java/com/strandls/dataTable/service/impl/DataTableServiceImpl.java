@@ -96,18 +96,16 @@ public class DataTableServiceImpl implements DataTableService {
 			if (ugId != null && !ugId.isEmpty()) {
 				UserGroupDatatableFetch userGroupDatatableFetch = new UserGroupDatatableFetch();
 				userGroupDatatableFetch.setUserGroupId(Long.parseLong(ugId));
-				userGroupDatatableFetch.setOffset(offset);
-				userGroupDatatableFetch.setLimit(limit);
+				userGroupDatatableFetch.setOffset(null);
+				userGroupDatatableFetch.setLimit(null);
 
 				UserGroupDatatableMapping res = userGroupService.getDataTablebyUserGroupId(userGroupDatatableFetch);
 				if (res != null && res.getTotal() > 0) {
-					orderBy = orderBy != null && orderBy.contains("lastRevised") ? null : orderBy;
 					List<Long> dataTableIds = res.getUserGroupDataTableList().stream()
 							.map((item) -> item.getDataTableId()).collect(Collectors.toList());
-					datatableList = dataTableDao.getDataTableListByIds("OBSERVATIONS", orderBy, dataTableIds);
-					total = datatableList.size() != dataTableIds.size()
-							? res.getTotal() - (dataTableIds.size() - datatableList.size())
-							: res.getTotal();
+					datatableList = dataTableDao.getDataTableListByIds("OBSERVATIONS", orderBy, dataTableIds, offset,
+							limit);
+					total = res.getTotal();
 				}
 
 			} else {

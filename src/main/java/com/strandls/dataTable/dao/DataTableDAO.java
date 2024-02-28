@@ -45,7 +45,8 @@ public class DataTableDAO extends AbstractDAO<DataTable, Long> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<DataTable> getDataTableListByIds(String dataTableType, String orderBy, List<Long> dataTableIds) {
+	public List<DataTable> getDataTableListByIds(String dataTableType, String orderBy, List<Long> dataTableIds,
+			Integer offset, Integer limit) {
 		String qry = orderBy == null
 				? "from DataTable where  id IN :dataTableIds and dataTableType = :dataTableType and isRemoved = false order by lastRevised desc"
 				: "from DataTable where  id IN :dataTableIds and dataTableType = :dataTableType and isRemoved = false order by createdOn desc";
@@ -55,6 +56,9 @@ public class DataTableDAO extends AbstractDAO<DataTable, Long> {
 			Query<DataTable> query = session.createQuery(qry);
 			query.setParameter("dataTableIds", dataTableIds);
 			query.setParameter("dataTableType", dataTableType);
+			query.setFirstResult(offset);
+			query.setMaxResults(limit);
+
 			result = query.getResultList();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
