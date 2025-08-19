@@ -4,108 +4,76 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.CriteriaSpecification;
 
 public abstract class AbstractDAO<T, K extends Serializable> {
 
-	protected SessionFactory sessionFactory;
+	protected final SessionFactory sessionFactory;
 
-	protected Class<? extends T> daoType;
+	protected final Class<T> daoType;
 
 	@SuppressWarnings("unchecked")
 	protected AbstractDAO(SessionFactory sessionFactory) {
-		daoType = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 		this.sessionFactory = sessionFactory;
+		this.daoType = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
 	public T save(T entity) {
-		Session session = sessionFactory.openSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
+		return executeInTransaction(session -> {
 			session.save(entity);
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null)
-				tx.rollback();
-			throw e;
-		} finally {
-			session.close();
-		}
-		return entity;
+			return entity;
+		});
 	}
 
 	public T update(T entity) {
-		Session session = sessionFactory.openSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
+		return executeInTransaction(session -> {
 			session.update(entity);
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null)
-				tx.rollback();
-			throw e;
-		} finally {
-			session.close();
-		}
-		return entity;
+			return entity;
+		});
 	}
 
 	public T delete(T entity) {
-		Session session = sessionFactory.openSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
+		return executeInTransaction(session -> {
 			session.delete(entity);
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null)
-				tx.rollback();
-			throw e;
-		} finally {
-			session.close();
-		}
-		return entity;
+			return entity;
+		});
 	}
 
 	public abstract T findById(K id);
 
-	@SuppressWarnings({ "unchecked", "deprecation" })
 	public List<T> findAll() {
-		List<T> entities = null;
-		Session session = sessionFactory.openSession();
-		try {
-			Criteria criteria = session.createCriteria(daoType);
-			entities = criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
-		} catch (Exception e) {
-			throw e;
-		} finally {
-			session.close();
+		try (Session session = sessionFactory.openSession()) {
+			String hql = "FROM " + daoType.getSimpleName();
+			return session.createQuery(hql, daoType).list();
 		}
-
-		return entities;
 	}
 
-	@SuppressWarnings({ "unchecked", "deprecation" })
 	public List<T> findAll(int limit, int offset) {
-		List<T> entities = null;
-		Session session = sessionFactory.openSession();
-		try {
-			Criteria criteria = session.createCriteria(daoType).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
-			entities = criteria.setFirstResult(offset).setMaxResults(limit).list();
-		} catch (Exception e) {
-			throw e;
-		} finally {
-			session.close();
+		try (Session session = sessionFactory.openSession()) {
+			String hql = "FROM " + daoType.getSimpleName();
+			return session.createQuery(hql, daoType).setFirstResult(offset).setMaxResults(limit).list();
 		}
-
-		return entities;
 	}
 
+	// Generic transaction execution wrapper
+	protected <R> R executeInTransaction(HibernateTransaction<R> action) {
+		Transaction tx = null;
+		try (Session session = sessionFactory.openSession()) {
+			tx = session.beginTransaction();
+			R result = action.execute(session);
+			tx.commit();
+			return result;
+		} catch (RuntimeException e) {
+			if (tx != null)
+				tx.rollback();
+			throw e;
+		}
+	}
+
+	@FunctionalInterface
+	public interface HibernateTransaction<R> {
+		R execute(Session session);
+	}
 }

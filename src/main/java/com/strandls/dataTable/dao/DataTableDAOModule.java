@@ -3,7 +3,7 @@ package com.strandls.dataTable.dao;
 import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
 
-public class DataTableDAOModule  extends AbstractModule{
+public class DataTableDAOModule extends AbstractModule {
 
 	@Override
 	protected void configure() {

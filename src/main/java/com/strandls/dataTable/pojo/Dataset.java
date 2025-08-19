@@ -1,9 +1,15 @@
 package com.strandls.dataTable.pojo;
 
+import java.util.Date;
+
 import com.vividsolutions.jts.geom.Geometry;
 
-import javax.persistence.*;
-import java.util.Date;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "dataset1", schema = "public")
@@ -58,7 +64,6 @@ public class Dataset {
 		this.id = id;
 	}
 
-	
 	@Column(name = "version", nullable = false)
 	public Long getVersion() {
 		return version;
@@ -68,8 +73,7 @@ public class Dataset {
 		this.version = version;
 	}
 
-	
-	@Column(name = "access_license_id",nullable = false)
+	@Column(name = "access_license_id", nullable = false)
 	public Long getAccessLicenseId() {
 		return accessLicenseId;
 	}
@@ -78,7 +82,6 @@ public class Dataset {
 		this.accessLicenseId = accessLicenseId;
 	}
 
-	
 	@Column(name = "access_rights")
 	public String getAccessRights() {
 		return accessRights;
@@ -88,7 +91,6 @@ public class Dataset {
 		this.accessRights = accessRights;
 	}
 
-	
 	@Column(name = "created_on", nullable = false)
 	public Date getCreatedOn() {
 		return createdOn;
@@ -98,7 +100,6 @@ public class Dataset {
 		this.createdOn = createdOn;
 	}
 
-	
 	@Column(name = "custom_fields")
 	public String getCustomFields() {
 		return customFields;
@@ -108,7 +109,6 @@ public class Dataset {
 		this.customFields = customFields;
 	}
 
-	
 	@Column(name = "description")
 	public String getDescription() {
 		return description;
@@ -118,7 +118,6 @@ public class Dataset {
 		this.description = description;
 	}
 
-	
 	@Column(name = "external_id")
 	public String getExternalId() {
 		return externalId;
@@ -128,7 +127,6 @@ public class Dataset {
 		this.externalId = externalId;
 	}
 
-	
 	@Column(name = "external_url")
 	public String getExternalUrl() {
 		return externalUrl;
@@ -138,7 +136,6 @@ public class Dataset {
 		this.externalUrl = externalUrl;
 	}
 
-	
 	@Column(name = "feature_count", nullable = false)
 	public Integer getFeatureCount() {
 		return featureCount;
@@ -148,7 +145,6 @@ public class Dataset {
 		this.featureCount = featureCount;
 	}
 
-	
 	@Column(name = "flag_count", nullable = false)
 	public Integer getFlagCount() {
 		return flagCount;
@@ -158,7 +154,6 @@ public class Dataset {
 		this.flagCount = flagCount;
 	}
 
-	
 	@Column(name = "geographical_coverage_geo_privacy", nullable = false)
 	public Boolean isGeographicalCoverageGeoPrivacy() {
 		return geographicalCoverageGeoPrivacy;
@@ -168,7 +163,6 @@ public class Dataset {
 		this.geographicalCoverageGeoPrivacy = geographicalCoverageGeoPrivacy;
 	}
 
-	
 	@Column(name = "geographical_coverage_latitude", nullable = false)
 	public Double getGeographicalCoverageLatitude() {
 		return geographicalCoverageLatitude;
@@ -178,7 +172,6 @@ public class Dataset {
 		this.geographicalCoverageLatitude = geographicalCoverageLatitude;
 	}
 
-	
 	@Column(name = "geographical_coverage_location_accuracy")
 	public String getGeographicalCoverageLocationAccuracy() {
 		return geographicalCoverageLocationAccuracy;
@@ -188,7 +181,6 @@ public class Dataset {
 		this.geographicalCoverageLocationAccuracy = geographicalCoverageLocationAccuracy;
 	}
 
-	
 	@Column(name = "geographical_coverage_location_scale", nullable = false)
 	public String getGeographicalCoverageLocationScale() {
 		return geographicalCoverageLocationScale;
@@ -198,7 +190,6 @@ public class Dataset {
 		this.geographicalCoverageLocationScale = geographicalCoverageLocationScale;
 	}
 
-	
 	@Column(name = "geographical_coverage_longitude", nullable = false)
 	public Double getGeographicalCoverageLongitude() {
 		return geographicalCoverageLongitude;
@@ -208,7 +199,6 @@ public class Dataset {
 		this.geographicalCoverageLongitude = geographicalCoverageLongitude;
 	}
 
-	
 	@Column(name = "geographical_coverage_place_name")
 	public String getGeographicalCoveragePlaceName() {
 		return geographicalCoveragePlaceName;
@@ -218,7 +208,6 @@ public class Dataset {
 		this.geographicalCoveragePlaceName = geographicalCoveragePlaceName;
 	}
 
-	
 	@Column(name = "geographical_coverage_topology")
 	public Geometry getGeographicalCoverageTopology() {
 		return geographicalCoverageTopology;
@@ -228,7 +217,6 @@ public class Dataset {
 		this.geographicalCoverageTopology = geographicalCoverageTopology;
 	}
 
-	
 	@Column(name = "is_deleted", nullable = false)
 	public Boolean isDeleted() {
 		return isDeleted;
@@ -238,7 +226,6 @@ public class Dataset {
 		isDeleted = deleted;
 	}
 
-	
 	@Column(name = "last_revised", nullable = false)
 	public Date getLastRevised() {
 		return lastRevised;
@@ -248,7 +235,6 @@ public class Dataset {
 		this.lastRevised = lastRevised;
 	}
 
-	
 	@Column(name = "methods")
 	public String getMethods() {
 		return methods;
@@ -258,7 +244,6 @@ public class Dataset {
 		this.methods = methods;
 	}
 
-	
 	@Column(name = "party_attributions")
 	public String getPartyAttributions() {
 		return partyAttributions;
@@ -268,7 +253,6 @@ public class Dataset {
 		this.partyAttributions = partyAttributions;
 	}
 
-	
 	@Column(name = "party_contributor_id", nullable = false)
 	public Long getPartyContributorId() {
 		return partyContributorId;
@@ -278,7 +262,6 @@ public class Dataset {
 		this.partyContributorId = partyContributorId;
 	}
 
-	
 	@Column(name = "party_uploader_id", nullable = false)
 	public Long getPartyUploaderId() {
 		return partyUploaderId;
@@ -288,7 +271,6 @@ public class Dataset {
 		this.partyUploaderId = partyUploaderId;
 	}
 
-	
 	@Column(name = "project")
 	public String getProject() {
 		return project;
@@ -298,7 +280,6 @@ public class Dataset {
 		this.project = project;
 	}
 
-	
 	@Column(name = "rating", nullable = false)
 	public Integer getRating() {
 		return rating;
@@ -308,7 +289,6 @@ public class Dataset {
 		this.rating = rating;
 	}
 
-	
 	@Column(name = "taxonomic_coverage_group_ids", nullable = false)
 	public String getTaxonomicCoverageGroupIds() {
 		return taxonomicCoverageGroupIds;
@@ -318,7 +298,6 @@ public class Dataset {
 		this.taxonomicCoverageGroupIds = taxonomicCoverageGroupIds;
 	}
 
-	
 	@Column(name = "temporal_coverage_from_date", nullable = false)
 	public Date getTemporalCoverageFromDate() {
 		return temporalCoverageFromDate;
@@ -328,7 +307,6 @@ public class Dataset {
 		this.temporalCoverageFromDate = temporalCoverageFromDate;
 	}
 
-	
 	@Column(name = "temporal_coverage_to_date")
 	public Date getTemporalCoverageToDate() {
 		return temporalCoverageToDate;
@@ -338,7 +316,6 @@ public class Dataset {
 		this.temporalCoverageToDate = temporalCoverageToDate;
 	}
 
-	
 	@Column(name = "title", nullable = false)
 	public String getTitle() {
 		return title;
@@ -348,7 +325,6 @@ public class Dataset {
 		this.title = title;
 	}
 
-	
 	@Column(name = "via_code")
 	public String getViaCode() {
 		return viaCode;
@@ -358,7 +334,6 @@ public class Dataset {
 		this.viaCode = viaCode;
 	}
 
-	
 	@Column(name = "via_id")
 	public String getViaId() {
 		return viaId;
@@ -368,7 +343,6 @@ public class Dataset {
 		this.viaId = viaId;
 	}
 
-	
 	@Column(name = "temporal_coverage_date_accuracy")
 	public String getTemporalCoverageDateAccuracy() {
 		return temporalCoverageDateAccuracy;
@@ -378,7 +352,6 @@ public class Dataset {
 		this.temporalCoverageDateAccuracy = temporalCoverageDateAccuracy;
 	}
 
-	
 	@Column(name = "summary", nullable = false)
 	public String getSummary() {
 		return summary;
@@ -388,8 +361,7 @@ public class Dataset {
 		this.summary = summary;
 	}
 
-	
-	@Column(name = "language_id" ,nullable = false)
+	@Column(name = "language_id", nullable = false)
 	public Integer getLanguageId() {
 		return languageId;
 	}
@@ -398,8 +370,7 @@ public class Dataset {
 		this.languageId = languageId;
 	}
 
-	
-	@Column(name = "data_package_id",nullable = false)
+	@Column(name = "data_package_id", nullable = false)
 	public Integer getDataPackageId() {
 		return dataPackageId;
 	}
@@ -408,7 +379,6 @@ public class Dataset {
 		this.dataPackageId = dataPackageId;
 	}
 
-	
 	@Column(name = "uploader_id", nullable = false)
 	public Integer getUploaderId() {
 		return uploaderId;
@@ -418,7 +388,6 @@ public class Dataset {
 		this.uploaderId = uploaderId;
 	}
 
-	
 	@Column(name = "u_file_id", nullable = false)
 	public Integer getuFIleId() {
 		return uFIleId;

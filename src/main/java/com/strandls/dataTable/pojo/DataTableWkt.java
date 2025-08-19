@@ -50,7 +50,8 @@ public class DataTableWkt {
 			String geographicalCoveragePlaceName, String summary, String dataTableType,
 			String geographicalCoverageTopology, String temporalCoverageDateAccuracy, String basisOfRecord,
 			Boolean isVerified, String description, String geographicalCoverageLocationScale, String project,
-			String methods,Date temporalCoverageFromDate,String fieldMapping,Date temporalCoverageToDate,List<UserGroupIbp> userGroup) {
+			String methods, Date temporalCoverageFromDate, String fieldMapping, Date temporalCoverageToDate,
+			List<UserGroupIbp> userGroup) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -80,7 +81,7 @@ public class DataTableWkt {
 		this.temporalCoverageFromDate = temporalCoverageFromDate;
 		this.fieldMapping = fieldMapping;
 		this.temporalCoverageToDate = temporalCoverageToDate;
-		this.userGroup = userGroup;	
+		this.userGroup = userGroup;
 	}
 
 	public Long getId() {

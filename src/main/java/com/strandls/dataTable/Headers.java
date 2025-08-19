@@ -1,20 +1,20 @@
 package com.strandls.dataTable;
 
-import javax.ws.rs.core.HttpHeaders;
-
-import com.strandls.activity.controller.ActivitySerivceApi;
+import com.strandls.activity.controller.ActivityServiceApi;
 import com.strandls.resource.controllers.ResourceServicesApi;
 import com.strandls.user.controller.UserServiceApi;
-import com.strandls.userGroup.controller.UserGroupSerivceApi;
+import com.strandls.userGroup.controller.UserGroupServiceApi;
+
+import jakarta.ws.rs.core.HttpHeaders;
 
 /**
- * 
+ *
  * @author vishnu
  *
  */
 public class Headers {
 
-	public ActivitySerivceApi addActivityHeaders(ActivitySerivceApi activityService, String authHeader) {
+	public ActivityServiceApi addActivityHeaders(ActivityServiceApi activityService, String authHeader) {
 		activityService.getApiClient().addDefaultHeader(HttpHeaders.AUTHORIZATION, authHeader);
 		return activityService;
 	}
@@ -29,7 +29,7 @@ public class Headers {
 		return userService;
 	}
 
-	public UserGroupSerivceApi addUserGroupHeaders(UserGroupSerivceApi userGroupService, String authHeader) {
+	public UserGroupServiceApi addUserGroupHeaders(UserGroupServiceApi userGroupService, String authHeader) {
 		userGroupService.getApiClient().addDefaultHeader(HttpHeaders.AUTHORIZATION, authHeader);
 		return userGroupService;
 	}

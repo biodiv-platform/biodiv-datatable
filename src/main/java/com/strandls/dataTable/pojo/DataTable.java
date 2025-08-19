@@ -1,504 +1,487 @@
 package com.strandls.dataTable.pojo;
 
+import java.util.Date;
+
+import org.hibernate.annotations.ColumnDefault;
+
 import com.bedatadriven.jackson.datatype.jts.serialization.GeometryDeserializer;
 import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.vividsolutions.jts.geom.Geometry;
 
-import javax.persistence.*;
-
-import org.hibernate.annotations.ColumnDefault;
-
-import java.util.Date;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "data_table", schema = "public")
 public class DataTable {
-    private Long id;
-    private Long version;
-    private Long accessLicenseId;
-    private String accessRights;
-    private Boolean agreeTerms;
-    private Long checklistId;
-    private String columns;
-    private Date createdOn;
-    private String customFields;
-    private String dataTableType;
-    private Long datasetId;
-    private String description;
-    private String externalId;
-    private String externalUrl;
-    private Integer featureCount;
-    private Integer flagCount;
-    private Boolean geographicalCoverageGeoPrivacy;
-    private Double geographicalCoverageLatitude;
-    private String geographicalCoverageLocationAccuracy;
-    private String geographicalCoverageLocationScale;
-    private Double geographicalCoverageLongitude;
-    private String geographicalCoveragePlaceName;
-    private Geometry geographicalCoverageTopology;
-  
-    private Date lastRevised;
-    private String methods;
-    private String partyAttributions;
-    private Long partyContributorId;
-    private Long partyUploaderId;
-    private String project;
-    private Integer rating;
-    private String taxonomicCoverageGroupIds;
-    private Date temporalCoverageFromDate;
-    private Date temporalCoverageToDate;
-    private String title;
-    private String viaCode;
-    private String viaId;
-    private String temporalCoverageDateAccuracy;
-    private String summary;
-    private String basisOfData;
-    private Long imagesFileId;
-    private Long languageId;
-    private Long traitValueFileId;
-    private Long uploadLogId;
-    private Long uFileId;
-    private Long uploaderId;
-    private String basisOfRecord;
-    private Boolean isVerified;
-    private Boolean isRemoved;
-    private String fieldMapping;
+	private Long id;
+	private Long version;
+	private Long accessLicenseId;
+	private String accessRights;
+	private Boolean agreeTerms;
+	private Long checklistId;
+	private String columns;
+	private Date createdOn;
+	private String customFields;
+	private String dataTableType;
+	private Long datasetId;
+	private String description;
+	private String externalId;
+	private String externalUrl;
+	private Integer featureCount;
+	private Integer flagCount;
+	private Boolean geographicalCoverageGeoPrivacy;
+	private Double geographicalCoverageLatitude;
+	private String geographicalCoverageLocationAccuracy;
+	private String geographicalCoverageLocationScale;
+	private Double geographicalCoverageLongitude;
+	private String geographicalCoveragePlaceName;
+	private Geometry geographicalCoverageTopology;
 
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getId() {
-        return id;
-    }
+	private Date lastRevised;
+	private String methods;
+	private String partyAttributions;
+	private Long partyContributorId;
+	private Long partyUploaderId;
+	private String project;
+	private Integer rating;
+	private String taxonomicCoverageGroupIds;
+	private Date temporalCoverageFromDate;
+	private Date temporalCoverageToDate;
+	private String title;
+	private String viaCode;
+	private String viaId;
+	private String temporalCoverageDateAccuracy;
+	private String summary;
+	private String basisOfData;
+	private Long imagesFileId;
+	private Long languageId;
+	private Long traitValueFileId;
+	private Long uploadLogId;
+	private Long uFileId;
+	private Long uploaderId;
+	private String basisOfRecord;
+	private Boolean isVerified;
+	private Boolean isRemoved;
+	private String fieldMapping;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@Id
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public Long getId() {
+		return id;
+	}
 
-    @Column(name = "version", nullable = false)
-    public Long getVersion() {
-        return version;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setVersion(Long version) {
-        this.version = version;
-    }
+	@Column(name = "version", nullable = false)
+	public Long getVersion() {
+		return version;
+	}
 
-    @Column(name = "access_license_id", nullable = false)
-    public Long getAccessLicenseId() {
-        return accessLicenseId;
-    }
+	public void setVersion(Long version) {
+		this.version = version;
+	}
 
-    public void setAccessLicenseId(Long accessLicenseId) {
-        this.accessLicenseId = accessLicenseId;
-    }
+	@Column(name = "access_license_id", nullable = false)
+	public Long getAccessLicenseId() {
+		return accessLicenseId;
+	}
 
-    @Column(name = "access_rights")
-    public String getAccessRights() {
-        return accessRights;
-    }
+	public void setAccessLicenseId(Long accessLicenseId) {
+		this.accessLicenseId = accessLicenseId;
+	}
 
-    public void setAccessRights(String accessRights) {
-        this.accessRights = accessRights;
-    }
+	@Column(name = "access_rights")
+	public String getAccessRights() {
+		return accessRights;
+	}
 
-    @Column(name = "agree_terms", nullable = false)
-    public Boolean getAgreeTerms() {
-        return agreeTerms;
-    }
+	public void setAccessRights(String accessRights) {
+		this.accessRights = accessRights;
+	}
 
-    public void setAgreeTerms(Boolean agreeTerms) {
-        this.agreeTerms = agreeTerms;
-    }
+	@Column(name = "agree_terms", nullable = false)
+	public Boolean getAgreeTerms() {
+		return agreeTerms;
+	}
 
-    @Column(name = "checklist_id")
-    public Long getChecklistId() {
-        return checklistId;
-    }
+	public void setAgreeTerms(Boolean agreeTerms) {
+		this.agreeTerms = agreeTerms;
+	}
 
-    public void setChecklistId(Long checklistId) {
-        this.checklistId = checklistId;
-    }
+	@Column(name = "checklist_id")
+	public Long getChecklistId() {
+		return checklistId;
+	}
 
-    @Column(name = "columns", nullable = false)
-    public String getColumns() {
-        return columns;
-    }
+	public void setChecklistId(Long checklistId) {
+		this.checklistId = checklistId;
+	}
 
-    public void setColumns(String columns) {
-        this.columns = columns;
-    }
+	@Column(name = "columns", nullable = false)
+	public String getColumns() {
+		return columns;
+	}
 
-    
-    @Column(name = "created_on",nullable = false)
-    public Date getCreatedOn() {
-        return createdOn;
-    }
+	public void setColumns(String columns) {
+		this.columns = columns;
+	}
 
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
-    }
+	@Column(name = "created_on", nullable = false)
+	public Date getCreatedOn() {
+		return createdOn;
+	}
 
-    
-    @Column(name = "custom_fields")
-    public String getCustomFields() {
-        return customFields;
-    }
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
 
-    public void setCustomFields(String customFields) {
-        this.customFields = customFields;
-    }
+	@Column(name = "custom_fields")
+	public String getCustomFields() {
+		return customFields;
+	}
 
-    @Column(name = "data_table_type", nullable = false)
-    public String getDataTableType() {
-        return dataTableType;
-    }
+	public void setCustomFields(String customFields) {
+		this.customFields = customFields;
+	}
 
-    public void setDataTableType(String dataTableType) {
-        this.dataTableType = dataTableType;
-    }
+	@Column(name = "data_table_type", nullable = false)
+	public String getDataTableType() {
+		return dataTableType;
+	}
 
-    
-    @Column(name = "dataset_id")
-    public Long getDatasetId() {
-        return datasetId;
-    }
+	public void setDataTableType(String dataTableType) {
+		this.dataTableType = dataTableType;
+	}
 
-    public void setDatasetId(Long datasetId) {
-        this.datasetId = datasetId;
-    }
+	@Column(name = "dataset_id")
+	public Long getDatasetId() {
+		return datasetId;
+	}
 
-    
-    @Column(name = "description")
-    public String getDescription() {
-        return description;
-    }
+	public void setDatasetId(Long datasetId) {
+		this.datasetId = datasetId;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	@Column(name = "description")
+	public String getDescription() {
+		return description;
+	}
 
-    
-    @Column(name = "external_id")
-    public String getExternalId() {
-        return externalId;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setExternalId(String externalId) {
-        this.externalId = externalId;
-    }
+	@Column(name = "external_id")
+	public String getExternalId() {
+		return externalId;
+	}
 
-    
-    @Column(name = "external_url")
-    public String getExternalUrl() {
-        return externalUrl;
-    }
+	public void setExternalId(String externalId) {
+		this.externalId = externalId;
+	}
 
-    public void setExternalUrl(String externalUrl) {
-        this.externalUrl = externalUrl;
-    }
+	@Column(name = "external_url")
+	public String getExternalUrl() {
+		return externalUrl;
+	}
 
-    @Column(name = "feature_count", nullable = false)
-    public Integer getFeatureCount() {
-        return featureCount;
-    }
+	public void setExternalUrl(String externalUrl) {
+		this.externalUrl = externalUrl;
+	}
 
-    public void setFeatureCount(Integer featureCount) {
-        this.featureCount = featureCount;
-    }
+	@Column(name = "feature_count", nullable = false)
+	public Integer getFeatureCount() {
+		return featureCount;
+	}
 
-    @Column(name = "flag_count", nullable = false)
-    public Integer getFlagCount() {
-        return flagCount;
-    }
+	public void setFeatureCount(Integer featureCount) {
+		this.featureCount = featureCount;
+	}
 
-    public void setFlagCount(Integer flagCount) {
-        this.flagCount = flagCount;
-    }
+	@Column(name = "flag_count", nullable = false)
+	public Integer getFlagCount() {
+		return flagCount;
+	}
 
-    @Column(name = "geographical_coverage_geo_privacy", nullable = false)
-    public Boolean getGeographicalCoverageGeoPrivacy() {
-        return geographicalCoverageGeoPrivacy;
-    }
+	public void setFlagCount(Integer flagCount) {
+		this.flagCount = flagCount;
+	}
 
-    public void setGeographicalCoverageGeoPrivacy(Boolean geographicalCoverageGeoPrivacy) {
-        this.geographicalCoverageGeoPrivacy = geographicalCoverageGeoPrivacy;
-    }
+	@Column(name = "geographical_coverage_geo_privacy", nullable = false)
+	public Boolean getGeographicalCoverageGeoPrivacy() {
+		return geographicalCoverageGeoPrivacy;
+	}
 
-    @Column(name = "geographical_coverage_latitude", nullable = false)
-    public Double getGeographicalCoverageLatitude() {
-        return geographicalCoverageLatitude;
-    }
+	public void setGeographicalCoverageGeoPrivacy(Boolean geographicalCoverageGeoPrivacy) {
+		this.geographicalCoverageGeoPrivacy = geographicalCoverageGeoPrivacy;
+	}
 
-    public void setGeographicalCoverageLatitude(Double geographicalCoverageLatitude) {
-        this.geographicalCoverageLatitude = geographicalCoverageLatitude;
-    }
+	@Column(name = "geographical_coverage_latitude", nullable = false)
+	public Double getGeographicalCoverageLatitude() {
+		return geographicalCoverageLatitude;
+	}
 
-    
-    @Column(name = "geographical_coverage_location_accuracy")
-    public String getGeographicalCoverageLocationAccuracy() {
-        return geographicalCoverageLocationAccuracy;
-    }
+	public void setGeographicalCoverageLatitude(Double geographicalCoverageLatitude) {
+		this.geographicalCoverageLatitude = geographicalCoverageLatitude;
+	}
 
-    public void setGeographicalCoverageLocationAccuracy(String geographicalCoverageLocationAccuracy) {
-        this.geographicalCoverageLocationAccuracy = geographicalCoverageLocationAccuracy;
-    }
+	@Column(name = "geographical_coverage_location_accuracy")
+	public String getGeographicalCoverageLocationAccuracy() {
+		return geographicalCoverageLocationAccuracy;
+	}
 
-    @Column(name = "geographical_coverage_location_scale", nullable = false)
-    public String getGeographicalCoverageLocationScale() {
-        return geographicalCoverageLocationScale;
-    }
+	public void setGeographicalCoverageLocationAccuracy(String geographicalCoverageLocationAccuracy) {
+		this.geographicalCoverageLocationAccuracy = geographicalCoverageLocationAccuracy;
+	}
 
-    public void setGeographicalCoverageLocationScale(String geographicalCoverageLocationScale) {
-        this.geographicalCoverageLocationScale = geographicalCoverageLocationScale;
-    }
+	@Column(name = "geographical_coverage_location_scale", nullable = false)
+	public String getGeographicalCoverageLocationScale() {
+		return geographicalCoverageLocationScale;
+	}
 
-    @Column(name = "geographical_coverage_longitude", nullable = false)
-    public Double getGeographicalCoverageLongitude() {
-        return geographicalCoverageLongitude;
-    }
+	public void setGeographicalCoverageLocationScale(String geographicalCoverageLocationScale) {
+		this.geographicalCoverageLocationScale = geographicalCoverageLocationScale;
+	}
 
-    public void setGeographicalCoverageLongitude(Double geographicalCoverageLongitude) {
-        this.geographicalCoverageLongitude = geographicalCoverageLongitude;
-    }
+	@Column(name = "geographical_coverage_longitude", nullable = false)
+	public Double getGeographicalCoverageLongitude() {
+		return geographicalCoverageLongitude;
+	}
 
-    
-    @Column(name = "geographical_coverage_place_name")
-    public String getGeographicalCoveragePlaceName() {
-        return geographicalCoveragePlaceName;
-    }
+	public void setGeographicalCoverageLongitude(Double geographicalCoverageLongitude) {
+		this.geographicalCoverageLongitude = geographicalCoverageLongitude;
+	}
 
-    public void setGeographicalCoveragePlaceName(String geographicalCoveragePlaceName) {
-        this.geographicalCoveragePlaceName = geographicalCoveragePlaceName;
-    }
+	@Column(name = "geographical_coverage_place_name")
+	public String getGeographicalCoveragePlaceName() {
+		return geographicalCoveragePlaceName;
+	}
 
-    
-    @Column(name = "geographical_coverage_topology", columnDefinition = "Geometry")
-    @JsonSerialize(using = GeometrySerializer.class)
+	public void setGeographicalCoveragePlaceName(String geographicalCoveragePlaceName) {
+		this.geographicalCoveragePlaceName = geographicalCoveragePlaceName;
+	}
+
+	@Column(name = "geographical_coverage_topology", columnDefinition = "Geometry")
+	@JsonSerialize(using = GeometrySerializer.class)
 	@JsonDeserialize(using = GeometryDeserializer.class)
-    public Geometry getGeographicalCoverageTopology() {
-        return geographicalCoverageTopology;
-    }
+	public Geometry getGeographicalCoverageTopology() {
+		return geographicalCoverageTopology;
+	}
 
-    public void setGeographicalCoverageTopology(Geometry geographicalCoverageTopology) {
-        this.geographicalCoverageTopology = geographicalCoverageTopology;
-    }
+	public void setGeographicalCoverageTopology(Geometry geographicalCoverageTopology) {
+		this.geographicalCoverageTopology = geographicalCoverageTopology;
+	}
 
+	@Column(name = "last_revised", nullable = false)
+	public Date getLastRevised() {
+		return lastRevised;
+	}
 
-    @Column(name = "last_revised", nullable = false)
-    public Date getLastRevised() {
-        return lastRevised;
-    }
+	public void setLastRevised(Date lastRevised) {
+		this.lastRevised = lastRevised;
+	}
 
-    public void setLastRevised(Date lastRevised) {
-        this.lastRevised = lastRevised;
-    }
+	@Column(name = "methods")
+	public String getMethods() {
+		return methods;
+	}
 
-    
-    @Column(name = "methods")
-    public String getMethods() {
-        return methods;
-    }
+	public void setMethods(String methods) {
+		this.methods = methods;
+	}
 
-    public void setMethods(String methods) {
-        this.methods = methods;
-    }
+	@Column(name = "party_attributions")
+	public String getPartyAttributions() {
+		return partyAttributions;
+	}
 
-    
-    @Column(name = "party_attributions")
-    public String getPartyAttributions() {
-        return partyAttributions;
-    }
+	public void setPartyAttributions(String partyAttributions) {
+		this.partyAttributions = partyAttributions;
+	}
 
-    public void setPartyAttributions(String partyAttributions) {
-        this.partyAttributions = partyAttributions;
-    }
+	@Column(name = "party_contributor_id", nullable = false)
+	public Long getPartyContributorId() {
+		return partyContributorId;
+	}
 
-    @Column(name = "party_contributor_id", nullable = false)
-    public Long getPartyContributorId() {
-        return partyContributorId;
-    }
+	public void setPartyContributorId(Long partyContributorId) {
+		this.partyContributorId = partyContributorId;
+	}
 
-    public void setPartyContributorId(Long partyContributorId) {
-        this.partyContributorId = partyContributorId;
-    }
+	@Column(name = "party_uploader_id", nullable = false)
+	public Long getPartyUploaderId() {
+		return partyUploaderId;
+	}
 
-    @Column(name = "party_uploader_id", nullable = false)
-    public Long getPartyUploaderId() {
-        return partyUploaderId;
-    }
+	public void setPartyUploaderId(Long partyUploaderId) {
+		this.partyUploaderId = partyUploaderId;
+	}
 
-    public void setPartyUploaderId(Long partyUploaderId) {
-        this.partyUploaderId = partyUploaderId;
-    }
+	@Column(name = "project")
+	public String getProject() {
+		return project;
+	}
 
-    
-    @Column(name = "project")
-    public String getProject() {
-        return project;
-    }
+	public void setProject(String project) {
+		this.project = project;
+	}
 
-    public void setProject(String project) {
-        this.project = project;
-    }
+	@Column(name = "rating", nullable = false)
+	public int getRating() {
+		return rating;
+	}
 
-    @Column(name = "rating",nullable = false)
-    public int getRating() {
-        return rating;
-    }
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
 
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
+	@Column(name = "taxonomic_coverage_group_ids", nullable = false)
+	public String getTaxonomicCoverageGroupIds() {
+		return taxonomicCoverageGroupIds;
+	}
 
-    
-    @Column(name = "taxonomic_coverage_group_ids",nullable = false)
-    public String getTaxonomicCoverageGroupIds() {
-        return taxonomicCoverageGroupIds;
-    }
+	public void setTaxonomicCoverageGroupIds(String taxonomicCoverageGroupIds) {
+		this.taxonomicCoverageGroupIds = taxonomicCoverageGroupIds;
+	}
 
-    public void setTaxonomicCoverageGroupIds(String taxonomicCoverageGroupIds) {
-        this.taxonomicCoverageGroupIds = taxonomicCoverageGroupIds;
-    }
+	@Column(name = "temporal_coverage_from_date")
+	public Date getTemporalCoverageFromDate() {
+		return temporalCoverageFromDate;
+	}
 
-    
-    @Column(name = "temporal_coverage_from_date")
-    public Date getTemporalCoverageFromDate() {
-        return temporalCoverageFromDate;
-    }
+	public void setTemporalCoverageFromDate(Date temporalCoverageFromDate) {
+		this.temporalCoverageFromDate = temporalCoverageFromDate;
+	}
 
-    public void setTemporalCoverageFromDate(Date temporalCoverageFromDate) {
-        this.temporalCoverageFromDate = temporalCoverageFromDate;
-    }
+	@Column(name = "temporal_coverage_to_date")
+	public Date getTemporalCoverageToDate() {
+		return temporalCoverageToDate;
+	}
 
-    
-    @Column(name = "temporal_coverage_to_date")
-    public Date getTemporalCoverageToDate() {
-        return temporalCoverageToDate;
-    }
+	public void setTemporalCoverageToDate(Date temporalCoverageToDate) {
+		this.temporalCoverageToDate = temporalCoverageToDate;
+	}
 
-    public void setTemporalCoverageToDate(Date temporalCoverageToDate) {
-        this.temporalCoverageToDate = temporalCoverageToDate;
-    }
+	@Column(name = "title", nullable = false)
+	public String getTitle() {
+		return title;
+	}
 
-    
-    @Column(name = "title",nullable = false)
-    public String getTitle() {
-        return title;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	@Column(name = "via_code")
+	public String getViaCode() {
+		return viaCode;
+	}
 
-    
-    @Column(name = "via_code")
-    public String getViaCode() {
-        return viaCode;
-    }
+	public void setViaCode(String viaCode) {
+		this.viaCode = viaCode;
+	}
 
-    public void setViaCode(String viaCode) {
-        this.viaCode = viaCode;
-    }
+	@Column(name = "via_id")
+	public String getViaId() {
+		return viaId;
+	}
 
-    
-    @Column(name = "via_id")
-    public String getViaId() {
-        return viaId;
-    }
+	public void setViaId(String viaId) {
+		this.viaId = viaId;
+	}
 
-    public void setViaId(String viaId) {
-        this.viaId = viaId;
-    }
+	@Column(name = "temporal_coverage_date_accuracy")
+	public String getTemporalCoverageDateAccuracy() {
+		return temporalCoverageDateAccuracy;
+	}
 
-    
-    @Column(name = "temporal_coverage_date_accuracy")
-    public String getTemporalCoverageDateAccuracy() {
-        return temporalCoverageDateAccuracy;
-    }
+	public void setTemporalCoverageDateAccuracy(String temporalCoverageDateAccuracy) {
+		this.temporalCoverageDateAccuracy = temporalCoverageDateAccuracy;
+	}
 
-    public void setTemporalCoverageDateAccuracy(String temporalCoverageDateAccuracy) {
-        this.temporalCoverageDateAccuracy = temporalCoverageDateAccuracy;
-    }
+	@Column(name = "summary", nullable = false)
+	public String getSummary() {
+		return summary;
+	}
 
-    @Column(name = "summary",nullable = false)
-    public String getSummary() {
-        return summary;
-    }
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
 
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
+	@Column(name = "basis_of_data", columnDefinition = "varchar(255)")
+	@ColumnDefault("PRIMARY_OBSERVATION")
+	public String getBasisOfData() {
+		return basisOfData;
+	}
 
-    @Column(name = "basis_of_data", columnDefinition = "varchar(255)")
-    @ColumnDefault("PRIMARY_OBSERVATION")
-    public String getBasisOfData() {
-        return basisOfData;
-    }
+	public void setBasisOfData(String basisOfData) {
+		this.basisOfData = basisOfData;
+	}
 
-    public void setBasisOfData(String basisOfData) {
-        this.basisOfData = basisOfData;
-    }
+	@Column(name = "images_file_id")
+	public Long getImagesFileId() {
+		return imagesFileId;
+	}
 
-    
-    @Column(name = "images_file_id")
-    public Long getImagesFileId() {
-        return imagesFileId;
-    }
+	public void setImagesFileId(Long imagesFileId) {
+		this.imagesFileId = imagesFileId;
+	}
 
-    public void setImagesFileId(Long imagesFileId) {
-        this.imagesFileId = imagesFileId;
-    }
+	@Column(name = "language_id", nullable = false)
+	public Long getLanguageId() {
+		return languageId;
+	}
 
-    @Column(name = "language_id", nullable = false)
-    public Long getLanguageId() {
-        return languageId;
-    }
+	public void setLanguageId(Long languageId) {
+		this.languageId = languageId;
+	}
 
-    public void setLanguageId(Long languageId) {
-        this.languageId = languageId;
-    }
+	@Column(name = "trait_value_file_id")
+	public Long getTraitValueFileId() {
+		return traitValueFileId;
+	}
 
-    
-    @Column(name = "trait_value_file_id")
-    public Long getTraitValueFileId() {
-        return traitValueFileId;
-    }
+	public void setTraitValueFileId(Long traitValueFileId) {
+		this.traitValueFileId = traitValueFileId;
+	}
 
-    public void setTraitValueFileId(Long traitValueFileId) {
-        this.traitValueFileId = traitValueFileId;
-    }
+	@Column(name = "u_file_id", nullable = false)
+	public Long getuFileId() {
+		return uFileId;
+	}
 
-    @Column(name = "u_file_id", nullable = false)
-    public Long getuFileId() {
-        return uFileId;
-    }
+	public void setuFileId(Long uFileId) {
+		this.uFileId = uFileId;
+	}
 
-    public void setuFileId(Long uFileId) {
-        this.uFileId = uFileId;
-    }
+	@Column(name = "upload_log_id")
+	public Long getUploadLogId() {
+		return uploadLogId;
+	}
 
-    
-    @Column(name = "upload_log_id")
-    public Long getUploadLogId() {
-        return uploadLogId;
-    }
+	public void setUploadLogId(Long uploadLogId) {
+		this.uploadLogId = uploadLogId;
+	}
 
-    public void setUploadLogId(Long uploadLogId) {
-        this.uploadLogId = uploadLogId;
-    }
+	@Column(name = "uploader_id", nullable = false)
+	public Long getUploaderId() {
+		return uploaderId;
+	}
 
-    @Column(name = "uploader_id", nullable = false)
-    public Long getUploaderId() {
-        return uploaderId;
-    }
+	public void setUploaderId(Long uploaderId) {
+		this.uploaderId = uploaderId;
+	}
 
-    public void setUploaderId(Long uploaderId) {
-        this.uploaderId = uploaderId;
-    }
-    @Column(name = "basis_of_record")
+	@Column(name = "basis_of_record")
 	public String getBasisOfRecord() {
 		return basisOfRecord;
 	}
@@ -506,6 +489,7 @@ public class DataTable {
 	public void setBasisOfRecord(String basisOfRecord) {
 		this.basisOfRecord = basisOfRecord;
 	}
+
 	@Column(name = "is_verified")
 	public Boolean getIsVerified() {
 		return isVerified;
@@ -514,7 +498,7 @@ public class DataTable {
 	public void setIsVerified(Boolean isVerified) {
 		this.isVerified = isVerified;
 	}
-	
+
 	@Column(name = "field_mapping")
 	public String getFieldMapping() {
 		return fieldMapping;

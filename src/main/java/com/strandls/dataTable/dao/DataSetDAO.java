@@ -1,7 +1,5 @@
 package com.strandls.dataTable.dao;
 
-import javax.inject.Inject;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -11,9 +9,11 @@ import org.slf4j.LoggerFactory;
 import com.strandls.dataTable.pojo.Dataset;
 import com.strandls.dataTable.util.AbstractDAO;
 
+import jakarta.inject.Inject;
+
 public class DataSetDAO extends AbstractDAO<Dataset, Long> {
 
-	private  final Logger logger = LoggerFactory.getLogger(DataSetDAO.class);
+	private final Logger logger = LoggerFactory.getLogger(DataSetDAO.class);
 
 	@Inject
 	protected DataSetDAO(SessionFactory sessionFactory) {

@@ -8,8 +8,6 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.UUID;
 
-import javax.inject.Inject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,8 +23,10 @@ import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.PrecisionModel;
 
+import jakarta.inject.Inject;
+
 public class DatasetDefaultGenerator {
-	
+
 	private final Logger logger = LoggerFactory.getLogger(DatasetDefaultGenerator.class);
 
 	@Inject
@@ -40,7 +40,6 @@ public class DatasetDefaultGenerator {
 	@Inject
 	private UserServiceApi userService;
 
-	
 	public void configureDataSetDefault(String title) {
 
 		try {

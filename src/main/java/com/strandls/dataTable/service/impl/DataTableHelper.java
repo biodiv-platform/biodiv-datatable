@@ -1,6 +1,12 @@
 package com.strandls.dataTable.service.impl;
 
-import javax.inject.Inject;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.strandls.dataTable.dao.DataSetDAO;
 import com.strandls.dataTable.dto.BulkDTO;
@@ -15,13 +21,7 @@ import com.vividsolutions.jts.geom.PrecisionModel;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import jakarta.inject.Inject;
 
 public class DataTableHelper {
 
@@ -29,10 +29,9 @@ public class DataTableHelper {
 	private DataSetDAO datasetDao;
 
 	private final Logger logger = LoggerFactory.getLogger(DataTableHelper.class);
-	
+
 	private Long defaultLanguageId = Long
 			.parseLong(PropertyFileUtil.fetchProperty("config.properties", "defaultLanguageId"));
-
 
 	public DataTable createDataTable(BulkDTO bulkDto, Long userId) {
 		DataTable dataTable = new DataTable();
@@ -64,7 +63,7 @@ public class DataTableHelper {
 		if (!bulkDto.getWktString().isEmpty()) {
 			try {
 				Geometry geoBoundary = wktRdr.read(bulkDto.getWktString());
-				Point intPoint = geoBoundary.getInteriorPoint();	
+				Point intPoint = geoBoundary.getInteriorPoint();
 				dataTable.setGeographicalCoverageLatitude(intPoint.getY());
 				dataTable.setGeographicalCoverageLongitude(intPoint.getX());
 				dataTable.setGeographicalCoverageTopology(geoBoundary);
@@ -104,7 +103,7 @@ public class DataTableHelper {
 		dataTable.setUploadLogId(null);
 		dataTable.setUploaderId(userId);
 		dataTable.setBasisOfData(bulkDto.getBasisOfData());
-		
+
 		dataTable.setIsVerified(bulkDto.getIsVerified());
 		dataTable.setFieldMapping(bulkDto.getFieldMapping());
 		dataTable.setBasisOfRecord(bulkDto.getBasisOfRecord());

@@ -1,6 +1,6 @@
 package com.strandls.dataTable.util;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public class DatasetDefaultHelper {
 

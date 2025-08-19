@@ -1,18 +1,22 @@
 package com.strandls.dataTable.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.core.HttpHeaders;
-
 import org.pac4j.core.profile.CommonProfile;
-import net.minidev.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
+import com.strandls.activity.controller.ActivityServiceApi;
+import com.strandls.activity.pojo.Activity;
+import com.strandls.activity.pojo.CommentLoggingData;
+import com.strandls.activity.pojo.DataTableMailData;
+import com.strandls.activity.pojo.MailData;
+import com.strandls.activity.pojo.UserGroupMailData;
+import com.strandls.authentication_utility.util.AuthUtil;
 import com.strandls.dataTable.Headers;
 import com.strandls.dataTable.dao.DataTableDAO;
 import com.strandls.dataTable.dto.BulkDTO;
@@ -25,7 +29,7 @@ import com.strandls.dataTable.util.LogActivities;
 import com.strandls.dataTable.util.TokenGenerator;
 import com.strandls.user.controller.UserServiceApi;
 import com.strandls.user.pojo.UserIbp;
-import com.strandls.userGroup.controller.UserGroupSerivceApi;
+import com.strandls.userGroup.controller.UserGroupServiceApi;
 import com.strandls.userGroup.pojo.UserGroupCreateDatatable;
 import com.strandls.userGroup.pojo.UserGroupDatatableFetch;
 import com.strandls.userGroup.pojo.UserGroupDatatableMapping;
@@ -35,13 +39,10 @@ import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.PrecisionModel;
 import com.vividsolutions.jts.io.WKTReader;
 import com.vividsolutions.jts.io.WKTWriter;
-import com.strandls.activity.controller.ActivitySerivceApi;
-import com.strandls.activity.pojo.Activity;
-import com.strandls.activity.pojo.CommentLoggingData;
-import com.strandls.activity.pojo.DataTableMailData;
-import com.strandls.activity.pojo.MailData;
-import com.strandls.activity.pojo.UserGroupMailData;
-import com.strandls.authentication_utility.util.AuthUtil;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.ws.rs.core.HttpHeaders;
+import net.minidev.json.JSONArray;
 
 public class DataTableServiceImpl implements DataTableService {
 
@@ -53,7 +54,7 @@ public class DataTableServiceImpl implements DataTableService {
 	private UserServiceApi userService;
 
 	@Inject
-	private UserGroupSerivceApi userGroupService;
+	private UserGroupServiceApi userGroupService;
 
 	@Inject
 	private DataTableHelper dataTableHelper;
@@ -65,7 +66,7 @@ public class DataTableServiceImpl implements DataTableService {
 	private LogActivities logActivities;
 
 	@Inject
-	private ActivitySerivceApi activityService;
+	private ActivityServiceApi activityService;
 
 	@Inject
 	private Headers headers;
@@ -151,7 +152,8 @@ public class DataTableServiceImpl implements DataTableService {
 			DataTableMailData dataTableMailData = new DataTableMailData();
 			DataTable dataTable = dataTableDao.findById(dataTableId);
 			dataTableMailData.setAuthorId(Long.parseLong(authorId));
-			dataTableMailData.setCreatedOn(dataTable.getCreatedOn());
+			Date dt = dataTable.getCreatedOn();
+			dataTableMailData.setCreatedOn(dt);
 			dataTableMailData.setDataTableId(dataTableId);
 			dataTableMailData.setTitle(dataTable.getTitle());
 			dataTableMailData.setLocation(dataTable.getGeographicalCoveragePlaceName());

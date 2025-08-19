@@ -8,7 +8,8 @@ import org.slf4j.LoggerFactory;
 public class PropertyFileUtil {
 
 	/**
-	 * since all the class members are static, we need to add a private static constructor 
+	 * since all the class members are static, we need to add a private static
+	 * constructor
 	 */
 	private PropertyFileUtil() {
 		super();
