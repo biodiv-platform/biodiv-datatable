@@ -30,6 +30,7 @@
 		<property name="hibernate.hikari.idleTimeout">10000</property>
 
 		<property name="hibernate.jdbc.lob.non_contextual_creation">true</property>
+		<property name="hibernate.id.db_structure_naming_strategy">legacy</property>
 
 	</session-factory>
 </hibernate-configuration>
