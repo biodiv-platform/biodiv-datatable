@@ -34,11 +34,11 @@ import com.strandls.userGroup.pojo.UserGroupCreateDatatable;
 import com.strandls.userGroup.pojo.UserGroupDatatableFetch;
 import com.strandls.userGroup.pojo.UserGroupDatatableMapping;
 import com.strandls.userGroup.pojo.UserGroupIbp;
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.PrecisionModel;
-import com.vividsolutions.jts.io.WKTReader;
-import com.vividsolutions.jts.io.WKTWriter;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.PrecisionModel;
+import org.locationtech.jts.io.WKTReader;
+import org.locationtech.jts.io.WKTWriter;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.core.HttpHeaders;

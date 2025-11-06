@@ -41,9 +41,9 @@ import com.strandls.dataTable.util.DatasetDefaultHelper;
 import com.strandls.resource.controllers.ResourceServicesApi;
 import com.strandls.user.controller.UserServiceApi;
 import com.strandls.userGroup.controller.UserGroupServiceApi;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.PrecisionModel;
-import com.vividsolutions.jts.io.WKTWriter;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.PrecisionModel;
+import org.locationtech.jts.io.WKTWriter;
 
 import jakarta.servlet.ServletContextEvent;
 
