@@ -1,6 +1,5 @@
 package com.strandls.dataTable.dao;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -108,8 +107,8 @@ public class DataTableDAO extends AbstractDAO<DataTable, Long> {
 
 		Long total = null;
 		try {
-			Query<BigInteger> query = session.createNativeQuery(qry);
-			total = query.getSingleResult().longValue();
+			Query<Long> query = session.createNativeQuery(qry);
+			total = query.getSingleResult();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		} finally {
