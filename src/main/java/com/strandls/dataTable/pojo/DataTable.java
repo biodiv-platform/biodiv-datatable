@@ -4,13 +4,11 @@ import java.util.Date;
 
 import org.hibernate.annotations.ColumnDefault;
 
-import com.bedatadriven.jackson.datatype.jts.serialization.GeometryDeserializer;
-import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
+import org.n52.jackson.datatype.jts.GeometryDeserializer;
+import org.n52.jackson.datatype.jts.GeometrySerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.locationtech.jts.geom.Geometry;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -274,7 +272,6 @@ public class DataTable {
 	}
 
 	@Column(name = "geographical_coverage_topology", columnDefinition = "Geometry")
-	@JdbcTypeCode(SqlTypes.GEOMETRY)
 	@JsonSerialize(using = GeometrySerializer.class)
 	@JsonDeserialize(using = GeometryDeserializer.class)
 	public Geometry getGeographicalCoverageTopology() {
