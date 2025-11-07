@@ -78,7 +78,15 @@ public class DataTableHelper {
 		}
 
 		Dataset dataset = datasetDao.findDataSetByTitle("standalone_dataset");
-		Long datasetid = bulkDto.getDataset() != null ? bulkDto.getDataset() : dataset.getId();
+		Long datasetid;
+		if (bulkDto.getDataset() != null) {
+			datasetid = bulkDto.getDataset();
+		} else if (dataset != null) {
+			datasetid = dataset.getId();
+		} else {
+			throw new IllegalStateException(
+				"Default dataset 'standalone_dataset' not found. Please ensure the application has fully initialized.");
+		}
 		dataTable.setDatasetId(datasetid);
 		dataTable.setImagesFileId(null);
 		dataTable.setLanguageId(defaultLanguageId);

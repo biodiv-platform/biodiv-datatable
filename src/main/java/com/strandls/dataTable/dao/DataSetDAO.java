@@ -37,14 +37,16 @@ public class DataSetDAO extends AbstractDAO<Dataset, Long> {
 
 	public Dataset findDataSetByTitle(String title) {
 		Session session = sessionFactory.openSession();
-		String qry = "select * from dataset1 where is_deleted = false and title = :keyword limit 1";
+		String hql = "from Dataset where isDeleted = false and title = :keyword";
 
 		Dataset result = null;
 		try {
-			Query<Dataset> query = session.createNativeQuery(qry, Dataset.class).setParameter("keyword", title);
-			result = query.getSingleResult();
+			Query<Dataset> query = session.createQuery(hql, Dataset.class)
+					.setParameter("keyword", title)
+					.setMaxResults(1);
+			result = query.uniqueResult();
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error("Error finding dataset by title: {}", title, e);
 		} finally {
 			session.close();
 		}
