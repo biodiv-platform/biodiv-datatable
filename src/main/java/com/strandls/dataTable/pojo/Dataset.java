@@ -7,6 +7,8 @@ import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.locationtech.jts.geom.Geometry;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -213,6 +215,7 @@ public class Dataset {
 	}
 
 	@Column(name = "geographical_coverage_topology", columnDefinition = "Geometry")
+	@JdbcTypeCode(SqlTypes.GEOMETRY)
 	@JsonSerialize(using = GeometrySerializer.class)
 	@JsonDeserialize(using = GeometryDeserializer.class)
 	public Geometry getGeographicalCoverageTopology() {
