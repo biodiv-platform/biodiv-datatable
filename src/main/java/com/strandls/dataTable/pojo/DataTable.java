@@ -16,6 +16,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "data_table", schema = "public")
@@ -272,6 +274,7 @@ public class DataTable {
 	}
 
 	@Column(name = "geographical_coverage_topology", columnDefinition = "Geometry")
+	@JdbcTypeCode(SqlTypes.GEOMETRY)
 	@JsonSerialize(using = GeometrySerializer.class)
 	@JsonDeserialize(using = GeometryDeserializer.class)
 	public Geometry getGeographicalCoverageTopology() {

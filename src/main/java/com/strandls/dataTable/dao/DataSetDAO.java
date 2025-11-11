@@ -37,7 +37,7 @@ public class DataSetDAO extends AbstractDAO<Dataset, Long> {
 
 	public Dataset findDataSetByTitle(String title) {
 		Session session = sessionFactory.openSession();
-		String hql = "from Dataset where deleted = false and title = :keyword";
+		String hql = "from Dataset d where d.deleted = false and d.title = :keyword";
 
 		Dataset result = null;
 		try {
