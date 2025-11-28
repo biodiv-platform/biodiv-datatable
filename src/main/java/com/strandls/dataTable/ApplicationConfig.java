@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Injector;
+import com.strandls.authentication_utility.filter.InterceptorModule;
 
 import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
@@ -67,6 +68,9 @@ public class ApplicationConfig extends Application {
 				logger.info("Container reload...");
 			}
 		});
+
+		// Register InterceptorModule for @ValidateUser annotation support
+		singletons.add(new InterceptorModule());
 
 		// Swagger OpenAPI 3 resource
 		singletons.add(new OpenApiResource());
