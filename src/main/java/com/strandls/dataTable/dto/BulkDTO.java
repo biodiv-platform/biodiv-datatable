@@ -45,6 +45,7 @@ public class BulkDTO {
 //    private String basisOfRecord;
 	private String basisOfRecord;
 	private Boolean isVerified;
+	private Boolean allowExternalPublishing;
 	private String fieldMapping;
 
 	// other fields related to bulk upload
@@ -248,6 +249,14 @@ public class BulkDTO {
 
 	public void setIsVerified(Boolean isVerified) {
 		this.isVerified = isVerified;
+	}
+
+	public Boolean getAllowExternalPublishing() {
+		return allowExternalPublishing;
+	}
+
+	public void setAllowExternalPublishing(Boolean allowExternalPublishing) {
+		this.allowExternalPublishing = allowExternalPublishing;
 	}
 
 	public String getFieldMapping() {

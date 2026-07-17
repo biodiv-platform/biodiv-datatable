@@ -72,6 +72,7 @@ public class DataTable {
 	private Boolean isVerified;
 	private Boolean isRemoved;
 	private String fieldMapping;
+	private Boolean allowExternalPublishing;
 
 	@Id
 	@Column(name = "id", nullable = false)
@@ -518,5 +519,14 @@ public class DataTable {
 
 	public void setIsRemoved(Boolean isRemoved) {
 		this.isRemoved = isRemoved;
+	}
+
+	@Column(name = "allow_external_publishing", columnDefinition = "boolean default true")
+	public Boolean getAllowExternalPublishing() {
+		return allowExternalPublishing;
+	}
+
+	public void setAllowExternalPublishing(Boolean allowExternalPublishing) {
+		this.allowExternalPublishing = allowExternalPublishing;
 	}
 }
