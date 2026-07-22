@@ -36,6 +36,7 @@ public class DataTableWkt {
 	private Date temporalCoverageToDate;
 	private String basisOfRecord;
 	private Boolean isVerified;
+	private Boolean allowExternalPublishing;
 	private String fieldMapping;
 	private List<UserGroupIbp> userGroup;
 
@@ -49,9 +50,9 @@ public class DataTableWkt {
 			Double geographicalCoverageLongitude, Long datasetId, String partyAttributions,
 			String geographicalCoveragePlaceName, String summary, String dataTableType,
 			String geographicalCoverageTopology, String temporalCoverageDateAccuracy, String basisOfRecord,
-			Boolean isVerified, String description, String geographicalCoverageLocationScale, String project,
-			String methods, Date temporalCoverageFromDate, String fieldMapping, Date temporalCoverageToDate,
-			List<UserGroupIbp> userGroup) {
+			Boolean isVerified, Boolean allowExternalPublishing, String description,
+			String geographicalCoverageLocationScale, String project, String methods, Date temporalCoverageFromDate,
+			String fieldMapping, Date temporalCoverageToDate, List<UserGroupIbp> userGroup) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -74,7 +75,8 @@ public class DataTableWkt {
 		this.temporalCoverageDateAccuracy = temporalCoverageDateAccuracy;
 		this.basisOfRecord = basisOfRecord;
 		this.isVerified = isVerified;
-		this.description = description;
+		this.allowExternalPublishing = allowExternalPublishing;
+		this.description = description;	
 		this.geographicalCoverageLocationScale = geographicalCoverageLocationScale;
 		this.project = project;
 		this.methods = methods;
@@ -242,6 +244,14 @@ public class DataTableWkt {
 
 	public void setIsVerified(Boolean isVerified) {
 		this.isVerified = isVerified;
+	}
+
+	public Boolean getAllowExternalPublishing() {
+		return allowExternalPublishing;
+	}
+
+	public void setAllowExternalPublishing(Boolean allowExternalPublishing) {
+		this.allowExternalPublishing = allowExternalPublishing;
 	}
 
 	public String getTemporalCoverageDateAccuracy() {
