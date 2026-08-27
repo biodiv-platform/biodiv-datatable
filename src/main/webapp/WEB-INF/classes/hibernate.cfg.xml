@@ -28,6 +28,10 @@
 		<!-- Maximum time that a connection is allowed to sit ideal in the pool -->
 		<property name="hibernate.hikari.idleTimeout">10000</property>
 
+		<!-- Live pool metrics via JMX -->
+		<property name="hibernate.hikari.registerMbeans">true</property>
+		<property name="hibernate.hikari.poolName">datatable-pool</property>
+
 		<property name="hibernate.jdbc.lob.non_contextual_creation">true</property>
 		<property name="hibernate.id.db_structure_naming_strategy">legacy</property>
 
